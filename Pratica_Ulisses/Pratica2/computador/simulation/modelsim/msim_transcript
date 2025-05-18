@@ -1,0 +1,352 @@
+# Reading C:/altera/13.0sp1/modelsim_ase/tcl/vsim/pref.tcl 
+# do computador_run_msim_rtl_verilog.do 
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Copying C:\altera\13.0sp1\modelsim_ase\win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# ** Warning: Copied C:\altera\13.0sp1\modelsim_ase\win32aloem/../modelsim.ini to modelsim.ini.
+#          Updated modelsim.ini.
+# 
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/computador.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module computador
+# 
+# Top level modules:
+# 	computador
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/memory.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module memory
+# 
+# Top level modules:
+# 	memory
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/ProcessadorMult.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module ProcessadorMult
+# 
+# Top level modules:
+# 	ProcessadorMult
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/contador3Bits.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module contador3Bits
+# 
+# Top level modules:
+# 	contador3Bits
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/controlador.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module controlador
+# 
+# Top level modules:
+# 	controlador
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/multiplexador.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module multiplexador
+# 
+# Top level modules:
+# 	multiplexador
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/registrador.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module registrador
+# 
+# Top level modules:
+# 	registrador
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/registrador1b.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module registrador1b
+# 
+# Top level modules:
+# 	registrador1b
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/registradorPC.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module registradorPC
+# 
+# Top level modules:
+# 	registradorPC
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/ula.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module ula
+# 
+# Top level modules:
+# 	ula
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module decodificadorComportamental
+# 
+# Top level modules:
+# 	decodificadorComportamental
+# 
+do {D:/Faculdade/LAOC II/pratica2/computador/simulation/modelsim/wave_com_SW_e_KEY.do}
+# .main_pane.wave.interior.cs.body.pw.wf
+# ** Error: (vish-4014) No objects found matching 'NewSig:sim:/computador/clock'.
+# Usage: wave create -pattern <clock|constant|random|repeater|counter|none> <args>
+# See Command Reference manual for pattern specific <args>
+# Error in macro D:\Faculdade\LAOC II\pratica2\computador\simulation\modelsim\wave_com_SW_e_KEY.do line 3
+# (vish-4014) No objects found matching 'NewSig:sim:/computador/clock'.
+# Usage: wave create -pattern <clock|constant|random|repeater|counter|none> <args>
+# See Command Reference manual for pattern specific <args>
+#     while executing
+# "wave create -pattern clock -initialvalue 0 -period 2ps -dutycycle 50 -starttime 0ps -endtime 1000ps sim:/computador/clock "
+vsim +altera -L altera_mf_ver -do computador_run_msim_rtl_verilog.do -l msim_transcript -gui work.computador
+# vsim +altera -L altera_mf_ver -do computador_run_msim_rtl_verilog.do -l msim_transcript -gui work.computador 
+# Loading work.computador
+# Loading work.memory
+# Loading altera_mf_ver.altsyncram
+# Loading altera_mf_ver.ALTERA_DEVICE_FAMILIES
+# Loading altera_mf_ver.ALTERA_MF_MEMORY_INITIALIZATION
+# Loading work.ProcessadorMult
+# Loading work.registrador
+# Loading work.registradorPC
+# Loading work.registrador1b
+# Loading work.contador3Bits
+# Loading work.controlador
+# Loading work.multiplexador
+# Loading work.ula
+# Loading work.decodificadorComportamental
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(12): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d0
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(13): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d1
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(14): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d2
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(15): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d3
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(16): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d4
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(17): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d5
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(18): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d6
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(19): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d7
+# do computador_run_msim_rtl_verilog.do 
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Modifying modelsim.ini
+# 
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/computador.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module computador
+# 
+# Top level modules:
+# 	computador
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/memory.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module memory
+# 
+# Top level modules:
+# 	memory
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/ProcessadorMult.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module ProcessadorMult
+# 
+# Top level modules:
+# 	ProcessadorMult
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/contador3Bits.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module contador3Bits
+# 
+# Top level modules:
+# 	contador3Bits
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/controlador.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module controlador
+# 
+# Top level modules:
+# 	controlador
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/multiplexador.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module multiplexador
+# 
+# Top level modules:
+# 	multiplexador
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/registrador.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module registrador
+# 
+# Top level modules:
+# 	registrador
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/registrador1b.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module registrador1b
+# 
+# Top level modules:
+# 	registrador1b
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/registradorPC.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module registradorPC
+# 
+# Top level modules:
+# 	registradorPC
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/ula.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module ula
+# 
+# Top level modules:
+# 	ula
+# vlog -vlog01compat -work work +incdir+D:/Faculdade/LAOC\ II/pratica2/computador {D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module decodificadorComportamental
+# 
+# Top level modules:
+# 	decodificadorComportamental
+# 
+do {D:/Faculdade/LAOC II/pratica2/computador/simulation/modelsim/wave_com_SW_e_KEY.do}
+# .main_pane.wave.interior.cs.body.pw.wf
+# 1
+# 1
+# 1
+add wave -position insertpoint  \
+sim:/computador/ADDR \
+sim:/computador/DOUT \
+sim:/computador/DIN \
+sim:/computador/R0_out \
+sim:/computador/R1_out \
+sim:/computador/R2_out \
+sim:/computador/R3_out \
+sim:/computador/R4_out \
+sim:/computador/R5_out \
+sim:/computador/R7_out
+add wave -position insertpoint  \
+sim:/computador/done
+add wave -position insertpoint  \
+sim:/computador/W
+add wave -position insertpoint  \
+sim:/computador/processador/incr_pc
+add wave -position insertpoint  \
+sim:/computador/processador/regs_in
+add wave -position insertpoint  \
+sim:/computador/processador/mux_selector
+add wave -position insertpoint  \
+sim:/computador/processador/ula_op
+wave modify -driver freeze -pattern counter -startvalue 000 -endvalue 001 -type Range -direction Up -period 2ps -step 1 -repeat forever -range 2 0 -starttime 0ps -endtime 1500ps Edit:/computador/KEY
+run -all
+add wave -position insertpoint  \
+sim:/computador/processador/cont
+run -all
+restart
+# Loading work.computador
+# Loading work.memory
+# Loading work.ProcessadorMult
+# Loading work.registrador
+# Loading work.registradorPC
+# Loading work.registrador1b
+# Loading work.contador3Bits
+# Loading work.controlador
+# Loading work.multiplexador
+# Loading work.ula
+# Loading work.decodificadorComportamental
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(12): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d0
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(13): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d1
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(14): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d2
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(15): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d3
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(16): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d4
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(17): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d5
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(18): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d6
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(19): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d7
+run -all
+add wave -position insertpoint  \
+sim:/computador/R3_out
+add wave -position insertpoint  \
+sim:/computador/R2_out
+add wave -position insertpoint  \
+sim:/computador/DIN
+add wave -position insertpoint  \
+sim:/computador/processador/IR_out
+restart
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(12): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d0
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(13): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d1
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(14): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d2
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(15): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d3
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(16): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d4
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(17): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d5
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(18): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d6
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(19): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d7
+# Break key hit 
+run -all
+add wave -position insertpoint  \
+sim:/computador/R1_out
+add wave -position insertpoint  \
+sim:/computador/R0_out
+add wave -position insertpoint  \
+sim:/computador/R1_out
+add wave -position insertpoint  \
+sim:/computador/R2_out
+add wave -position insertpoint  \
+sim:/computador/R3_out
+add wave -position insertpoint  \
+sim:/computador/R0_out
+add wave -position insertpoint  \
+sim:/computador/processador/G_out
+restart
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(12): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d0
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(13): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d1
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(14): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d2
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(15): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d3
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(16): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d4
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(17): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d5
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(18): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d6
+# ** Warning: (vsim-3015) D:/Faculdade/LAOC II/pratica2/computador/computador.v(19): [PCDPC] - Port size (4 or 4) does not match connection size (32) for port 'SW'. The port definition is at: D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v(1).
+# 
+#         Region: /computador/d7
+run -all
+add wave -position insertpoint  \
+sim:/computador/R3_out

@@ -1,0 +1,240 @@
+/*
+	Processador Multiciclo - dividido em 5 etapas
+	
+		1 - Encaminhar para IR (Instruction Register)
+		2 - Encaminhar dados para Controle
+		3 - Execucao da ULA
+		4 - Ir na memoria
+		5 - Escrever no Banco
+	
+	Ordem de implementacao:
+		Decodificador
+		Decodificador Registrador
+		Registradores R
+		Registradores I
+		Registradores PC
+		Counter 
+		ULA
+		Mux
+		Unidade de Controle
+*/
+
+module ProcessadorMulticiclo (DIN, Resetn, Clock, Run, Done, BusWires, Write, AddressOut, DOUT, Tstep_Q);
+	input		 		[15:0]	DIN;			//Os dados são inseridos neste sistema através da entrada DIN de 16 bits
+								// DIN [2:0]   - Registrador Ry
+								// DIN [5:3]   - Registrador Rx
+								// DIN [9:6]   - Escolha da instrução 
+								// DIN [15:10] - ND
+	input 						Resetn;
+	input 						Clock;
+	input 						Run;
+	output	reg				Done;
+	output			[15:0]	BusWires;
+	output	reg	 			Write;
+	output 			[15:0]	AddressOut;
+	output 			[15:0]	DOUT;
+	output 			[2:0]		Tstep_Q;
+	wire							Clear = Done | Resetn;
+
+	wire 				[9:0]		InstSaida;	//Registrador IR de 10 bits IIIIXXXYYY (IIII - instrucao / XXX - Registrador Rx / YYY - Registrador Ry)
+	wire 				[3:0]		Instrucao;	//Instrucao - IIII
+	wire 				[7:0]		Rx;			//Registrador Rx - XXX
+	wire				[7:0]		Ry;			//Registrador Ry - YYY
+	
+	wire 				[15:0]	R0Saida,R1Saida,R2Saida,R3Saida,R4Saida,R5Saida,R6Saida,R7Saida,ASaida,GSaida; //Registradores R, A e G
+	wire							ResultadoULA;
+
+	reg 				[7:0]		RIn, ROut;	//Sinais de controle para habilitar entrada e saida nos Registradores R
+	reg							IRIn; 		//Sinal de controle para habilitar entrada no Registradores IR
+	reg							AddressIn; 	//Sinal de controle para habilitar endereço de entrada
+	reg							AIn; 			//Sinal de controle para habilitar entrada no Registrador A
+	reg							GIn, GOut;	//Sinais de controle para habilitar entrada e saida no Registrador G
+	reg							DINOut; 		//Sinal de controle para habilitar  saida dos dados de entrada
+	reg							SomaSub; 	//Sinal de controle para habilitar a ULA 
+	reg							DOUTIn;		//Sinal de controle para habilitar  entrada dos dados de saída
+	
+	//Opcodes Operacoes
+	parameter ld   = 4'b0000;	//Operacao de Store
+	parameter st   = 4'b0001;	//Operacao de Load
+	parameter mvnz = 4'b0010;  //Operacao de "mover" se o registrador for diferente de zero
+	parameter mv   = 4'b0011;	//Operacao de "mover" o valor de um registrador para outro
+	parameter mvi  = 4'b0100;	//Operacao de "mover" um imediato para um registrador
+	parameter add  = 4'b0101;	//Operacao de Soma
+	parameter sub  = 4'b0110;	//Operacao de Subtracao
+	parameter OR   = 4'b0111;  //Operacao OR - Tirar dúvida com a professora
+	parameter slt  = 4'b1000;  //Operacao set less than (menor que)
+	parameter sll  = 4'b1001;  //Operacao shift logical left (deslocamento para a esquerda - 11 (3) << 110(6)
+	parameter slr  = 4'b1010;	//Operacao shift logical right(deslocamento para a direita  - 110 (6) >> 11(3)
+	
+	//Extrair a instrucao do Registrador IR
+	assign Instrucao = InstSaida[9:6];
+	
+	//Instanciando o Tstep (counter)
+	//module counter (Clear, Clock,       CounterSaida);
+	counter Tstep    (Clear, Clock & Run, Tstep_Q);
+	
+	//Instanciando o RegX e RegY
+	//module dec3to8(W,      En,   Y);	
+	dec3to8 RegX	(InstSaida[5:3], 1'b1, Rx);
+	dec3to8 RegY	(InstSaida[2:0], 1'b1, Ry);
+	
+	
+	//Unidade de Controle
+	always @(Tstep_Q or Instrucao or Rx or Ry) begin
+		//Todos os sinais zerados
+		ROut      = 8'b00000000;
+		RIn       = 8'b00000000;
+		IRIn      = 1'b0;
+		Done      = 1'b0;
+		Write     = 1'b0;
+		AIn       = 1'b0;
+		GIn       = 1'b0;
+		GOut      = 1'b0;
+		SomaSub   = 1'b0;
+		DINOut    = 1'b0;
+		AddressIn = 1'b0;
+		
+		case (Tstep_Q)
+			3'b000:	begin		//Definindo os sinais de controle no Time Step 0
+							ROut      = 8'b10000000;
+							AddressIn = 1'b1;
+						end
+			3'b011: 	begin		//Definindo os sinais de controle no Time Step 1
+							IRIn 		= 1'b1;
+							SomaSub 	= 1'b1;				
+						end
+			3'b100: 	begin
+							case (Instrucao)
+								ld:	begin						//Lendo o valor 
+											AddressIn = 1'b1;
+											ROut = Ry;				
+										end
+					
+								st: 	begin						//Armazenando o valor 
+											AddressIn = 1'b1;
+											ROut = Ry;
+										end
+					
+								mvnz: begin						//Move Not Zero
+											if(GSaida != 0)
+												RIn  = Rx;
+												ROut = Ry;
+												Done = 1'b1;
+										end
+					
+								mv:	begin						//Move
+											RIn  = Rx;
+											ROut = Ry;
+											Done = 1'b1;
+										end
+					
+								mvi:	begin						//Move com imediato
+											ROut      = 8'b10000000;
+											AddressIn = 1'b1;
+										end
+								add,
+								sub,
+								OR,
+								slt,
+								sll,
+								slr:	begin						//Colar os valores de Rx em A
+											ROut = Rx;
+											AIn = 1'b1;
+										end
+							endcase
+						end
+			3'b101:	begin	//Definindo os sinais de controle no Time Step 2
+							case(Instrucao)
+								ld:	begin
+										end
+								st:	begin
+											ROut = Rx;
+										end
+					
+								mvi:	begin
+										end
+					
+								add,
+								sub,
+								OR,
+								slt,
+								sll,
+								slr:	begin
+											GIn = 1'b1;
+											ROut = Ry;
+										end
+							endcase
+						end
+			3'b110:	begin	//Definindo os sinais de controle no Time Step 3
+							case (Instrucao)
+								ld:	begin
+										end
+								st: 	begin
+											Write = 1'b1;
+											Done = 1'b1;
+										end
+								mvi:	begin
+										end
+								add,
+								sub,
+								OR,
+								slt,
+								sll,
+								slr:	begin				//Acaba instrucao que mexe com a ULA
+											GOut = 1'b1;
+											RIn = Rx;
+											Done = 1'b1;
+										end
+							endcase
+						end
+			3'b111:	begin	//Definindo os sinais de controle no Time Step 4
+							case (Instrucao)
+								ld:	begin
+											DINOut = 1'b1;
+											RIn = Rx;
+											Done = 1'b1;
+										end
+								mvi:	begin
+											DINOut = 1'b1;
+											RIn = Rx;
+											Done = 1'b1;
+											SomaSub = 1'b1;
+										end
+							endcase
+						end
+		endcase
+	end
+	
+	//Instanciando Registradores R
+	//module registradoresR(RegEntrada,   RIn,      Clock, RegSaida);
+	registradoresR Reg0 		(BusWires,    RIn[0],   Clock, R0Saida);
+	registradoresR Reg1 		(BusWires,    RIn[1],   Clock, R1Saida);
+	registradoresR Reg2 		(BusWires,    RIn[2],   Clock, R2Saida);
+	registradoresR Reg3 		(BusWires,    RIn[3],   Clock, R3Saida);
+	registradoresR Reg4 		(BusWires,    RIn[4],   Clock, R4Saida);
+	registradoresR Reg5 		(BusWires,    RIn[5],   Clock, R5Saida);
+	registradoresR Reg6 		(BusWires,    RIn[6],   Clock, R6Saida);
+	registradoresR RegA     (BusWires,    AIn,      Clock, ASaida);
+	registradoresR RegG     (ResultadoULA,GIn,      Clock, GSaida);
+	registradoresR RegADOut (BusWires,    AddressIn,Clock, AddressOut);
+	registradoresR RegDOUT	(BusWires,    Done,     Clock, DOUT);
+	
+	//Instanciando contadorR ( O R7)
+	//module contadoresR(RegEntrada,RIn,    Clear,  Clock, IncrPc,  RegSaida);
+	contadoresR    Reg7 (BusWires,  RIn[7], Resetn, Clock, SomaSub, R7);
+	
+	//Instanciando registradoresI
+	//module registradoresI(InstEntrada,IRIn, Clock, InstSaida);				
+	registradoresI	RegI    (DIN[9:0],   IRIn, Clock, InstSaida);
+	
+	//Instanciando a ULA
+	//module ULA(A, B,        Opcode,    ResultadoULA);
+	ULA	ula	(A, BusWires, Instrucao, ResultadoULA);
+	
+	//Instanciando o MUX
+	//module mux(DIN,R0Saida,R1Saida,R2Saida,R3Saida,R4Saida,R5Saida,R6Saida,R7Saida,GSaida,
+   //           ROut,GOut,DINOut,MuxSaida);
+	mux      MUX(DIN,R0Saida,R1Saida,R2Saida,R3Saida,R4Saida,R5Saida,R6Saida,R7Saida,GSaida,
+	             ROut,GOut,DINOut,BusWires);
+					 
+endmodule

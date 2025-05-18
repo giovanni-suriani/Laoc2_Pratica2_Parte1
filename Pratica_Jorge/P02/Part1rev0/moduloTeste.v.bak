@@ -1,0 +1,63 @@
+
+module moduloTeste(SW,KEY,LEDR,LEDG,HEX0,HEX1,HEX2,HEX3,HEX4,HEX5,HEX6,HEX7);
+	input [17:0]SW;
+	input [3:0]KEY;
+	output [17:0]LEDR;
+	output [8:0]LEDG;
+	output [6:0]HEX0,HEX1,HEX2,HEX3,HEX4,HEX5,HEX6,HEX7;
+	
+	//Wires
+	wire [15:0]BusWires;
+	wire [15:0]DIN;
+			// 0 - 2 (três primeiros bits menos significativos) escolha do registrador Ry,
+		   // 3 - 5                                            escolha do registrador Rx,
+		   // 6 - 9                                            escolha da instrução 
+			// 10-15                                            NA.
+		   // Ex.: DIN 000000 0101 000 001. Onde 0101 = instrução ADD, 000 = R0, 001 = R1.
+	
+	wire [15:0]AddressOut;					//Decodificador
+	wire [15:0]DOUT;							//Decodificador
+	wire [15:0]MemOut;
+	wire Escrita;
+	wire Done;
+	wire Run;
+	wire [2:0]Ciclo;
+	
+	processador proc(MemOut,KEY[3],SW[16],SW[17],Done,Escrita,AddressOut,BusWires,DOUT,Ciclo);
+	MemLPM mem(AddressOut[4:0],KEY[3],DOUT,Escrita,MemOut);
+	
+	assign LEDR[15:0] = BusWires[15:0];
+	assign LEDG[0] = Escrita;
+	assign LEDG[8] = Done;
+	
+	/*
+		RelaÃ§Ãµes de Sinal
+		
+			SW  17 - Run
+			KEY  3 - Clock
+			KEY  2 - Resetn
+			
+			Done = LEDG 8
+			Write = LEDG 0
+			AddressOut = LEDR[15:0]
+			
+			decodificador 0 a 3 -> DIN
+			decodificador 4  -> EndereÃ§o da MemÃ³ria AddressOut[4:0];
+			
+			decodificador 5 -> DOUT 
+			decodificador 6 -> DOUT
+			decodificador 7 -> DOUT 
+			decodificador 8 -> DOUT
+	*/
+	
+	decodificador d7 (BusWires[15:12]  ,HEX7);
+	decodificador d6 ({1'b0,Ciclo[2:0]}      ,HEX6);
+	decodificador d5 (AddressOut[7:4]    ,HEX5);
+	decodificador d4 (AddressOut[3:0]    ,HEX4);
+	
+	decodificador d3 (MemOut[15:12],HEX3);
+	decodificador d2 (MemOut[11:8] ,HEX2);
+	decodificador d1 (MemOut[7:4]  ,HEX1);
+	decodificador d0 (MemOut[3:0]  ,HEX0);
+	
+endmodule

@@ -1,0 +1,16 @@
+module contador3Bits(input clock, input clear, output [2:0] out);
+	reg [2:0] cont;
+	
+	initial begin
+		cont = 3'b000;
+	end
+	
+	always @(posedge clock) begin
+		if(clear)
+			cont <= 3'b000;
+		else
+			cont <= cont + 1;
+	end
+	
+	assign out = cont;
+endmodule

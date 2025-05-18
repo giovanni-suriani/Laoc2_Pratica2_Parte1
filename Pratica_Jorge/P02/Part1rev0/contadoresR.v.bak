@@ -1,0 +1,23 @@
+/*
+MÓDULO CONTADORES R
+*/
+
+//INICIO DO MÓDULO contadoresR
+
+
+module contadoresR(R,Rin,Clear,Clock,Prox,Q);		//Registrador que se porta como um PC ou Contador, seria no caso o R7	
+	parameter n = 16;
+	input [n-1:0] R;
+	input Rin,Clock,Clear,Prox;
+	output reg [n-1:0]Q;
+	
+	initial Q = 16'b0;
+	always @(posedge Clock) begin
+	   if (Rin)
+	      Q <= R;
+	   else if(Prox) Q = Q + 1'b1;
+	   else if(Clear) Q =  16'b0000000000000000;
+	end
+	
+//FIM DO MÓDULO contadoresR		
+endmodule

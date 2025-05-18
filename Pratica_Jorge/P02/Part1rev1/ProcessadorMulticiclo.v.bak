@@ -1,0 +1,403 @@
+/*
+	Processador Multiciclo Ã© dividido em 5 etapas
+	
+		1 - Encaminhar para IR (Instruction Register)
+		2 - Encaminhar dados para Controle
+		3 - ExecuÃ§Ã£o da ULA
+		4 - Ir na memÃ³ria
+		5 - Escrever no Banco
+	
+	Ordem de implementaÃ§Ã£o:
+		Display
+		Decodificador Registrador
+		Registradores R
+		Registradores I
+		Registradores PC
+		Upcount 
+		ULA
+		Mux
+		Unidade de Controle
+*/
+module Display(Valor,Mostra);
+	input [3:0]Valor;
+	output reg [6:0]Mostra;
+	
+	always begin
+		case (Valor)
+				4'b0000: Mostra = 7'b1000000;			// 0
+				4'b0001: Mostra =	7'b1111001;			//	1
+				4'b0010: Mostra = 7'b0100100;			//	2
+				4'b0011: Mostra = 7'b0110000;			//	3
+				4'b0100: Mostra = 7'b0011001;			// 4
+				4'b0101: Mostra = 7'b0010010;			// 5
+				4'b0110: Mostra = 7'b0000010;			// 6
+				4'b0111: Mostra = 7'b1011000;			// 7
+				4'b1000: Mostra = 7'b0000000;			// 8 certo
+				4'b1001: Mostra = 7'b0010000;			// 9
+				4'b1010: Mostra = 7'b0001000;		   // A
+				4'b1011: Mostra = 7'b0000011;			// B
+				4'b1100: Mostra = 7'b1000110;			// C
+				4'b1101: Mostra = 7'b0100001;			// D
+				4'b1110: Mostra = 7'b0000110;			// E
+				4'b1111: Mostra = 7'b0001110;			// F
+		endcase
+	end
+endmodule
+
+module Decodificador3_8(W,En,Y);							//Decodificador de registradores
+	input [2:0] W;
+	input En;
+	output reg [7:0] Y;
+	always @(W or En) begin
+		if (En == 1)
+			case (W)
+				3'b000: Y = 8'b00000001;
+				3'b001: Y = 8'b00000010;
+				3'b010: Y = 8'b00000100;
+				3'b011: Y = 8'b00001000;
+				3'b100: Y = 8'b00010000;
+				3'b101: Y = 8'b00100000;
+				3'b110: Y = 8'b01000000;
+				3'b111: Y = 8'b10000000;
+			endcase
+		else
+			Y = 8'b00000000;
+	end
+endmodule
+
+module RRegistradores(R,Rin,Clock,Q);					//Registradores que armazenam um valor fixo e encaminham pro prÃ³ximo
+	parameter n = 16;
+	input [n-1:0]R;
+	input Rin,Clock;
+	output reg [n-1:0]Q;
+	
+	initial Q <= 16'b0000000000000000;
+	always @(posedge Clock) begin
+		if(Rin)
+			Q <= R;
+	end
+endmodule
+
+module RContadores(R,Rin,Clear,Clock,Prox,Q);		//Registrador que se porta como um PC ou Contador, seria no caso o R7	
+	parameter n = 16;
+	input [n-1:0] R;
+	input Rin,Clock,Clear,Prox;
+	output reg [n-1:0]Q;
+	
+	initial Q = 16'b0;
+	always @(posedge Clock) begin
+	   if (Rin)
+	      Q <= R;
+	   else if(Prox) Q = Q + 1'b1;
+	   else if(Clear) Q =  16'b0000000000000000;
+	end
+endmodule
+
+module RInstrucao(R,Rin,Clock,Q);						//Registrador que se porta como um registrador de instruÃ§Ãµes no caso, IR
+	parameter n = 10;
+	input [n-1:0]R;
+	input Rin,Clock;
+	output reg [n-1:0]Q;
+	
+	always @(posedge Clock) begin
+		if(Rin)
+			Q <= R;
+	end
+endmodule
+
+module upcount(Clear,Clock,Q);							//Counter presente no diagrama
+	input Clear, Clock;
+	output reg [2:0]Q;
+	initial Q = 3'b000;
+	always @(posedge Clock) begin
+		if(Clear)
+			Q <= 3'b000;
+		else 
+			Q <= Q + 1'b1;
+	end
+endmodule
+
+module ULA(A,B,Opcode,Resultado);						//Unidade LÃ³gica AritmÃ©tica, onde a mÃ¡gica acontece
+	input [15:0]A;
+	input [15:0]B;
+	input [3:0]Opcode;
+	output reg [15:0]Resultado;
+	
+	parameter add  = 4'b0101;
+	parameter sub  = 4'b0110;
+	parameter andd = 4'b0111;
+	parameter slt  = 4'b1000;
+	parameter sll  = 4'b1001;
+	parameter slr  = 4'b1010;
+	
+	always @(A or B or Opcode) begin
+		case (Opcode)
+			add : Resultado = A + B;
+			sub : Resultado = A - B;
+			andd: Resultado = A & B;
+			slt : if(A < B) 
+						Resultado =  16'b0000000000000001; 
+					else 
+						Resultado =  16'b0000000000000000;
+			sll : Resultado = A << B;
+			slr : Resultado = A >> B;
+		endcase
+	end
+endmodule 
+
+module Multiplexador(DIN,R0,R1,R2,R3,R4,R5,R6,R7,G,ROut,GOut,DINOut,MUXOut);		//Multiplexadores para o Banco
+	input [15:0] DIN,R0,R1,R2,R3,R4,R5,R6,R7,G;
+	input [7:0]ROut;
+	input GOut;
+	input DINOut;
+	output reg [15:0]MUXOut;
+	
+	always @(ROut or GOut or DINOut) begin
+		if(DINOut) MUXOut = DIN;
+			else if(GOut) MUXOut = G;
+				else begin
+					case (ROut) 
+						8'b00000001: MUXOut = R0;
+						8'b00000010: MUXOut = R1;
+						8'b00000100: MUXOut = R2;
+						8'b00001000: MUXOut = R3;
+						8'b00010000: MUXOut = R4;
+						8'b00100000: MUXOut = R5;
+						8'b01000000: MUXOut = R6;
+						8'b10000000: MUXOut = R7;
+					endcase
+				end
+	end
+endmodule
+
+module Processor (DIN,Clock,Resetn,Run,Done,Write,AddressOut,BusWires,DOUT,Ciclo);
+	input [15:0]DIN;
+	input Clock;
+	input Resetn;
+	input Run;
+	output [15:0]AddressOut;
+	output [15:0]DOUT;
+	output [15:0]BusWires;
+	output reg Write;
+	output reg Done;
+	reg [7:0]RIn,ROut;
+	reg IRIn,AddressIn,AIn,GIn,GOut,DINOut,Soma,DOUTIn;
+	
+	wire [9:0]IR;												         //Registrador IR com 10 bits
+	wire [15:0]R0,R1,R2,R3,R4,R5,R6,R7,A,G,ResultadoULA;
+	wire [7:0]RegX,RegY;													//Registradores que serÃ£o usados para decodificar
+	wire [3:0]I;															//InstruÃ§Ã£o
+	wire Clear = Done | Resetn;
+	output [2:0]Ciclo;
+	
+	//Lista de instruÃ§Ãµes com seus respectivos Opcodes jÃ¡ definidos
+	parameter ld   = 4'b0000;
+	parameter st   = 4'b0001;
+	parameter mvnz = 4'b0010;
+	parameter mv   = 4'b0011;
+	parameter mvi  = 4'b0100;
+	parameter add  = 4'b0101;
+	parameter sub  = 4'b0110;
+	parameter andd = 4'b0111;
+	parameter slt  = 4'b1000;
+	parameter sll  = 4'b1001;
+	parameter slr  = 4'b1010;
+	
+	assign I = IR[9:6];
+	upcount Counter (Clear,Clock & Run,Ciclo);
+	Decodificador3_8 XReg(IR[5:3],1'b1,RegX);
+	Decodificador3_8 YReg(IR[2:0],1'b1,RegY);
+	
+	always @(Ciclo or I or RegX or RegY) begin
+		ROut      = 8'b00000000;
+		RIn       = 8'b00000000;
+		IRIn      = 1'b0;
+		Done      = 1'b0;
+		Write     = 1'b0;
+		AIn       = 1'b0;
+		GIn       = 1'b0;
+		GOut      = 1'b0;
+		Soma	    = 1'b0;
+		DINOut    = 1'b0;
+		AddressIn = 1'b0;
+		
+		case (Ciclo)
+		
+			3'b000: begin								//Time Step 0 -> Pega a primeira 		
+				ROut      = 8'b10000000;
+				AddressIn = 1'b1;
+			end
+			3'b011: begin					//Time Step 1 ->
+				IRIn = 1'b1;
+				Soma = 1'b1;				
+			end
+			3'b100: begin
+				case (I)
+					ld: begin						//Pegando o valor 
+						AddressIn = 1'b1;
+						ROut = RegY;				
+					end
+					
+					st: begin
+						AddressIn = 1'b1;
+						ROut = RegY;
+					end
+					
+					mvnz: begin						//Move Not Zero Terminado
+						if(G != 0)
+						RIn = RegX;
+						ROut = RegY;
+						Done = 1'b1;
+					end
+					
+					mv: begin						//Move terminado
+						RIn = RegX;
+						ROut = RegY;
+						Done = 1'b1;
+					end
+					
+					mvi: begin
+						ROut      = 8'b10000000;
+						AddressIn = 1'b1;
+					end
+					add,sub,andd,slt,sll,slr: begin		//Coloca o valor de RegX em A
+						ROut = RegX;
+						AIn = 1'b1;
+					end
+				endcase
+			end
+			3'b101: begin								//Time Step 2
+				case(I)
+					ld: begin							
+						//Delay Time: Esperando Dado pronto
+					end
+					
+					st: begin
+						ROut = RegX;
+					end
+					
+					mvi: begin
+						//Delay Time: Esperando Dado Pronto
+					end
+					
+					add,sub,andd,slt,sll,slr: begin
+						GIn = 1'b1;
+						ROut = RegY;
+					end
+				endcase
+			end
+			3'b110: begin							//Time Step 3
+				case (I)
+					ld: begin
+						//Delay Time: Esperando Dado pronto
+					end
+					
+					st: begin
+						Write = 1'b1;
+						Done = 1'b1;
+					end
+					
+					mvi: begin
+						//Delay Time: Esperando Dado Pronto
+					end
+					
+					add,sub,andd,slt,sll,slr: begin				//Acaba instruÃ§Ã£o que mexe com a ULA
+						GOut = 1'b1;
+						RIn = RegX;
+						Done = 1'b1;
+					end
+				endcase
+			end
+			3'b111: begin		//Time Step 4
+				case (I)
+					ld: begin
+						DINOut = 1'b1;
+						RIn = RegX;
+						Done = 1'b1;
+					end
+				
+					mvi: begin
+						DINOut = 1'b1;
+						RIn = RegX;
+						Done = 1'b1;
+						Soma = 1'b1;
+					end
+				endcase
+			end
+		endcase
+	end
+	//InstanciaÃ§Ã£o dos mÃ³dulos
+	
+	RRegistradores Reg0 		(BusWires,RIn[0],Clock,R0);
+	RRegistradores Reg1 		(BusWires,RIn[1],Clock,R1);
+	RRegistradores Reg2 		(BusWires,RIn[2],Clock,R2);
+	RRegistradores Reg3 		(BusWires,RIn[3],Clock,R3);
+	RRegistradores Reg4 		(BusWires,RIn[4],Clock,R4);
+	RRegistradores Reg5 		(BusWires,RIn[5],Clock,R5);
+	RRegistradores Reg6 		(BusWires,RIn[6],Clock,R6);
+	RRegistradores RegA     (BusWires,AIn,Clock,A);
+	RRegistradores RegG     (ResultadoULA,GIn,Clock,G);
+	RRegistradores RegADOut (BusWires,AddressIn,Clock,AddressOut);							//Uso para escrever/ler na memÃ³ria
+	RRegistradores RegDOUT	(BusWires,Done,Clock,DOUT);
+	RContadores    Reg7 		(BusWires,RIn[7],Resetn,Clock,Soma,R7);
+	RInstrucao		RegI     (DIN[9:0],IRIn,Clock,IR);
+	ULA				ALU		(A,BusWires,I,ResultadoULA);
+	Multiplexador	Mux 		(DIN,R0,R1,R2,R3,R4,R5,R6,R7,G,ROut,GOut,DINOut,BusWires);
+endmodule
+
+module Pratica2(SW,KEY,LEDR,LEDG,HEX0,HEX1,HEX2,HEX3,HEX4,HEX5,HEX6,HEX7);
+	input [17:0]SW;
+	input [3:0]KEY;
+	output [17:0]LEDR;
+	output [8:0]LEDG;
+	output [6:0]HEX0,HEX1,HEX2,HEX3,HEX4,HEX5,HEX6,HEX7;
+	
+	//Wires
+	wire [15:0]BusWires;
+	wire [15:0]DIN;
+	wire [15:0]AddressOut;					//Display
+	wire [15:0]DOUT;							//Display
+	wire [15:0]MemOut;
+	wire Escrita;
+	wire Done;
+	wire Run;
+	wire [2:0]Ciclo;
+	
+	Processor proc(MemOut,KEY[3],SW[16],SW[17],Done,Escrita,AddressOut,BusWires,DOUT,Ciclo);
+	RamLPM mem(AddressOut[4:0],KEY[3],DOUT,Escrita,MemOut);
+	
+	assign LEDR[15:0] = BusWires[15:0];
+	assign LEDG[0] = Escrita;
+	assign LEDG[8] = Done;
+	
+	/*
+		RelaÃ§Ãµes de Sinal
+		
+			SW  17 - Run
+			KEY  3 - Clock
+			KEY  2 - Resetn
+			
+			Done = LEDG 8
+			Write = LEDG 0
+			AddressOut = LEDR[15:0]
+			
+			Display 0 a 3 -> DIN
+			Display 4  -> EndereÃ§o da MemÃ³ria AddressOut[4:0];
+			
+			Display 5 -> DOUT 
+			Display 6 -> DOUT
+			Display 7 -> DOUT 
+			Display 8 -> DOUT
+	*/
+	
+	Display d7 (BusWires[15:12]  ,HEX7);
+	Display d6 ({1'b0,Ciclo[2:0]}      ,HEX6);
+	Display d5 (AddressOut[7:4]    ,HEX5);
+	Display d4 (AddressOut[3:0]    ,HEX4);
+	
+	Display d3 (MemOut[15:12],HEX3);
+	Display d2 (MemOut[11:8] ,HEX2);
+	Display d1 (MemOut[7:4]  ,HEX1);
+	Display d0 (MemOut[3:0]  ,HEX0);
+	
+endmodule

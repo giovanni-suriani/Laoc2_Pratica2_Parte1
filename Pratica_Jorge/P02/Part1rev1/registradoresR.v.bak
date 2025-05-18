@@ -1,0 +1,21 @@
+/*
+MÓDULO REGISTRADORES R
+*/
+
+//INICIO DO MÓDULO registradoresR
+
+
+module registradoresR(R,Rin,Clock,Q);					//Registradores que armazenam um valor fixo e encaminham pro prÃ³ximo
+	parameter n = 16;
+	input [n-1:0]R;
+	input Rin,Clock;
+	output reg [n-1:0]Q;
+	
+	initial Q <= 16'b0000000000000000;
+	always @(posedge Clock) begin
+		if(Rin)
+			Q <= R;
+	end
+	
+//FIM DO MÓDULO registradoresR		
+endmodule

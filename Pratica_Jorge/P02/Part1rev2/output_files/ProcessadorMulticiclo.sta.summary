@@ -1,0 +1,53 @@
+------------------------------------------------------------
+TimeQuest Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow Model Setup 'Processador:processador|registradoresI:RegI|InstSaida[6]'
+Slack : -7.331
+TNS   : -201.265
+
+Type  : Slow Model Setup 'KEY[1]'
+Slack : -7.306
+TNS   : -1156.986
+
+Type  : Slow Model Hold 'Processador:processador|registradoresI:RegI|InstSaida[6]'
+Slack : -5.313
+TNS   : -143.511
+
+Type  : Slow Model Hold 'KEY[1]'
+Slack : -0.561
+TNS   : -1.122
+
+Type  : Slow Model Minimum Pulse Width 'Processador:processador|registradoresI:RegI|InstSaida[6]'
+Slack : -2.855
+TNS   : -404.334
+
+Type  : Slow Model Minimum Pulse Width 'KEY[1]'
+Slack : -2.000
+TNS   : -334.222
+
+Type  : Fast Model Setup 'Processador:processador|registradoresI:RegI|InstSaida[6]'
+Slack : -3.054
+TNS   : -75.637
+
+Type  : Fast Model Setup 'KEY[1]'
+Slack : -2.844
+TNS   : -451.308
+
+Type  : Fast Model Hold 'Processador:processador|registradoresI:RegI|InstSaida[6]'
+Slack : -2.712
+TNS   : -76.595
+
+Type  : Fast Model Hold 'KEY[1]'
+Slack : -0.644
+TNS   : -8.938
+
+Type  : Fast Model Minimum Pulse Width 'KEY[1]'
+Slack : -2.000
+TNS   : -334.222
+
+Type  : Fast Model Minimum Pulse Width 'Processador:processador|registradoresI:RegI|InstSaida[6]'
+Slack : -0.983
+TNS   : -120.942
+
+------------------------------------------------------------

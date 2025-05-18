@@ -1,0 +1,229 @@
+m255
+K3
+13
+cModel Technology
+Z0 dD:\Faculdade\LAOC II\pratica2\computador\simulation\modelsim
+vcomputador
+I^n^GOaXC6Q^UEh>M]10W31
+VMiV:nIC53mM0mFA?zIVf@0
+Z1 dD:\Faculdade\LAOC II\pratica2\computador\simulation\modelsim
+w1695997372
+8D:/Faculdade/LAOC II/pratica2/computador/computador.v
+FD:/Faculdade/LAOC II/pratica2/computador/computador.v
+L0 1
+Z2 OV;L;10.1d;51
+r1
+31
+Z3 o-vlog01compat -work work -O0
+Z4 !s92 -vlog01compat -work work {+incdir+D:/Faculdade/LAOC II/pratica2/computador} -O0
+!i10b 1
+!s100 TUX0K@lN0<WaQQO?hMGd;0
+!s85 0
+!s108 1696176196.812000
+!s107 D:/Faculdade/LAOC II/pratica2/computador/computador.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Faculdade/LAOC II/pratica2/computador|D:/Faculdade/LAOC II/pratica2/computador/computador.v|
+!s101 -O0
+vcontador3Bits
+I5[0eL_N5oFR8BIi`@R1IW3
+VnQX6FWm;9XFfbHc]_JMQd2
+R1
+w1695998186
+8D:/Faculdade/LAOC II/pratica2/computador/contador3Bits.v
+FD:/Faculdade/LAOC II/pratica2/computador/contador3Bits.v
+L0 3
+R2
+r1
+31
+R3
+R4
+ncontador3@bits
+!i10b 1
+!s100 56AV3TeJHJWi?3?LFXY@L2
+!s85 0
+!s108 1696176196.912000
+!s107 D:/Faculdade/LAOC II/pratica2/computador/contador3Bits.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Faculdade/LAOC II/pratica2/computador|D:/Faculdade/LAOC II/pratica2/computador/contador3Bits.v|
+!s101 -O0
+vcontrolador
+I2lYHAZaK0<3cm7=LD9>P51
+VW1FSfmBeFL[2Ea37J7Tcm3
+R1
+w1695257386
+8D:/Faculdade/LAOC II/pratica2/computador/controlador.v
+FD:/Faculdade/LAOC II/pratica2/computador/controlador.v
+L0 44
+R2
+r1
+31
+R3
+R4
+!i10b 1
+!s100 eMklR[GP1@<`==[0Nd0o51
+!s85 0
+!s108 1696176196.950000
+!s107 D:/Faculdade/LAOC II/pratica2/computador/controlador.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Faculdade/LAOC II/pratica2/computador|D:/Faculdade/LAOC II/pratica2/computador/controlador.v|
+!s101 -O0
+vdecodificadorComportamental
+!i10b 1
+!s100 R1D5<>UClSo@4gbK7D4Zj2
+IE6K?iBe;3dcZz2a6Y`Fb63
+VkWa0J2@d9A_@>klZVlK=Q2
+R1
+w1695406485
+8D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v
+FD:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v
+L0 1
+R2
+r1
+!s85 0
+31
+!s108 1696176197.150000
+!s107 D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Faculdade/LAOC II/pratica2/computador|D:/Faculdade/LAOC II/pratica2/computador/decodificadorComportamental.v|
+!s101 -O0
+R3
+R4
+ndecodificador@comportamental
+vmemory
+Ii?D`mT`eOS4KKzE9i]0iR0
+VHCQz0XZdLDB;V<A:ggS300
+R1
+w1694974550
+8D:/Faculdade/LAOC II/pratica2/computador/memory.v
+FD:/Faculdade/LAOC II/pratica2/computador/memory.v
+L0 39
+R2
+r1
+31
+R3
+R4
+!i10b 1
+!s100 <b@[O`V<h2Uio0;?S[kka3
+!s85 0
+!s108 1696176196.849000
+!s107 D:/Faculdade/LAOC II/pratica2/computador/memory.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Faculdade/LAOC II/pratica2/computador|D:/Faculdade/LAOC II/pratica2/computador/memory.v|
+!s101 -O0
+vmultiplexador
+IzPO`U>D<0MgFzA6=WCC6o2
+VQAfIRd2OCFT_3h0<8`oDF3
+R1
+w1695232334
+8D:/Faculdade/LAOC II/pratica2/computador/multiplexador.v
+FD:/Faculdade/LAOC II/pratica2/computador/multiplexador.v
+L0 17
+R2
+r1
+31
+R3
+R4
+!i10b 1
+!s100 9f:5cOYNGTAEI43>3Hb`C2
+!s85 0
+!s108 1696176196.981000
+!s107 D:/Faculdade/LAOC II/pratica2/computador/multiplexador.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Faculdade/LAOC II/pratica2/computador|D:/Faculdade/LAOC II/pratica2/computador/multiplexador.v|
+!s101 -O0
+vProcessadorMult
+I^lYo>No91U]mE=k=Pc>kh2
+VVSzCE_Q73@Y?0JnViS@:J1
+R1
+w1695997983
+8D:/Faculdade/LAOC II/pratica2/computador/ProcessadorMult.v
+FD:/Faculdade/LAOC II/pratica2/computador/ProcessadorMult.v
+L0 1
+R2
+r1
+31
+R3
+R4
+n@processador@mult
+!i10b 1
+!s100 mi9IAFl6TG>9GADCEB37Q2
+!s85 0
+!s108 1696176196.881000
+!s107 D:/Faculdade/LAOC II/pratica2/computador/ProcessadorMult.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Faculdade/LAOC II/pratica2/computador|D:/Faculdade/LAOC II/pratica2/computador/ProcessadorMult.v|
+!s101 -O0
+vregistrador
+I7SjT7K[k]bk13RBURNPFL3
+VDLT_E=F?65lYS<hBPe5FT2
+R1
+w1694972730
+8D:/Faculdade/LAOC II/pratica2/computador/registrador.v
+FD:/Faculdade/LAOC II/pratica2/computador/registrador.v
+L0 1
+R2
+r1
+31
+R3
+R4
+!i10b 1
+!s100 mFhKTUL^PknlaVf5@=b;`0
+!s85 0
+!s108 1696176197.019000
+!s107 D:/Faculdade/LAOC II/pratica2/computador/registrador.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Faculdade/LAOC II/pratica2/computador|D:/Faculdade/LAOC II/pratica2/computador/registrador.v|
+!s101 -O0
+vregistrador1b
+Iz@GRR2]_Y@n4JYn0__jih1
+VDK<cFX=6Y95RKzPYGMcJd0
+R1
+w1694972751
+8D:/Faculdade/LAOC II/pratica2/computador/registrador1b.v
+FD:/Faculdade/LAOC II/pratica2/computador/registrador1b.v
+L0 1
+R2
+r1
+31
+R3
+R4
+!i10b 1
+!s100 :6QIVMjnc0jolkde2<;@z3
+!s85 0
+!s108 1696176197.050000
+!s107 D:/Faculdade/LAOC II/pratica2/computador/registrador1b.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Faculdade/LAOC II/pratica2/computador|D:/Faculdade/LAOC II/pratica2/computador/registrador1b.v|
+!s101 -O0
+vregistradorPC
+IZOcHCT><aeaE5Z7aajhLU3
+V8BlAj_5<@HmAzaiLE6T6i0
+R1
+w1695230338
+8D:/Faculdade/LAOC II/pratica2/computador/registradorPC.v
+FD:/Faculdade/LAOC II/pratica2/computador/registradorPC.v
+L0 1
+R2
+r1
+31
+R3
+R4
+nregistrador@p@c
+!i10b 1
+!s100 :fNICg7hS?;VaRC7O_^7D0
+!s85 0
+!s108 1696176197.081000
+!s107 D:/Faculdade/LAOC II/pratica2/computador/registradorPC.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Faculdade/LAOC II/pratica2/computador|D:/Faculdade/LAOC II/pratica2/computador/registradorPC.v|
+!s101 -O0
+vula
+IO3`0zNCLICP<`GjXY9Ine0
+V=0mQ55Nh6jQ=7FekQ_WR:3
+R1
+w1695256214
+8D:/Faculdade/LAOC II/pratica2/computador/ula.v
+FD:/Faculdade/LAOC II/pratica2/computador/ula.v
+L0 10
+R2
+r1
+31
+R3
+R4
+!i10b 1
+!s100 h0gUEdnW@PHZhKK7nVO0V3
+!s85 0
+!s108 1696176197.119000
+!s107 D:/Faculdade/LAOC II/pratica2/computador/ula.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Faculdade/LAOC II/pratica2/computador|D:/Faculdade/LAOC II/pratica2/computador/ula.v|
+!s101 -O0

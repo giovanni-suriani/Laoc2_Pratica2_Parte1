@@ -1,0 +1,129 @@
+# Reading C:/Program Files/altera/13.0sp1/modelsim_ase/tcl/vsim/pref.tcl 
+# do ProcessadorMulticiclo_run_msim_rtl_verilog.do 
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# Break key hit 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 
+# ** Warning: (vdel-6) -- Waiting for lock by "jorge@DESKTOP-4N3OH9D, pid = 14100
+# ". Lockfile is "E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev1/simulation/modelsim/rtl_work/_lock".
+# 

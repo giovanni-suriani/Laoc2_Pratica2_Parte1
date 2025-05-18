@@ -1,0 +1,20 @@
+/*
+MÓDULO REGISTRADORES I
+*/
+
+//INICIO DO MÓDULO registradoresI
+
+
+module registradoresI(R,Rin,Clock,Q);						//Registrador que se porta como um registrador de instrucao no caso, IR
+	parameter n = 10;
+	input [n-1:0]R;
+	input Rin,Clock;
+	output reg [n-1:0]Q;
+	
+	always @(posedge Clock) begin
+		if(Rin)
+			Q <= R;
+	end
+	
+//FIM DO MÓDULO registradoresI		
+endmodule

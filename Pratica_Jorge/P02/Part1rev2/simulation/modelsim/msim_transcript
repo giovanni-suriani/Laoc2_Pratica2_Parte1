@@ -1,0 +1,306 @@
+# Reading C:/Program Files/altera/13.0sp1/modelsim_ase/tcl/vsim/pref.tcl 
+# do ProcessadorMulticiclo_run_msim_rtl_verilog.do 
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Copying C:\Program Files\altera\13.0sp1\modelsim_ase\win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# ** Warning: Copied C:\Program Files\altera\13.0sp1\modelsim_ase\win32aloem/../modelsim.ini to modelsim.ini.
+#          Updated modelsim.ini.
+# 
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module ProcessadorMulticiclo
+# 
+# Top level modules:
+# 	ProcessadorMulticiclo
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ULA.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module ULA
+# 
+# Top level modules:
+# 	ULA
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/registradoresR.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module registradoresR
+# 
+# Top level modules:
+# 	registradoresR
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/registradoresI.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module registradoresI
+# 
+# Top level modules:
+# 	registradoresI
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/Processador.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module Processador
+# 
+# Top level modules:
+# 	Processador
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/mux.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module mux
+# 
+# Top level modules:
+# 	mux
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module decodificador
+# 
+# Top level modules:
+# 	decodificador
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/dec3to8.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module dec3to8
+# 
+# Top level modules:
+# 	dec3to8
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/counter.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module counter
+# 
+# Top level modules:
+# 	counter
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/contadoresR.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module contadoresR
+# 
+# Top level modules:
+# 	contadoresR
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/MemLPM.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module MemLPM
+# 
+# Top level modules:
+# 	MemLPM
+# 
+vsim +altera -L altera_mf_ver -Lf altera_mf_ver -do ProcessadorMulticiclo_run_msim_rtl_verilog.do -l msim_transcript -gui work.ProcessadorMulticiclo
+# vsim +altera -L altera_mf_ver -Lf altera_mf_ver -do ProcessadorMulticiclo_run_msim_rtl_verilog.do -l msim_transcript -gui work.ProcessadorMulticiclo 
+# Loading work.ProcessadorMulticiclo
+# Loading work.Processador
+# Loading work.counter
+# Loading work.dec3to8
+# Loading work.registradoresR
+# Loading work.contadoresR
+# Loading work.registradoresI
+# Loading work.ULA
+# Loading work.mux
+# Loading work.MemLPM
+# Loading altera_mf_ver.altsyncram
+# Loading altera_mf_ver.ALTERA_DEVICE_FAMILIES
+# Loading altera_mf_ver.ALTERA_MF_MEMORY_INITIALIZATION
+# Loading work.decodificador
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/Processador.v(216): [PCDPC] - Port size (16 or 16) does not match connection size (1) for port 'A'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ULA.v(6).
+# 
+#         Region: /ProcessadorMulticiclo/processador/ula
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(57): [PCDPC] - Port size (4 or 4) does not match connection size (6) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display3_DIN
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(59): [PCDPC] - Port size (4 or 4) does not match connection size (3) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display1_DIN
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(60): [PCDPC] - Port size (4 or 4) does not match connection size (3) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display0_DIN
+# do ProcessadorMulticiclo_run_msim_rtl_verilog.do 
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Modifying modelsim.ini
+# 
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module ProcessadorMulticiclo
+# 
+# Top level modules:
+# 	ProcessadorMulticiclo
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ULA.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module ULA
+# 
+# Top level modules:
+# 	ULA
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/registradoresR.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module registradoresR
+# 
+# Top level modules:
+# 	registradoresR
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/registradoresI.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module registradoresI
+# 
+# Top level modules:
+# 	registradoresI
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/Processador.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module Processador
+# 
+# Top level modules:
+# 	Processador
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/mux.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module mux
+# 
+# Top level modules:
+# 	mux
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module decodificador
+# 
+# Top level modules:
+# 	decodificador
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/dec3to8.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module dec3to8
+# 
+# Top level modules:
+# 	dec3to8
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/counter.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module counter
+# 
+# Top level modules:
+# 	counter
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/contadoresR.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module contadoresR
+# 
+# Top level modules:
+# 	contadoresR
+# vlog -vlog01compat -work work +incdir+E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2 {E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/MemLPM.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module MemLPM
+# 
+# Top level modules:
+# 	MemLPM
+# 
+force -freeze {sim:/ProcessadorMulticiclo/SW[17]} 1 0
+run
+force -freeze {sim:/ProcessadorMulticiclo/KEY[1]} 1 0, 0 {50 ps} -r 100
+run
+run -continue
+run -continue
+run -continue
+run -continue
+run -continue
+restart -f
+# Loading work.ProcessadorMulticiclo
+# Loading work.Processador
+# Loading work.counter
+# Loading work.dec3to8
+# Loading work.registradoresR
+# Loading work.contadoresR
+# Loading work.registradoresI
+# Loading work.ULA
+# Loading work.mux
+# Loading work.MemLPM
+# Loading work.decodificador
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/Processador.v(216): [PCDPC] - Port size (16 or 16) does not match connection size (1) for port 'A'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ULA.v(6).
+# 
+#         Region: /ProcessadorMulticiclo/processador/ula
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(57): [PCDPC] - Port size (4 or 4) does not match connection size (6) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display3_DIN
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(59): [PCDPC] - Port size (4 or 4) does not match connection size (3) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display1_DIN
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(60): [PCDPC] - Port size (4 or 4) does not match connection size (3) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display0_DIN
+add wave -position end  sim:/ProcessadorMulticiclo/SW[17]
+force -freeze {sim:/ProcessadorMulticiclo/SW[17]} 1 0
+add wave -position end  sim:/ProcessadorMulticiclo/KEY[1]
+force -freeze {sim:/ProcessadorMulticiclo/KEY[1]} 1 0, 0 {50 ps} -r 100
+run
+add wave -position end  sim:/ProcessadorMulticiclo/HEX0
+add wave -position end  sim:/ProcessadorMulticiclo/HEX1
+add wave -position end  sim:/ProcessadorMulticiclo/HEX2
+add wave -position end  sim:/ProcessadorMulticiclo/HEX3
+add wave -position end  sim:/ProcessadorMulticiclo/HEX4
+add wave -position end  sim:/ProcessadorMulticiclo/HEX5
+add wave -position end  sim:/ProcessadorMulticiclo/HEX6
+add wave -position end  sim:/ProcessadorMulticiclo/HEX7
+add wave -position end  sim:/ProcessadorMulticiclo/Done
+add wave -position end  sim:/ProcessadorMulticiclo/Write
+add wave -position end  sim:/ProcessadorMulticiclo/Tstep_Q
+restart -f
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/Processador.v(216): [PCDPC] - Port size (16 or 16) does not match connection size (1) for port 'A'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ULA.v(6).
+# 
+#         Region: /ProcessadorMulticiclo/processador/ula
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(57): [PCDPC] - Port size (4 or 4) does not match connection size (6) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display3_DIN
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(59): [PCDPC] - Port size (4 or 4) does not match connection size (3) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display1_DIN
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(60): [PCDPC] - Port size (4 or 4) does not match connection size (3) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display0_DIN
+run
+restart -f
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/Processador.v(216): [PCDPC] - Port size (16 or 16) does not match connection size (1) for port 'A'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ULA.v(6).
+# 
+#         Region: /ProcessadorMulticiclo/processador/ula
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(57): [PCDPC] - Port size (4 or 4) does not match connection size (6) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display3_DIN
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(59): [PCDPC] - Port size (4 or 4) does not match connection size (3) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display1_DIN
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(60): [PCDPC] - Port size (4 or 4) does not match connection size (3) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display0_DIN
+force -freeze {sim:/ProcessadorMulticiclo/KEY[1]} 1 0, 0 {50 ps} -r 100
+run
+restart -f
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/Processador.v(216): [PCDPC] - Port size (16 or 16) does not match connection size (1) for port 'A'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ULA.v(6).
+# 
+#         Region: /ProcessadorMulticiclo/processador/ula
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(57): [PCDPC] - Port size (4 or 4) does not match connection size (6) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display3_DIN
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(59): [PCDPC] - Port size (4 or 4) does not match connection size (3) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display1_DIN
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(60): [PCDPC] - Port size (4 or 4) does not match connection size (3) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display0_DIN
+run
+force -freeze {sim:/ProcessadorMulticiclo/KEY[1]} 1 0, 0 {50 ps} -r 100
+restart -f
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/Processador.v(216): [PCDPC] - Port size (16 or 16) does not match connection size (1) for port 'A'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ULA.v(6).
+# 
+#         Region: /ProcessadorMulticiclo/processador/ula
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(57): [PCDPC] - Port size (4 or 4) does not match connection size (6) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display3_DIN
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(59): [PCDPC] - Port size (4 or 4) does not match connection size (3) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display1_DIN
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(60): [PCDPC] - Port size (4 or 4) does not match connection size (3) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display0_DIN
+force -freeze {sim:/ProcessadorMulticiclo/KEY[1]} 1 0, 0 {50 ps} -r 100
+run
+restart -f
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/Processador.v(216): [PCDPC] - Port size (16 or 16) does not match connection size (1) for port 'A'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ULA.v(6).
+# 
+#         Region: /ProcessadorMulticiclo/processador/ula
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(57): [PCDPC] - Port size (4 or 4) does not match connection size (6) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display3_DIN
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(59): [PCDPC] - Port size (4 or 4) does not match connection size (3) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display1_DIN
+# ** Warning: (vsim-3015) E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/ProcessadorMulticiclo.v(60): [PCDPC] - Port size (4 or 4) does not match connection size (3) for port 'Entrada'. The port definition is at: E:/Documentos/CEFET/OneDrive/2023-2/2ECOM028_LAB-ARQUITETURA-ORGANIZACAO-DE-COMPUTADORES-II_T02_6T34/P02/Part1rev2/decodificador.v(13).
+# 
+#         Region: /ProcessadorMulticiclo/Display0_DIN
+noforce {sim:/ProcessadorMulticiclo/KEY[1]}
+force -freeze {sim:/ProcessadorMulticiclo/KEY[1]} 1 0, 0 {25 ps} -r 50
+run
