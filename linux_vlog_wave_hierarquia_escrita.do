@@ -13,41 +13,41 @@ vsim -L altera work.tb_hierarquia_memoria_escrita
 
 # Adiciona os sinais do testbench ao waveform
 
-add wave -label "clock" clock
-add wave -label "reset" reset
-add wave -label "address" address
-add wave -label "write_data" write_data
-add wave -label "read" read
-add wave -label "write" write
-
-add wave -label "read_data" read_data
-add wave -label "hit_L1" hit_L1
-add wave -label "hit_L2" hit_L2
-
-# Sinal interno do módulo hierarquia_memoria
-add wave -label "wire_write_data" sim:/tb_hierarquia_memoria_escrita/uut/wire_write_data
-add wave -label "mem_clock" sim:/tb_hierarquia_memoria_escrita/uut/mem_clock
-
-# Memoria principal
-add wave -label "main_memory_data" sim:/tb_hierarquia_memoria_escrita/uut/main_memory/data
-add wave -label "main_memory_address" sim:/tb_hierarquia_memoria_escrita/uut/main_memory/address
-add wave -label "main_memory_wren" sim:/tb_hierarquia_memoria_escrita/uut/main_memory/wren
-add wave -label "main_memory_q" sim:/tb_hierarquia_memoria_escrita/uut/main_memory/q
-add wave -label "main_memory_hierarquia_wire_read_data" sim:/tb_hierarquia_memoria_escrita/uut/wire_read_data
-
-#L1
-add wave -label "L1_data" sim:/tb_hierarquia_memoria_escrita/uut/L1_data
-add wave -label "L1_tag" sim:/tb_hierarquia_memoria_escrita/uut/L1_tag
-add wave -label "L1_valid" sim:/tb_hierarquia_memoria_escrita/uut/L1_valid  
-add wave -label "L1_lru" sim:/tb_hierarquia_memoria_escrita/uut/L1_lru
-add wave -label "index_L1" sim:/tb_hierarquia_memoria_escrita/uut/index_L1
-
-# L2
-add wave -label "L2_data" sim:/tb_hierarquia_memoria_escrita/uut/L2_data
-add wave -label "L2_tag" sim:/tb_hierarquia_memoria_escrita/uut/L2_tag
-add wave -label "L2_valid" sim:/tb_hierarquia_memoria_escrita/uut/L2_valid
-add wave -label "L2_lru" sim:/tb_hierarquia_memoria_escrita/uut/L2_lru
-add wave -label "L2_dirty" sim:/tb_hierarquia_memoria_escrita/uut/L2_dirty
+#add wave -label "clock" clock
+#add wave -label "reset" reset
+#add wave -label "address" address
+#add wave -label "write_data" write_data
+#add wave -label "read" read
+#add wave -label "write" write
+#
+#add wave -label "read_data" read_data
+#add wave -label "hit_L1" hit_L1
+#add wave -label "hit_L2" hit_L2
+#
+## Sinal interno do módulo hierarquia_memoria
+#add wave -label "wire_write_data" sim:/tb_hierarquia_memoria_escrita/uut/wire_write_data
+#add wave -label "mem_clock" sim:/tb_hierarquia_memoria_escrita/uut/mem_clock
+#
+## Memoria principal
+#add wave -label "main_memory_data" sim:/tb_hierarquia_memoria_escrita/uut/main_memory/data
+#add wave -label "main_memory_address" sim:/tb_hierarquia_memoria_escrita/uut/main_memory/address
+#add wave -label "main_memory_wren" sim:/tb_hierarquia_memoria_escrita/uut/main_memory/wren
+#add wave -label "main_memory_q" sim:/tb_hierarquia_memoria_escrita/uut/main_memory/q
+#add wave -label "main_memory_hierarquia_wire_read_data" sim:/tb_hierarquia_memoria_escrita/uut/wire_read_data
+#
+##L1
+#add wave -label "L1_data" sim:/tb_hierarquia_memoria_escrita/uut/L1_data
+#add wave -label "L1_tag" sim:/tb_hierarquia_memoria_escrita/uut/L1_tag
+#add wave -label "L1_valid" sim:/tb_hierarquia_memoria_escrita/uut/L1_valid  
+#add wave -label "L1_lru" sim:/tb_hierarquia_memoria_escrita/uut/L1_lru
+#add wave -label "index_L1" sim:/tb_hierarquia_memoria_escrita/uut/index_L1
+#
+## L2
+#add wave -label "L2_data" sim:/tb_hierarquia_memoria_escrita/uut/L2_data
+#add wave -label "L2_tag" sim:/tb_hierarquia_memoria_escrita/uut/L2_tag
+#add wave -label "L2_valid" sim:/tb_hierarquia_memoria_escrita/uut/L2_valid
+#add wave -label "L2_lru" sim:/tb_hierarquia_memoria_escrita/uut/L2_lru
+#add wave -label "L2_dirty" sim:/tb_hierarquia_memoria_escrita/uut/L2_dirty
 
 
 
