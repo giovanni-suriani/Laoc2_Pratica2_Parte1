@@ -42,11 +42,17 @@ module control_unit (
 
   // Variaveis
   reg [2:0] opcode;          // opcode III
-  reg [5:3] Rx;              // campo destino
-  reg [8:6] Ry;              // campo fonte
+  wire [5:3] Rx;              // campo destino
+  wire [8:6] Ry;              // campo fonte
 
 
   // Instanciacoes
+  dec3to8 u_dec3to8(
+      .W  (W  ), // campo XXX ou YYY da instrução
+      .En (En ), // Habilita o decodificador
+      .Y  (Y  ) // Sinal de habilitação do registrador (R0in, R1out, etc.)
+  );
+  
 
 
   always @(*)
@@ -67,13 +73,12 @@ module control_unit (
           begin
             // T0: fetch da instrução
             IRin = 1;
-            
           end
 
         2'b01:
           begin
             // T1: primeiro passo de execução
-            case (I)
+            case (opcode)
               3'b000:
                 begin
                   // mv Rx, Ry
@@ -81,6 +86,7 @@ module control_unit (
                   Rin [XXX] = 1;    // XXX = campo destino
                   Done       = 1;
                 end
+              /* 
               3'b001:
                 begin
                   // mvi Rx,#D
@@ -99,9 +105,8 @@ module control_unit (
                   // sub Rx,Ry
                   Rout[XXX] = 1;
                   Ain       = 1;
-                end
-              default:
-                ;
+                end 
+                */
             endcase
           end
 

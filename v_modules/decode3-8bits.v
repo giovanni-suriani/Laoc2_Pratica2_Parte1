@@ -7,9 +7,9 @@ module dec3to8(W, En, Y);
    um registrador específico (R0in, R1out, etc.). 
 */
 
-  input [2:0] W;
-  input En;
-  output [0:7] Y;
+  input [2:0] W;    // Codigo do registrador (campo XXX ou YYY da instrução)
+  input En;         // Habilita o decodificador
+  output [0:7] Y;  // Sinal de habilitação do registrador (R0in, R1out, etc.)
   reg [0:7] Y;
   always @(W or En)
     begin
