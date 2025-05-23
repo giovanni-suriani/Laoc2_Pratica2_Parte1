@@ -47,11 +47,9 @@ module control_unit (
 
 
   // Instanciacoes
-  dec3to8 u_dec3to8(
-      .W  (W  ), // campo XXX ou YYY da instrução
-      .En (En ), // Habilita o decodificador
-      .Y  (Y  ) // Sinal de habilitação do registrador (R0in, R1out, etc.)
-  );
+  assign opcode = Instrucao[2:0]; // opcode III
+  assign Rx     = Instrucao[5:3]; // campo destino
+  assign Ry     = Instrucao[8:6]; // campo fonte
   
 
 
@@ -82,9 +80,18 @@ module control_unit (
               3'b000:
                 begin
                   // mv Rx, Ry
-                  Rout[YYY] = 1;    // YYY = campo fonte
-                  Rin [XXX] = 1;    // XXX = campo destino
-                  Done       = 1;
+                  // Logica do registrador fonte (in)
+                  dec3to8 u_dec3to8(
+                      .W  (Rx  ), // campo XXX ou YYY da instrução
+                      .En (1 ), // Habilita o decodificador
+                      .Y  (Rin ) // Sinal de habilitação do registrador (R0in, R1out, etc.)
+                  );
+                  // Logica do registrador destino (out)
+                  dec3to8 u_dec3to8(
+                      .W  (Ry  ), 
+                      .En (1 ), // Habilita o decodificador
+                      .Y  (Rout ) // Sinal de habilitação do registrador (R0in, R1out, etc.)
+                  );
                 end
               /* 
               3'b001:

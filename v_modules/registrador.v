@@ -7,7 +7,7 @@ module registrador(R, Rin, Clock, Q);
   input Rin, Clock;
 
   // outputs
-  output [15:0] Q;
+  output [15:0] Q; // valor armazenado
 
   reg [15:0] Q;
   always @(posedge Clock)
