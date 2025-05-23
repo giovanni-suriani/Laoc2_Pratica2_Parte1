@@ -1,3 +1,4 @@
+// grupo 4
 module control_unit (
     Instrucao,       // opcode III
     Tstep,   // 00=T0,01=T1,10=T2,11=T3
@@ -26,7 +27,7 @@ module control_unit (
   input  wire [8:0] Instrucao;  // opcode III CONECTA com o memoram
   input  wire [1:0] Tstep;      // 00=T0,01=T1,10=T2,11=T3
   input  wire       Run;        // start instruction
-  input  wire       Resetn;     // start instruction
+  input  wire       Resetn;     // recomecar da primeira instrucao
 
   // outputs
   output reg        Clear;   // limpa contador de Tstep
@@ -92,6 +93,7 @@ module control_unit (
                       .En (1 ), // Habilita o decodificador
                       .Y  (Rout ) // Sinal de habilitação do registrador (R0in, R1out, etc.)
                   );
+                  Done = 1'b1;
                 end
               /* 
               3'b001:
