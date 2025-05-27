@@ -5,13 +5,12 @@ module tb_processador;
   reg [15:0] DIN;
   reg [2:0] opcode;          // opcode III   
   reg [5:3] Rx;              // Rx (destino/target)
-  reg [8:6] Rx;              // Ry (fonte/source)
+  reg [8:6] Ry;              // Ry (fonte/source)
   reg Clock, Resetn, Run;
   wire Done;
   wire [15:0] BusWires;
-  reg [2:0] opcode;          // opcode III
-  wire [5:3] Rx;              // campo desti
-  wire [8:6] Ry;              // campo fonte
+  wire [5:3] Rx_wire;              // campo desti
+  wire [8:6] Ry_wire;              // campo fonte
 
   // Instancia o processador
   processador_multiciclo uut (
@@ -40,11 +39,13 @@ module tb_processador;
       #100 DIN = 9'b001_000_000; // mvi R0, #D
       Run = 1;
       #100 Run = 0;
-      $stop
+      cabecalho_teste(1);
+      meio_teste;
+      $stop;
     end
 
 
-  task cabecalho_teste(input ingeger numero_task);
+  task cabecalho_teste(input integer numero_task);
     begin
       $display("--------------------------------------------------");
       $display("[%0t] Task %d", numero_task,$time);
@@ -54,9 +55,9 @@ module tb_processador;
 
   task meio_teste;
     begin
-      $display("[%0t] Clock: %b, Resetn: %b, Run: %b, DIN: %b", Clock, Resetn, Run, DIN);
-      $display("[%0t] Barramento: %b", BusWires);
-      $display("[%0t] Done: %b", Done);
+      $display("[%0t] Clock: %b, Resetn: %b, Run: %b, DIN: %b",$time, Clock, Resetn, Run, DIN);
+      $display("[%0t] Barramento: %b",$time, BusWires);
+      $display("[%0t] Done: %b",$time, Done);
     end
   endtask
 
