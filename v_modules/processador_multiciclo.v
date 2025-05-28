@@ -81,6 +81,42 @@ module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
                 .Q    (R2out)   // saída registrada
               );
 
+  registrador R3 (
+                .R    (BusWires),   // entrada de dados
+                .Rin  (Rin[4]),    // habilita escrita
+                .Clock(Clock),       // sinal de clock
+                .Q    (R3out)   // saída registrada
+              );
+
+  registrador R4 (
+                .R    (BusWires),   // entrada de dados
+                .Rin  (Rin[3]),    // habilita escrita
+                .Clock(Clock),       // sinal de clock
+                .Q    (R4out)   // saída registrada
+              );
+
+  registrador R5 (
+                .R    (BusWires),   // entrada de dados
+                .Rin  (Rin[2]),    // habilita escrita
+                .Clock(Clock),       // sinal de clock
+                .Q    (R5out)   // saída registrada
+              );
+
+  registrador R6 (
+                .R    (BusWires),   // entrada de dados
+                .Rin  (Rin[1]),    // habilita escrita
+                .Clock(Clock),       // sinal de clock
+                .Q    (R6out)   // saída registrada
+              );
+
+
+  registrador R7 (
+                .R    (BusWires),   // entrada de dados
+                .Rin  (Rin[0]),    // habilita escrita
+                .Clock(Clock),       // sinal de clock
+                .Q    (R7out)   // saída registrada
+              );
+
   contador_2bits u_contador_2bits(
                    .Clear     (Clear ),
                    .Clock     (Clock ),
