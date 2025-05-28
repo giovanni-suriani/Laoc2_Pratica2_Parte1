@@ -41,11 +41,14 @@ module tb_processador;
       Opcode = 3'b000; // mv
       Rx = 3'b000;     // R0
       Ry = 3'b001;     // R1
-      #100 DIN = {6'b000_000, Opcode, Ry, Rx}; // Formando a instrução: 000 001 000
+      #100 DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
+      // Colocando 1 no registrador R1 (Ry)
+      uut.R1.Q = 16'd10; // R0 = 1
+
       cabecalho_teste(1);
       $display("[%0t] instrucao = %3b_%3b_%3b = mv R0 R1 000_000_001", $time, Instrucao[8:6], Instrucao[5:3], Instrucao[2:0]);
-      meio_teste_1_ciclo;
       Run = 1;
+      meio_teste_1_ciclo;
       #50 Run = 0;
       #600;
       // cabecalho_teste(1);
@@ -62,7 +65,7 @@ module tb_processador;
     end
   endtask
 
-  integer disp_sinais = 0;
+  integer disp_sinais = 1;
   task meio_teste_1_ciclo;
     begin
       if (disp_sinais)

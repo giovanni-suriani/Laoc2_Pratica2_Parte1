@@ -99,8 +99,10 @@ module unidade_controle (
                 begin
                   // mv Rx, Ry
                   // Logica do registrador fonte (in)
+                  En   = 1;            // Habilita o decodificador
+                  Rin  = Wire_Rin;  // Habilita o registrador Rx
+                  Rout = Wire_Rout; // Habilita o registrador Ry
                   Done = 1'b1;
-
                 end
               /*
               3'b001:

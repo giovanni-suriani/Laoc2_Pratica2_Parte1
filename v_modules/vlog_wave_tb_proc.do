@@ -6,7 +6,7 @@ vlib altera
 # vlog -work altera /home/gi/altera/13.0sp1/modelsim_ase/altera/verilog/src/altera_mf.v
 
 # Compila os arquivos Verilog necessários, *FALTA* memoram.v
-vlog processador_multiciclo.v registrador.v registrador_IR.v mux.v unidade_controle.v contador_2bits.v memoram.v tb_processador.v
+vlog processador_multiciclo.v registrador.v registrador_IR.v mux.v unidade_controle.v contador_2bits.v memoram.v decode3_8bits.v tb_processador.v
 vsim -L altera work.tb_processador
 
 
@@ -20,6 +20,7 @@ add wave -label "Opcode" -radix binary tb_processador/Opcode
 # Sinais do uut (unit under test)
 #add wave -label "clock_processador" tb_processador/uut/Clock
 add wave -label "Run" tb_processador/uut/Run
+add wave -label "Done" -radix binary tb_processador/Done
 add wave -label "DIN_uut" -radix binary /tb_processador/uut/DIN
 add wave -label "Instrucao_uut" -radix binary tb_processador/uut/Instrucao
 add wave -label "Tstep_uut" tb_processador/uut/Tstep
@@ -31,6 +32,8 @@ add wave -label "R1out_uut" tb_processador/uut/R1out
 add wave -label "BusWires_data_uut" tb_processador/uut/BusWires_data
 add wave -label "BusWires" tb_processador/BusWires
 add wave -label "Registrador IR" -radix binary tb_processador/uut/IR/R
+add wave -label "R0" -radix unsigned tb_processador/uut/R0/Q
+add wave -label "R1" -radix unsigned tb_processador/uut/R1/Q
 
 # Executa a simulacao
 run 1000ps
