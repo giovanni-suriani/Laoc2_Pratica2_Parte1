@@ -40,33 +40,44 @@ module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
 
   assign Instrucao = DIN[8:0];
 
+  // Variaveis inuteis
+  wire [8:0] UnusedQ9;
+  wire [15:0] UnusedQ16;
+
+
   // wire [8:0] useless_IR_out =
 
+ /*  always @(DIN)
+    begin
+      Instrucao = DIN[8:0]; // pega os 9 bits de opcode
+    end */
+
+
   registrador_IR IR (
-                   .R    (Instrucao),      // entrada de dados (dado a ser escrito)
-                   .Rin  (IRin),           // habilita escrita no registrador
-                   .Clock(clk),            // sinal de clock
-                   .Q    (Instrucao)  // saída registrada
+                   .R    (Instrucao),     // entrada de dados (dado a ser escrito)
+                   .Rin  (IRin),          // habilita escrita no registrador
+                   .Clock(Clock),         // sinal de clock
+                   .Q    (UnusedQ9)       // saída Inutil
                  );
 
   registrador R0 (
                 .R    (BusWires),   // entrada de dados
                 .Rin  (Rin[7]),    // habilita escrita
-                .Clock(clk),       // sinal de clock
+                .Clock(Clock),       // sinal de clock
                 .Q    (R0out)   // saída registrada
               );
 
   registrador R1 (
                 .R    (BusWires),   // entrada de dados
                 .Rin  (Rin[6]),    // habilita escrita
-                .Clock(clk),       // sinal de clock
+                .Clock(Clock),       // sinal de clock
                 .Q    (R1out)   // saída registrada
               );
 
   registrador R2 (
                 .R    (BusWires),   // entrada de dados
                 .Rin  (Rin[5]),    // habilita escrita
-                .Clock(clk),       // sinal de clock
+                .Clock(Clock),       // sinal de clock
                 .Q    (R2out)   // saída registrada
               );
 
@@ -103,11 +114,11 @@ module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
         .R5out       (R5out       ),
         .R6out       (R6out       ),
         .R7out       (R7out       ),
-        .Gout        (Gout        ),
-        .Gout_data   (Gout_data   ),
-        .DINout      (DINout      ),
-        .DINout_data (DIN),
-        .BusWires    (BusWires_data)
+        .Gout        (Gout        ),  // Habilita colocar dados do registrador G no barramento BusWires
+        .Gout_data   (Gout_data   ),  // Dados G para colocar no barramento BusWires DIN
+        .DINout      (DINout      ),  // Habilita a saída do barramento DIN
+        .DINout_data (DIN),           // Dados DIN para colocar no barramento BusWires DIN
+        .BusWires    (BusWires_data)  
       );
 
 

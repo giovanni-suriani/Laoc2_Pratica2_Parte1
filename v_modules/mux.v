@@ -30,7 +30,7 @@ module mux(Rout, Gout, DINout, R0out, R1out, R2out, R3out, R4out,
   input Gout;
   input DINout;                  // Habilita a saída do barramento DIN
   input [15:0] Gout_data;
-  input [15:0] DINout_data;      // Dados de entrada do barramento DIN
+  input [15:0] DINout_data;      // Dados de entrada do barramento BusWires DIN
 
 
   output reg [15:0] BusWires;

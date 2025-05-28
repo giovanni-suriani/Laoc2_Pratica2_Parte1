@@ -43,32 +43,32 @@ module unidade_controle (
   output reg        Done;    // instrucao concluída
 
   // Variaveis
-  reg En;                      // habilita o decodificador             
-  reg [2:0] opcode;          // opcode III
+  reg En;                     // habilita o decodificador
+  reg [2:0] opcode;           // opcode III
   wire [5:3] Rx;              // campo destino
   wire [8:6] Ry;              // campo fonte
-  wire [7:0] Wire_Rin; // campo de seleção para os registradores
-  wire [7:0] Wire_Rout; // campo de seleção para os registradores
+  wire [7:0] Wire_Rin;        // campo de seleção para os registradores
+  wire [7:0] Wire_Rout;       // campo de seleção para os registradores
 
 
   // Instanciacoes
-  assign opcode = Instrucao[2:0]; // opcode III
-  assign Rx     = Instrucao[5:3]; // campo destino
-  assign Ry     = Instrucao[8:6]; // campo fonte
+  assign Ry     = Instrucao[2:0]; // campo fonte   (quem fornece o dado)
+  assign Rx     = Instrucao[5:3]; // campo destino (quem fica com o dado fornecido)
+  assign opcode = Instrucao[8:6]; // opcode III
 
 
 
   decode3_8bits Rx_decode3_8bits(
-                    .W  (Rx  ), // campo XXX ou YYY da instrução
-                    .En (En ), // Habilita o decodificador
-                    .Y  (Wire_Rin ) // Sinal de habilitação do registrador (R0in, R1out, etc.)
-                  );
-                  // Logica do registrador destino (out)
+                  .W  (Rx  ), // campo XXX ou YYY da instrução
+                  .En (En ), // Habilita o decodificador
+                  .Y  (Wire_Rin ) // Sinal de habilitação do registrador (R0in, R1out, etc.)
+                );
+  // Logica do registrador destino (out)
   decode3_8bits Ry_decode3_8bits(
-    .W  (Ry  ),
-    .En (En ), // Habilita o decodificador
-    .Y  (Wire_Rout ) // Sinal de habilitação do registrador (R0in, R1out, etc.)
-  );
+                  .W  (Ry  ),
+                  .En (En ), // Habilita o decodificador
+                  .Y  (Wire_Rout ) // Sinal de habilitação do registrador (R0in, R1out, etc.)
+                );
 
   always @(*)
     begin
