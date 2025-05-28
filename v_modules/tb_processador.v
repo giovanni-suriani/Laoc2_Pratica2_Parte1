@@ -44,9 +44,10 @@ module tb_processador;
       #100 DIN = {6'b000_000, Opcode, Ry, Rx}; // Formando a instrução: 000 001 000
       cabecalho_teste(1);
       $display("[%0t] instrucao = %3b_%3b_%3b = mv R0 R1 000_000_001", $time, Instrucao[8:6], Instrucao[5:3], Instrucao[2:0]);
-      meio_teste;
+      meio_teste_1_ciclo;
       Run = 1;
-      #100 Run = 0;
+      #50 Run = 0;
+      #600;
       // cabecalho_teste(1);
       // meio_teste;
       $stop;
@@ -72,3 +73,9 @@ module tb_processador;
   endtask
 
 endmodule
+
+/* 
+clear;vsim -c -do vlog_terminal_tb_proc.do
+killmodelsim;vsim -do vlog_wave_tb_proc.do 
+alias killmodelsim='ps aux | grep '\''intelFPGA/20.1/'\'' | grep -v grep | awk '\''{print $2}'\'' | xargs kill -9'
+*/

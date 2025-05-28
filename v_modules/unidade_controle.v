@@ -87,7 +87,8 @@ module unidade_controle (
         2'b00:
           begin
             // T0: fetch da instrução
-            IRin = 1;
+            IRin    = 1;
+            DINout  = 1;
           end
 
         2'b01:
@@ -99,6 +100,7 @@ module unidade_controle (
                   // mv Rx, Ry
                   // Logica do registrador fonte (in)
                   Done = 1'b1;
+
                 end
               /*
               3'b001:

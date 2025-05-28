@@ -29,6 +29,7 @@ add wave -label "Rin_uut" tb_processador/uut/Rin
 add wave -label "R0out_uut" tb_processador/uut/R0out
 add wave -label "R1out_uut" tb_processador/uut/R1out
 add wave -label "BusWires_data_uut" tb_processador/uut/BusWires_data
+add wave -label "BusWires" tb_processador/BusWires
 add wave -label "Registrador IR" -radix binary tb_processador/uut/IR/R
 
 # Executa a simulacao
