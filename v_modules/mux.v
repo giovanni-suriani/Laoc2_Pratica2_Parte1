@@ -19,7 +19,7 @@ module mux(Rout, Gout, DINout, R0out, R1out, R2out, R3out, R4out,
 
     
   input [0:7] Rout;      // campo de seleção para os registradores
-  input [15:0] R0out;   // saída do registrador R0
+  input [15:0] R0out;    // Dados do registrador R0 para colocar no barramento BusWires
   input [15:0] R1out;
   input [15:0] R2out;
   input [15:0] R3out;
@@ -27,9 +27,9 @@ module mux(Rout, Gout, DINout, R0out, R1out, R2out, R3out, R4out,
   input [15:0] R5out;
   input [15:0] R6out;
   input [15:0] R7out;
-  input Gout;
+  input Gout;                    // Habilita colocar dados do registrador G no barramento BusWires
   input DINout;                  // Habilita a saída do barramento DIN
-  input [15:0] Gout_data;
+  input [15:0] Gout_data;        // Dados G para colocar no barramento BusWires DIN
   input [15:0] DINout_data;      // Dados de entrada do barramento BusWires DIN
 
 
