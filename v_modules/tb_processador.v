@@ -22,6 +22,7 @@ module tb_processador;
                            .BusWires(BusWires)
                          );
 
+
   // Clock gerado a cada 50ps
   always #50 Clock = ~Clock;
 
@@ -39,8 +40,8 @@ module tb_processador;
       #100 DIN = 9'b001_000_000; // mvi R0, #D
       Run = 1;
       #100 Run = 0;
-      cabecalho_teste(1);
-      meio_teste;
+      // cabecalho_teste(1);
+      // meio_teste;
       $stop;
     end
 

@@ -1,4 +1,4 @@
-module dec3to8(W, En, Y);
+module decode3_8bits(W, En, Y);
 
 /*
    3bits to 8 bits decoder

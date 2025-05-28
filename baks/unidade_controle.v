@@ -1,5 +1,5 @@
 // grupo 4
-module unidade_controle (
+module control_unit (
     Instrucao,       // opcode III
     Tstep,   // 00=T0,01=T1,10=T2,11=T3
     Run,     // start instruction
@@ -10,7 +10,6 @@ module unidade_controle (
     Ain,     // carrega registrador A
     Gin,     // carrega registrador G
     Gout,    // lê registrador G
-    Resetn,  // recomecar da primeira instrucao
     AddSub,  // escolhe subtração na ALU
     DINout,  // coloca DIN no barramento
     Done     // instrucao concluída
@@ -43,12 +42,9 @@ module unidade_controle (
   output reg        Done;    // instrucao concluída
 
   // Variaveis
-  reg En;                      // habilita o decodificador             
   reg [2:0] opcode;          // opcode III
   wire [5:3] Rx;              // campo destino
   wire [8:6] Ry;              // campo fonte
-  wire [7:0] Wire_Rin; // campo de seleção para os registradores
-  wire [7:0] Wire_Rout; // campo de seleção para os registradores
 
 
   // Instanciacoes
@@ -57,18 +53,6 @@ module unidade_controle (
   assign Ry     = Instrucao[8:6]; // campo fonte
 
 
-
-  decode3_8bits Rx_decode3_8bits(
-                    .W  (Rx  ), // campo XXX ou YYY da instrução
-                    .En (En ), // Habilita o decodificador
-                    .Y  (Wire_Rin ) // Sinal de habilitação do registrador (R0in, R1out, etc.)
-                  );
-                  // Logica do registrador destino (out)
-  decode3_8bits Ry_decode3_8bits(
-    .W  (Ry  ),
-    .En (En ), // Habilita o decodificador
-    .Y  (Wire_Rout ) // Sinal de habilitação do registrador (R0in, R1out, etc.)
-  );
 
   always @(*)
     begin
@@ -98,6 +82,17 @@ module unidade_controle (
                 begin
                   // mv Rx, Ry
                   // Logica do registrador fonte (in)
+                  decode3_8bits u_decode3_8bits(
+                    .W  (Rx  ), // campo XXX ou YYY da instrução
+                    .En (1 ), // Habilita o decodificador
+                    .Y  (Rin ) // Sinal de habilitação do registrador (R0in, R1out, etc.)
+                  );
+                  // Logica do registrador destino (out)
+                  decode3_8bits u_decode3_8bits(
+                    .W  (Ry  ),
+                    .En (1 ), // Habilita o decodificador
+                    .Y  (Rout ) // Sinal de habilitação do registrador (R0in, R1out, etc.)
+                  );
                   Done = 1'b1;
                 end
               /*
@@ -123,6 +118,49 @@ module unidade_controle (
                 */
             endcase
           end
+        /*
+                2'b10:
+                  begin
+                    // T2: segundo passo (só para add/sub)
+                    case (I)
+                      3'b010:
+                        begin
+                          Rout[YYY] = 1;
+                          Gin       = 1;
+                        end
+                      3'b011:
+                        begin
+                          Rout[YYY] = 1;
+                          Gin       = 1;
+                        end
+                      default:
+                        ;
+                    endcase
+                  end
+         
+                2'b11:
+                  begin
+                    // T3: terceiro passo (só para add/sub)
+                    case (I)
+                      3'b010:
+                        begin
+                          Gout       = 1;
+                          Rin [XXX] = 1;
+                          Done       = 1;
+                        end
+                      3'b011:
+                        begin
+                          Gout       = 1;
+                          Rin [XXX] = 1;
+                          AddSub     = 1;  // subtrai em vez de somar
+                          Done       = 1;
+                        end
+                      default:
+                        ; */
+                    endcase
+                  end
+              
+
       endcase
     end
 

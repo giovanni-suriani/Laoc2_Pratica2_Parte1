@@ -13,13 +13,13 @@
 // 9 -> G
 // 10 -> 0
 // 11 -> 1
-module mux(Rout, Gout, DINout, Rout, R0out, R1out, R2out, R3out, R4out,
+module mux(Rout, Gout, DINout, R0out, R1out, R2out, R3out, R4out,
              R5out, R6out, R7out, BusWires,
              Gout_data, DINout_data);
 
     
-  input [0:7] Rout;
-  input [15:0] R0out;
+  input [0:7] Rout;      // campo de seleção para os registradores
+  input [15:0] R0out;   // saída do registrador R0
   input [15:0] R1out;
   input [15:0] R2out;
   input [15:0] R3out;
@@ -28,9 +28,11 @@ module mux(Rout, Gout, DINout, Rout, R0out, R1out, R2out, R3out, R4out,
   input [15:0] R6out;
   input [15:0] R7out;
   input Gout;
+  input DINout;                  // Habilita a saída do barramento DIN
   input [15:0] Gout_data;
-  input DINout;
-  input [15:0] DINout_data;
+  input [15:0] DINout_data;      // Dados de entrada do barramento DIN
+
+
   output reg [15:0] BusWires;
 
   always@(Rout)
@@ -59,11 +61,11 @@ module mux(Rout, Gout, DINout, Rout, R0out, R1out, R2out, R3out, R4out,
 
   always@(Gout)
     begin
-      if (Gout)
+      if (Gout == 1'b1) // Verifica se Gout está ativo
         begin
           BusWires = Gout_data;
         end
-      else
+      else if (Gout == 1'b0) // Se Gout não está ativo
         begin
           BusWires = 16'bzzzz_zzzz_zzzz_zzzz; // valor padrão
         end
@@ -71,13 +73,13 @@ module mux(Rout, Gout, DINout, Rout, R0out, R1out, R2out, R3out, R4out,
 
   always@(DINout)
     begin
-      if (DINout)
+      if (DINout== 1'b1)
         begin
           BusWires = DINout_data;
         end
-      else
+      else if (DINout == 1'b0)
         begin
-          BusWires = 16'bxxxx_xxxx_xxxx_xxxx; // valor padrão
+          BusWires = 16'bxxxx_xxxx_xxxx_xxxx; 
         end
     end
 
