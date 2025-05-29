@@ -112,6 +112,7 @@ module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
                      .Run       (Run       ),
                      .Resetn    (Resetn    ),
                      .Clear     (Clear     ),
+                     .GRout     (GRout     ),
                      .IRin      (IRin      ),
                      .Rin       (Rin       ),
                      .Rout      (Rout      ),

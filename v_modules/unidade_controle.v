@@ -4,6 +4,7 @@ module unidade_controle (
     Tstep,   // 00=T0,01=T1,10=T2,11=T3
     Run,     // start instruction
     Clear,   // limpa contador de Tstep
+    GRout,   // saída do registrador G
     IRin,    // carrega IR
     Rin,     // habilita escrita em R0..R7
     Rout,    // habilita leitura de R0..R7
@@ -29,6 +30,7 @@ module unidade_controle (
   input  wire [1:0] Tstep;      // 00=T0,01=T1,10=T2,11=T3
   input  wire       Run;        // start instruction
   input  wire       Resetn;     // recomecar da primeira instrucao
+  input  wire [15:0] GRout;     // saída do registrador G
 
   // outputs
   output reg        Clear;   // limpa contador de Tstep
@@ -101,6 +103,7 @@ module unidade_controle (
           begin
             // T1: primeiro passo de execução
             case (opcode)
+              // mv Rx, Ry
               3'b000:
                 begin
                   // mv Rx, Ry
@@ -113,6 +116,7 @@ module unidade_controle (
                   Clear <= 1'b1; // limpa o contador de Tstep
                 end
 
+              // mvi Rx, #D
               3'b001:
                 begin
                   // mvi Rx,#D
@@ -123,6 +127,8 @@ module unidade_controle (
                   Done      <= 1;
                   Clear     <= 1'b1; // limpa o contador de Tstep
                 end
+
+              // SUB Rx, G
               3'b011:
                 begin
                   // SUB Rx,Ry
@@ -130,6 +136,25 @@ module unidade_controle (
                   $display("[%0t] Te executei meu fio",$time);
                   Ain  <= 1'b1;
                   Rout <=   Wire_Rin;
+                end
+
+              // mvnz Rx, Ry
+              3'b100:
+                begin
+                  // mvnz Rx, Ry,
+                  // $display("[%0t] uc.v linha 119 mvi",$time);
+                  // // $display("[%0t] uc.v fazendo a coisa",$time);
+                  Rin       <= Wire_Rin;
+                  if (GRout != 0) // se G for diferente de zero
+                    begin
+                      Rout <= Wire_Rout; // Joga Ry em bus
+                    end
+                  else if (GRout == 0) // se G for igual a zero
+                    begin
+                      Rout <= Wire_Rin; // Joga Rx em bus (proprio dado)
+                    end
+                  Done      <= 1;
+                  Clear     <= 1'b1; // limpa o contador de Tstep
                 end
               /*3'b001:
                begin
@@ -145,13 +170,13 @@ module unidade_controle (
           begin
             case (opcode)
               3'b011:
-              begin
-                // SUB Rx,Ry
-                // Coloca Rin no bus
-                Rout  <= Wire_Rout; // Habilita o registrador Ry
-                Ulaop <= 2'b1;    // Subtração na ULA
-                Gin   <= 1'b1;     // Habilita escrita no registrador G
-              end
+                begin
+                  // SUB Rx,Ry
+                  // Coloca Rin no bus
+                  Rout  <= Wire_Rout; // Habilita o registrador Ry
+                  Ulaop <= 2'b1;    // Subtração na ULA
+                  Gin   <= 1'b1;     // Habilita escrita no registrador G
+                end
             endcase
           end
 
@@ -159,17 +184,17 @@ module unidade_controle (
           begin
             case (opcode)
               3'b011:
-              begin
-                Rin <= Wire_Rin; // Habilita o registrador Rx
-                Gout <= 1'b1; // Lê o registrador G
-                Done <= 1'b1; // Indica que a instrução foi concluída
-                Clear <= 1'b1; // Limpa o contador de Tstep
-                
-                // SUB Rx,Ry
-                // Coloca Rin no bus
-                // Rout <= Wire_Rin; // Habilita o registrador Ry
-                // Gin  <= 1'b1;     // Habilita escrita no registrador G
-              end
+                begin
+                  Rin <= Wire_Rin; // Habilita o registrador Rx
+                  Gout <= 1'b1; // Lê o registrador G
+                  Done <= 1'b1; // Indica que a instrução foi concluída
+                  Clear <= 1'b1; // Limpa o contador de Tstep
+
+                  // SUB Rx,Ry
+                  // Coloca Rin no bus
+                  // Rout <= Wire_Rin; // Habilita o registrador Ry
+                  // Gin  <= 1'b1;     // Habilita escrita no registrador G
+                end
             endcase
           end
       endcase

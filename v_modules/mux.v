@@ -46,26 +46,26 @@ module mux(Rout, Gout, DINout, R0out, R1out, R2out, R3out, R4out,
       case (Rout)
         8'b1000_0000:
         begin
-          BusWires = R0out;
+          BusWires <= R0out;
           // $display("[%0t] fui de mudanca linha 45",$time);
         end
         8'b01000000:
         begin
-          BusWires = R1out;
+          BusWires <= R1out;
           // $display("[%0t] fui de mudanca linha 54",$time);
         end
         8'b00100000:
-          BusWires = R2out;
+          BusWires <= R2out;
         8'b00010000:
-          BusWires = R3out;
+          BusWires <= R3out;
         8'b00001000:
-          BusWires = R4out;
+          BusWires <= R4out;
         8'b00000100:
-          BusWires = R5out;
+          BusWires <= R5out;
         8'b00000010:
-          BusWires = R6out;
+          BusWires <= R6out;
         8'b00000001:
-          BusWires = R7out;
+          BusWires <= R7out;
         default:
         begin
           // BusWires = 16'bxxxx_xxxx_xxxx_xxxx; // valor indefinido
@@ -78,7 +78,7 @@ module mux(Rout, Gout, DINout, R0out, R1out, R2out, R3out, R4out,
     begin
       if (Gout == 1'b1) // Verifica se Gout está ativo
         begin
-          BusWires = Gout_data;
+          BusWires <= Gout_data;
         end
       else if (Gout == 1'b0) // Se Gout não está ativo
         begin
@@ -91,7 +91,7 @@ module mux(Rout, Gout, DINout, R0out, R1out, R2out, R3out, R4out,
       if (DINout== 1'b1)
         begin
           // $display("[%0t] mux.v linha 92",$time);
-          BusWires = DINout_data;
+          BusWires <= DINout_data;
         end
       else if (DINout == 1'b0)
         begin
