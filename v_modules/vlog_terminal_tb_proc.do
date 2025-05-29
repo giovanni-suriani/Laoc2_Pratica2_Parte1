@@ -6,6 +6,6 @@ vlib altera
 
 # Compila os arquivos Verilog necessários, falta memoram.v
 vlog processador_multiciclo.v registrador.v registrador_IR.v mux.v unidade_controle.v contador_2bits.v memoram.v tb_processador.v decode3_8bits.v
-vsim -L altera work.tb_processador -c -do "run 10000ps; quit"
+vsim -L altera -voptargs="+acc" work.tb_processador  -c -do "run 10000ps; quit"
 
 # para rodar:  clear;vsim -c -do vlog_terminal_tb_proc.do

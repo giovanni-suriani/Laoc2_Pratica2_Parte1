@@ -41,15 +41,13 @@ module tb_processador;
       Opcode = 3'b000; // mv
       Rx = 3'b000;     // R0
       Ry = 3'b001;     // R1
-      #100 DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
-      // Colocando 1 no registrador R1 (Ry)
-      uut.R1.Q = 16'd10; // R0 = 1
-
+      uut.R1.Q = 16'd10; // R1 = 1
+      uut.R0.Q = 16'd11; // R1 = 1
+      DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
       cabecalho_teste(1);
+      #10Run = 1; // Agendado ja no inicio do ciclo
       $display("[%0t] instrucao = %3b_%3b_%3b = mv R0 R1 000_000_001", $time, Instrucao[8:6], Instrucao[5:3], Instrucao[2:0]);
-      Run = 1;
       meio_teste_1_ciclo;
-      #50 Run = 0;
       #600;
       // cabecalho_teste(1);
       // meio_teste;
@@ -78,6 +76,11 @@ module tb_processador;
 endmodule
 
 /* 
+1 Ciclo em verilog
+1. Avaliacao de condicoes, always, if,  e sinais agendados ( PROIBIDO USAR, ex: #2, se nao nao funciona FPGA)...
+2. Blocking e Non Blocking, (SO use BLOCKING em logica dentro dos blocos),
+3. Atribuicao dos Non Blocking Variaveis externas, sempre usar Non Blocking
+
 clear;vsim -c -do vlog_terminal_tb_proc.do
 killmodelsim;vsim -do vlog_wave_tb_proc.do 
 alias killmodelsim='ps aux | grep '\''intelFPGA/20.1/'\'' | grep -v grep | awk '\''{print $2}'\'' | xargs kill -9'

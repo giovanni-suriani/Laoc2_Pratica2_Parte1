@@ -43,6 +43,7 @@ module unidade_controle (
   output reg        Done;    // instrucao concluída
 
   // Variaveis
+  reg Run_d = 0;                   // armazena o valor anterior de Run
   reg En;                     // habilita o decodificador
   reg [2:0] opcode;           // opcode III
   wire [5:3] Rx;              // campo destino
@@ -55,40 +56,43 @@ module unidade_controle (
   assign Ry     = Instrucao[2:0]; // campo fonte   (quem fornece o dado)
   assign Rx     = Instrucao[5:3]; // campo destino (quem fica com o dado fornecido)
   assign opcode = Instrucao[8:6]; // opcode III
+  //Run_d = 0; // inicializa Run_d
 
 
 
   decode3_8bits Rx_decode3_8bits(
                   .W  (Rx  ), // campo XXX ou YYY da instrução
-                  .En (En ), // Habilita o decodificador
+                  .En (1'b1 ), // Habilita o decodificador
                   .Y  (Wire_Rin ) // Sinal de habilitação do registrador (R0in, R1out, etc.)
                 );
   // Logica do registrador destino (out)
   decode3_8bits Ry_decode3_8bits(
                   .W  (Ry  ),
-                  .En (En ), // Habilita o decodificador
+                  .En (1'b1 ), // Habilita o decodificador
                   .Y  (Wire_Rout ) // Sinal de habilitação do registrador (R0in, R1out, etc.)
                 );
 
-  always @(*)
+  always @(Tstep or Instrucao or Run) // or Resetn
     begin
-      Clear   = Run;
-      IRin    = 0;
-      Rin     = 8'b0;
-      Rout    = 8'b0;
-      Ain     = 0;
-      Gin     = 0;
-      Gout    = 0;
-      AddSub  = 0;
-      DINout  = 0;
-      Done    = 0;
+      Clear   <= 0;
+      Run_d   <= Run; // salva o valor anterior de Run
+      IRin    <= 0;
+      Rin     <= 8'b0;
+      Rout    <= 8'b0;
+      Ain     <= 0;
+      Gin     <= 0;
+      Gout    <= 0;
+      AddSub  <= 0;
+      DINout  <= 0;
+      Done    <= 0;
+      // En      <= 1; // Habilita o decodificador
 
       case (Tstep)
         2'b00:
           begin
             // T0: fetch da instrução
-            IRin    = 1;
-            DINout  = 1;
+            IRin    <= 1;
+            DINout  <= 1;
           end
 
         2'b01:
@@ -99,10 +103,13 @@ module unidade_controle (
                 begin
                   // mv Rx, Ry
                   // Logica do registrador fonte (in)
-                  En   = 1;            // Habilita o decodificador
-                  Rin  = Wire_Rin;  // Habilita o registrador Rx
-                  Rout = Wire_Rout; // Habilita o registrador Ry
-                  Done = 1'b1;
+                  $display("[%0t] unidade de controle linha 106 mv",$time);
+                  Rin  <= Wire_Rin;  // Habilita o registrador Rx (processador)
+                  // Rout <= Wire_Rout; // Habilita o registrador Ry (mux)
+                  Rout = Wire_Rout; // Habilita o registrador Ry (mux)
+                  $display("[%0t] uc.v %b_%b Rout",$time, Rout[7:4], Rout[3:0]);
+                  // Rout = 8'b1000_0000; // Habilita o registrador Ry (mux)
+                  Done <= 1'b1;
                 end
               /*
               3'b001:
@@ -128,6 +135,20 @@ module unidade_controle (
             endcase
           end
       endcase
+    end
+
+  always@(Run)
+    begin
+      if (Run && !Run_d) // Borda de subida de Run
+        begin
+          Clear <= 1;
+          $display("[%0t] bora pic, Run = %b, Run_d = %b",$time, Run, Run_d);
+        end
+      else
+        begin
+          $display("[%0t] bora bona, Run = %b, Run_d = %b",$time, Run, Run_d);
+          Clear <= 0;
+        end
     end
 
   // simples mapeamento dos campos XXX, YYY

@@ -10,7 +10,7 @@ module registrador(R, Rin, Clock, Q);
   output [15:0] Q; // valor armazenado
 
   reg [15:0] Q;
-  always @(posedge Clock)
+  always @(negedge Clock)
     if (Rin)
       Q <= R;
 endmodule

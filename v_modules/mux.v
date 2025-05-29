@@ -18,7 +18,7 @@ module mux(Rout, Gout, DINout, R0out, R1out, R2out, R3out, R4out,
              Gout_data, DINout_data);
 
     
-  input [0:7] Rout;      // campo de seleção para os registradores
+  input [7:0]  Rout;      // campo de seleção para os registradores
   input [15:0] R0out;    // Dados do registrador R0 para colocar no barramento BusWires
   input [15:0] R1out;
   input [15:0] R2out;
@@ -37,9 +37,17 @@ module mux(Rout, Gout, DINout, R0out, R1out, R2out, R3out, R4out,
 
   always@(Rout)
     begin
+      $display("[%0t] mux.v - linha 40 vou mudar hein, Rout =  %0b",$time, Rout);
+      if (Rout ==  8'b1000_0000) 
+        begin
+          $display("[%0t] mux.v - Today is gona be the dayt",$time, Rout);
+        end
       case (Rout)
-        8'b10000000:
+        8'b1000_0000:
+        begin
           BusWires = R0out;
+          $display("[%0t] fui de mudanca linha 45",$time);
+        end
         8'b01000000:
           BusWires = R1out;
         8'b00100000:
@@ -55,7 +63,10 @@ module mux(Rout, Gout, DINout, R0out, R1out, R2out, R3out, R4out,
         8'b00000001:
           BusWires = R7out;
         default:
+        begin
           BusWires = 16'bxxxx_xxxx_xxxx_xxxx; // valor indefinido
+          $display("[%0t] fui de default linha 63",$time);
+        end
       endcase
     end
 
