@@ -33,7 +33,8 @@ module tb_processador;
 
 
 
-  integer mostra_teste1 = 1;
+  integer mostra_teste1 = 0;
+  integer mostra_teste2 = 0;
   initial
     begin
       // Inicialização
@@ -52,14 +53,14 @@ module tb_processador;
           #1;
           $display("[%0t] Teste instrucao mv R0 R1, R0 com o valor %0d e R1 com o valor %0d, Tstep = %0d", $time, uut.R0.Q, uut.R1.Q, uut.Tstep);
           $display("[%0t] Ciclo 1: Fetch IR", $time);
-          $display("[%0t] bus = %9b, Tstep = %0d", $time, BusWires, uut.Tstep);
+          $display("[%0t] DIN = %9b, Tstep = %0d", $time, uut.DIN[8:0], uut.Tstep);
 
           @(negedge Clock);
           #1;
-          $display("[%0t] Atribuindo bus em IR no negedge ", $time);
+          $display("[%0t] Atribuindo DIN[8:0] em IR no negedge ", $time);
           $display("[%0t]           IR = %9b, R0 = %0d e R1 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R0.Q, uut.R1.Q, uut.Tstep);
           if (detalhado)
-            $display("[%0t] ESPERADO: IR = 000000001, R0 = 11 e R1 = 10 Tstep = 0 ",$time); // Esperado
+            $display("[%0t] ESPERADO: IR = 00000001, R0 = 11 e R1 = 10 Tstep = 0 ",$time); // Esperado
 
           @(posedge Clock);// Tem que dar mais um no Tstep pois o valor dele so e atribuido no fim do ciclo
           #1;
@@ -72,6 +73,8 @@ module tb_processador;
           $display("[%0t]           IR = %9b, R0 = %0d e R1 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R0.Q, uut.R1.Q, uut.Tstep);
           if (detalhado)
             $display("[%0t] ESPERADO: IR = 000000001, R0 = 10 e R1 = 10 Tstep = 1",$time);
+          $display("[%0t] Teste mv R0 R1 concluido.", $time);
+          $display("--------------------------------------------------");
         end
 
 
@@ -79,32 +82,65 @@ module tb_processador;
       // -----------------------------
       // T1 - Instrução mvi R0, 5 ,R0 <- 5
       // -----------------------------
+      if (mostra_teste2)
+        begin
+          @(posedge Clock);
+          teste_mvi_R0_5;
+          #1;
+          $display("[%0t] Teste instrucao mvi R0 5, R0 com o valor %0d, Tstep = %0d", $time, uut.R0.Q, uut.Tstep);
+          $display("[%0t] Ciclo 1: Fetch IR", $time);
+          $display("[%0t] DIN = %9b, Tstep = %0d", $time, uut.DIN[8:0], uut.Tstep);
+
+          @(negedge Clock);
+          #1;
+          $display("[%0t] Atribuindo DIN[8:0] em IR no negedge ", $time);
+          $display("[%0t]           IR = %9b, R0 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R0.Q, uut.Tstep);
+          if (detalhado)
+            $display("[%0t] ESPERADO: IR = 001000001, R0 = 11 Tstep = 0 ",$time); // Esperado
+
+          @(posedge Clock);// Tem que dar mais um no Tstep pois o valor dele so e atribuido no fim do ciclo
+          DIN = 16'd5; // Carrega o valor 5 no barramento DIN
+          #1;
+          $display("[%0t] Ciclo 2: Coloca 5 em R0", $time);
+          $display("[%0t] bus = %9b, Tstep = %0d", $time, BusWires, uut.Tstep);
+
+          @(negedge Clock);
+          #1;
+          $display("[%0t] Atribuindo bus em R0 no negedge", $time);
+          $display("[%0t]           IR = %9b, R0 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R0.Q, uut.Tstep);
+          if (detalhado)
+            $display("[%0t] ESPERADO: IR = 001000001, R0 = 5 Tstep = 1",$time);
+          $display("[%0t] Teste mvi R0 5 concluido.", $time);
+          $display("--------------------------------------------------");
+        end
+
+      // -----------------------------
+      // T2 - SUB R1, R0  
+      // -----------------------------
+
+      teste_sub_R1_R0;
       @(posedge Clock);
-      teste_mvi_R0_5;
       #1;
-      $display("[%0t] Teste instrucao mvi R0 5, R0 com o valor %0d, Tstep = %0d", $time, uut.R0.Q, uut.Tstep);
+      $display("[%0t] Teste instrucao SUB R1 R0, R1 com o valor %0d e R0 com o valor %0d, Tstep = %0d", $time, uut.R1.Q, uut.R0.Q, uut.Tstep);
       $display("[%0t] Ciclo 1: Fetch IR", $time);
-      $display("[%0t] bus = %9b, Tstep = %0d", $time, BusWires, uut.Tstep);
-
+      $display("[%0t] DIN = %9b, Tstep = %0d", $time, uut.DIN[8:0], uut.Tstep);
       @(negedge Clock);
       #1;
-      $display("[%0t] Atribuindo bus em IR no negedge ", $time);
-      $display("[%0t]           IR = %9b, R0 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R0.Q, uut.Tstep);
+      $display("[%0t] Atribuindo DIN[8:0] em IR no negedge ", $time);
+      $display("[%0t]           IR = %9b, R0 = %0d e R1 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R0.Q, uut.R1.Q, uut.Tstep);
       if (detalhado)
-        $display("[%0t] ESPERADO: IR = 000000001, R0 = 11 Tstep = 0 ",$time); // Esperado
-
+        $display("[%0t] ESPERADO: IR = 011000001, R0 = 5 e R1 = 10 Tstep = 0 ",$time); // Esperado
       @(posedge Clock);// Tem que dar mais um no Tstep pois o valor dele so e atribuido no fim do ciclo
-      DIN = 16'd5; // Carrega o valor 5 no barramento DIN
       #1;
-      $display("[%0t] Ciclo 2: Coloca 5 em R0", $time);
+      $display("[%0t] Ciclo 2: Coloca R1 em A", $time);
       $display("[%0t] bus = %9b, Tstep = %0d", $time, BusWires, uut.Tstep);
       @(negedge Clock);
       #1;
-      $display("[%0t] Atribuindo bus em R0 no negedge", $time);
-      $display("[%0t]           IR = %9b, R0 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R0.Q, uut.Tstep);
+      $display("[%0t] Atribuindo bus em A no negedge", $time);
+      $display("[%0t]           IR = %9b, R0 = %0d, R1 = %0d, A = %0d  Tstep = %0d", $time, uut.IR.Q, uut.R0.Q, uut.R1.Q, uut.A.Q, uut.Tstep);
       if (detalhado)
-        $display("[%0t] ESPERADO: IR = 000000001, R0 = 5 Tstep = 1",$time);
-
+        $display("[%0t] ESPERADO: IR = 011000001, R0 = 5 e R1 = 10 A = 10 Tstep = 1",$time);
+      $display("[%0t] Ciclo 3: Coloca R0 em G", $time);
 
       $stop;
 
@@ -131,6 +167,19 @@ module tb_processador;
       DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
     end
   endtask
+
+  task teste_sub_R1_R0;
+    begin
+      Opcode = 3'b011; // mv
+      Rx = 3'b001;     // R1
+      Ry = 3'b000;     // R0
+      uut.R0.Q = 16'd5; // R0 = 11
+      uut.R1.Q = 16'd10; // R1 = 10
+      DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
+    end
+  endtask
+
+
 
 
   task cabecalho_teste(input integer numero_task);

@@ -76,6 +76,7 @@ module unidade_controle (
 
   always @(Tstep or Run) // or Resetn
     begin
+      /* Todos os sinais mudados aqui, devem ser alterados com <=, pq se nao fica com 0 pq eh non blocking*/
       Clear   <= 0;
       Run_d   <= Run; // salva o valor anterior de Run
       IRin    <= 0;
@@ -94,7 +95,6 @@ module unidade_controle (
           begin
             // T0: fetch da instrução
             IRin    <= 1;
-            DINout  <= 1;
           end
 
         2'b01:
@@ -106,13 +106,13 @@ module unidade_controle (
                   // mv Rx, Ry
                   // Logica do registrador fonte (in)
                   // $display("[%0t] uc.v linha 106 mv",$time);
-                  Rin  <= Wire_Rin;  // Habilita o registrador Rx  000 ´1000_0000 (processador)
-                  Rout <= Wire_Rout; // Habilita o registrador Ry  001 ´0100_0000 (mux)
+                  Rin   <= Wire_Rin;  // Habilita o registrador Rx  000 ´1000_0000 (processador)
+                  Rout  <= Wire_Rout; // Habilita o registrador Ry  001 ´0100_0000 (mux)
                   // $display("[%0t] uc.v %b_%b Rout",$time, Rout[7:4], Rout[3:0]);
-                  Done <= 1'b1;
+                  Done  <= 1'b1;
                   Clear <= 1'b1; // limpa o contador de Tstep
                 end
-              
+
               3'b001:
                 begin
                   // mvi Rx,#D
@@ -121,21 +121,36 @@ module unidade_controle (
                   // $display("[%0t] uc.v fazendo a coisa",$time);
                   Rin       <= Wire_Rin;
                   Done      <= 1;
-                  Clear <= 1'b1; // limpa o contador de Tstep
-                end
-              /*3'b010:
-                begin
-                  // add Rx,Ry
-                  Rout[XXX] = 1;
-                  Ain       = 1;
+                  Clear     <= 1'b1; // limpa o contador de Tstep
                 end
               3'b011:
                 begin
-                  // sub Rx,Ry
-                  Rout[XXX] = 1;
-                  Ain       = 1;
-                end 
-                */
+                  // SUB Rx,Ry
+                  // Coloca Rout no registrador A
+                  $display("[%0t] Te executei meu fio",$time);
+                  Ain  <= 1'b1;
+                  Rout <=   Wire_Rout;
+                end
+              /*3'b001:
+               begin
+                 // add Rx,Ry
+                 Rout[XXX] = 1;
+                 Ain       = 1;
+               end 
+               */
+            endcase
+          end
+
+        2'b10:
+          begin
+            case (opcode)
+              3'b011:
+              begin
+                // SUB Rx,Ry
+                // Coloca Rin no bus
+                Rout <= Wire_Rin; // Habilita o registrador Ry
+                Gin  <= 1'b1;     // Habilita escrita no registrador G
+              end
             endcase
           end
       endcase
