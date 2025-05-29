@@ -56,7 +56,7 @@ module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
 
 
   registrador_IR IR (
-                   .R    (BusWires[8:0]),     // entrada de dados (dado a ser escrito)
+                   .R    (DIN[8:0]),     // entrada de dados (dado a ser escrito)
                    .Rin  (IRin),              // habilita escrita no registrador
                    .Clock(Clock),             // sinal de clock
                    .Q    (IRout)              // saída Inutil
