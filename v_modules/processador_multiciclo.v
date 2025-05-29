@@ -32,6 +32,7 @@ module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
 
   // Para o mux
   wire [7:0]  Rout, Rin;      // campo de seleção para os registradores
+  wire [7:0]  IRout;          // Saida do registrador IR
   wire [15:0] R0out, R1out, R2out, R3out, R4out, R5out, R6out, R7out; // saída do registrador R0, R1, ..., R7
   wire [15:0] Gout_data;      // saída do registrador GOUT
   wire        IRin, Ain, Gin; // habilita escrita no IR, A e G
@@ -56,9 +57,9 @@ module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
 
   registrador_IR IR (
                    .R    (BusWires[8:0]),     // entrada de dados (dado a ser escrito)
-                   .Rin  (IRin),          // habilita escrita no registrador
-                   .Clock(Clock),         // sinal de clock
-                   .Q    (UnusedQ9)       // saída Inutil
+                   .Rin  (IRin),              // habilita escrita no registrador
+                   .Clock(Clock),             // sinal de clock
+                   .Q    (IRout)              // saída Inutil
                  );
 
   registrador R0 (

@@ -74,7 +74,7 @@ module unidade_controle (
                   .Y  (Wire_Rout ) // Sinal de habilitação do registrador (R0in, R1out, etc.)
                 );
 
-  always @(Tstep or Instrucao or Run) // or Resetn
+  always @(Tstep or Run) // or Resetn
     begin
       Clear   <= 0;
       Run_d   <= Run; // salva o valor anterior de Run
@@ -105,10 +105,10 @@ module unidade_controle (
                 begin
                   // mv Rx, Ry
                   // Logica do registrador fonte (in)
-                  $display("[%0t] uc.v linha 106 mv",$time);
+                  // $display("[%0t] uc.v linha 106 mv",$time);
                   Rin  <= Wire_Rin;  // Habilita o registrador Rx  000 ´1000_0000 (processador)
                   Rout <= Wire_Rout; // Habilita o registrador Ry  001 ´0100_0000 (mux)
-                  $display("[%0t] uc.v %b_%b Rout",$time, Rout[7:4], Rout[3:0]);
+                  // $display("[%0t] uc.v %b_%b Rout",$time, Rout[7:4], Rout[3:0]);
                   Done <= 1'b1;
                   Clear <= 1'b1; // limpa o contador de Tstep
                 end
@@ -116,11 +116,12 @@ module unidade_controle (
               3'b001:
                 begin
                   // mvi Rx,#D
-                  $display("[%0t] uc.v linha 119 mvi",$time);
+                  // $display("[%0t] uc.v linha 119 mvi",$time);
                   DINout    <= 1;
-                  $display("[%0t] uc.v fazendo a coisa",$time);
+                  // $display("[%0t] uc.v fazendo a coisa",$time);
                   Rin       <= Wire_Rin;
                   Done      <= 1;
+                  Clear <= 1'b1; // limpa o contador de Tstep
                 end
               /*3'b010:
                 begin
@@ -145,11 +146,11 @@ module unidade_controle (
       if (Run && !Run_d) // Borda de subida de Run
         begin
           Clear <= 1;
-          $display("[%0t] bora pic, Run = %b, Run_d = %b",$time, Run, Run_d);
+          // $display("[%0t] bora pic, Run = %b, Run_d = %b",$time, Run, Run_d);
         end
       else
         begin
-          $display("[%0t] bora bona, Run = %b, Run_d = %b",$time, Run, Run_d);
+          // $display("[%0t] bora bona, Run = %b, Run_d = %b",$time, Run, Run_d);
           Clear <= 0;
         end
     end
