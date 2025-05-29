@@ -19,6 +19,9 @@ module mux(Rout, Gout, DINout, R0out, R1out, R2out, R3out, R4out,
 
     
   input [7:0]  Rout;      // campo de seleção para os registradores
+  input Gout;                    // Habilita colocar dados do registrador G no barramento BusWires
+  // input Ulaout;                 // Habilita colocar dados da ULA no barramento BusWires
+  input DINout;                  // Habilita a saída do barramento DIN
   input [15:0] R0out;    // Dados do registrador R0 para colocar no barramento BusWires
   input [15:0] R1out;
   input [15:0] R2out;
@@ -27,8 +30,6 @@ module mux(Rout, Gout, DINout, R0out, R1out, R2out, R3out, R4out,
   input [15:0] R5out;
   input [15:0] R6out;
   input [15:0] R7out;
-  input Gout;                    // Habilita colocar dados do registrador G no barramento BusWires
-  input DINout;                  // Habilita a saída do barramento DIN
   input [15:0] Gout_data;        // Dados G para colocar no barramento BusWires DIN
   input [15:0] DINout_data;      // Dados de entrada do barramento BusWires DIN
 
@@ -99,5 +100,17 @@ module mux(Rout, Gout, DINout, R0out, R1out, R2out, R3out, R4out,
           // BusWires = 16'bxxxx_xxxx_xxxx_xxxx; 
         end
     end
+
+  /* always@(Ulaout)
+    begin
+      if (UlaOut == 1'b1) // Verifica se UlaOut está ativo
+        begin
+          BusWires = UlaOut_data;
+        end
+      else if (UlaOut == 1'b0) // Se UlaOut não está ativo
+        begin
+          // BusWires = 16'bzzzz_zzzz_zzzz_zzzz; // valor padrão
+        end
+    end */
 
 endmodule

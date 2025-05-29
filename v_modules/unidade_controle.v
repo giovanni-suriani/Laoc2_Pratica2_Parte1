@@ -11,7 +11,7 @@ module unidade_controle (
     Gin,     // carrega registrador G
     Gout,    // lê registrador G
     Resetn,  // recomecar da primeira instrucao
-    AddSub,  // escolhe subtração na ALU
+    Ulaop,  // escolhe subtração na ALU
     DINout,  // coloca DIN no barramento
     Done     // instrucao concluída
   );
@@ -40,7 +40,7 @@ module unidade_controle (
   output reg        Ain;     // carrega registrador A
   output reg        Gin;     // carrega registrador G
   output reg        Gout;    // lê registrador G
-  output reg        AddSub;  // escolhe subtração ou adicao na ALU
+  output reg [1:0]  Ulaop;  // escolhe subtração ou adicao na ALU
   output reg        DINout;  // coloca DIN no barramento
   output reg        Done;    // instrucao concluída
 
@@ -85,7 +85,7 @@ module unidade_controle (
       Ain     <= 0;
       Gin     <= 0;
       Gout    <= 0;
-      AddSub  <= 0;
+      Ulaop   <= 0;
       DINout  <= 0;
       Done    <= 0;
       // En      <= 1; // Habilita o decodificador
@@ -106,9 +106,9 @@ module unidade_controle (
                   // mv Rx, Ry
                   // Logica do registrador fonte (in)
                   // $display("[%0t] uc.v linha 106 mv",$time);
+                  // $display("[%0t] uc.v %b_%b Rout",$time, Rout[7:4], Rout[3:0]);
                   Rin   <= Wire_Rin;  // Habilita o registrador Rx  000 ´1000_0000 (processador)
                   Rout  <= Wire_Rout; // Habilita o registrador Ry  001 ´0100_0000 (mux)
-                  // $display("[%0t] uc.v %b_%b Rout",$time, Rout[7:4], Rout[3:0]);
                   Done  <= 1'b1;
                   Clear <= 1'b1; // limpa o contador de Tstep
                 end
@@ -129,7 +129,7 @@ module unidade_controle (
                   // Coloca Rout no registrador A
                   $display("[%0t] Te executei meu fio",$time);
                   Ain  <= 1'b1;
-                  Rout <=   Wire_Rout;
+                  Rout <=   Wire_Rin;
                 end
               /*3'b001:
                begin
@@ -148,8 +148,27 @@ module unidade_controle (
               begin
                 // SUB Rx,Ry
                 // Coloca Rin no bus
-                Rout <= Wire_Rin; // Habilita o registrador Ry
-                Gin  <= 1'b1;     // Habilita escrita no registrador G
+                Rout  <= Wire_Rout; // Habilita o registrador Ry
+                Ulaop <= 2'b1;    // Subtração na ULA
+                Gin   <= 1'b1;     // Habilita escrita no registrador G
+              end
+            endcase
+          end
+
+        2'b11:
+          begin
+            case (opcode)
+              3'b011:
+              begin
+                Rin <= Wire_Rin; // Habilita o registrador Rx
+                Gout <= 1'b1; // Lê o registrador G
+                Done <= 1'b1; // Indica que a instrução foi concluída
+                Clear <= 1'b1; // Limpa o contador de Tstep
+                
+                // SUB Rx,Ry
+                // Coloca Rin no bus
+                // Rout <= Wire_Rin; // Habilita o registrador Ry
+                // Gin  <= 1'b1;     // Habilita escrita no registrador G
               end
             endcase
           end

@@ -32,10 +32,12 @@ module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
 
   // Para o mux
   wire [7:0]  Rout, Rin;      // campo de seleção para os registradores
-  wire [7:0]  IRout;          // Saida do registrador IR
+  wire [8:0]  IRout;          // Saida do registrador IR
   wire [15:0] R0out, R1out, R2out, R3out, R4out, R5out, R6out, R7out; // saída do registrador R0, R1, ..., R7
-  wire [15:0] GRout;      // saída do registrador GOUT
-  wire [15:0] ARout;      // saída do registrador GOUT
+  wire [15:0] ARout;          // saída do registrador GOUT
+  wire [15:0] GRout;          // saída do registrador GOUT
+  wire [15:0] Ulaout;         // saída da ULA
+  wire [1:0]  Ulaop;           // operacao da Ula
   wire        IRin, Ain, Gin; // habilita escrita no IR, A e G
   wire        Gout;           // habilita leitura do registrador G
   wire        DINout;         // habilita a saída do barramento DIN
@@ -92,7 +94,7 @@ module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
               );
 
   registrador G (
-                .R    (BusWires),   // entrada de dados
+                .R    (Ulaout),   // entrada de dados
                 .Rin  (Gin),       // habilita escrita
                 .Clock(Clock),       // sinal de clock
                 .Q    (GRout)   // saída registrada
@@ -116,7 +118,7 @@ module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
                      .Ain       (Ain       ),
                      .Gin       (Gin       ),
                      .Gout      (Gout      ),
-                     .AddSub    (AddSub    ),
+                     .Ulaop     (Ulaop     ),
                      .DINout    (DINout    ),
                      .Done      (Done      )
                    );
@@ -132,13 +134,19 @@ module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
         .R6out       (R6out       ),
         .R7out       (R7out       ),
         .Gout        (Gout        ),  // Habilita colocar dados do registrador G no barramento BusWires
-        .Gout_data   (Gout_data   ),  // Dados G para colocar no barramento BusWires DIN
+        .Gout_data   (GRout   ),  // Dados G para colocar no barramento BusWires DIN
         .DINout      (DINout      ),  // Habilita a saída do barramento DIN
         .DINout_data (DIN),           // Dados DIN para colocar no barramento BusWires DIN
         .BusWires    (BusWires)
       );
 
-
+  ula u_ula(
+      .A        (ARout      ), // saída do registrador A
+      .BusWires (BusWires   ),
+      .Operacao (Ulaop      ),       // operação da ULA (soma ou subtração)
+      .Q        (Ulaout     ) // saída da ULA
+  );
+  
 
   /*
     

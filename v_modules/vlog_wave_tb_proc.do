@@ -6,7 +6,7 @@ vlib altera
 # vlog -work altera /home/gi/altera/13.0sp1/modelsim_ase/altera/verilog/src/altera_mf.v
 
 # Compila os arquivos Verilog necessários, *FALTA* memoram.v
-vlog +acc processador_multiciclo.v registrador.v registrador_IR.v mux.v unidade_controle.v contador_2bits.v memoram.v decode3_8bits.v tb_processador.v
+vlog +acc processador_multiciclo.v registrador.v registrador_IR.v mux.v unidade_controle.v contador_2bits.v memoram.v decode3_8bits.v ula.v tb_processador.v
 vsim -L altera work.tb_processador
 
 
@@ -39,6 +39,7 @@ add wave -label "Registrador IR" -radix binary tb_processador/uut/IR/Q
 #add wave -label "Wire_Rout" -radix binary tb_processador/uut/u_unidade_controle/Wire_Rout
 add wave -label "R0" -radix unsigned tb_processador/uut/R0/Q
 add wave -label "R1" -radix unsigned tb_processador/uut/R1/Q
+add wave -label "G" -radix unsigned tb_processador/uut/G/Q
 
 # Executa a simulacao
 run 600ps
