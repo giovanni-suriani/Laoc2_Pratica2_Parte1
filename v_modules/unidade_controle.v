@@ -33,6 +33,8 @@ module unidade_controle (
   // outputs
   output reg        Clear;   // limpa contador de Tstep
   output reg        IRin;    // carrega IR
+  // output wire [7:0]  Rin;     // habilita escrita em R0..R7
+  // output wire [7:0]  Rout;    // habilita leitura de R0..R7
   output reg [7:0]  Rin;     // habilita escrita em R0..R7
   output reg [7:0]  Rout;    // habilita leitura de R0..R7
   output reg        Ain;     // carrega registrador A
@@ -103,23 +105,24 @@ module unidade_controle (
                 begin
                   // mv Rx, Ry
                   // Logica do registrador fonte (in)
-                  $display("[%0t] unidade de controle linha 106 mv",$time);
-                  Rin  <= Wire_Rin;  // Habilita o registrador Rx (processador)
-                  // Rout <= Wire_Rout; // Habilita o registrador Ry (mux)
-                  Rout = Wire_Rout; // Habilita o registrador Ry (mux)
+                  $display("[%0t] uc.v linha 106 mv",$time);
+                  Rin  <= Wire_Rin;  // Habilita o registrador Rx  000 ´1000_0000 (processador)
+                  Rout <= Wire_Rout; // Habilita o registrador Ry  001 ´0100_0000 (mux)
                   $display("[%0t] uc.v %b_%b Rout",$time, Rout[7:4], Rout[3:0]);
-                  // Rout = 8'b1000_0000; // Habilita o registrador Ry (mux)
                   Done <= 1'b1;
+                  Clear <= 1'b1; // limpa o contador de Tstep
                 end
-              /*
+              
               3'b001:
                 begin
                   // mvi Rx,#D
-                  DINout     = 1;
-                  Rin [XXX] = 1;
-                  Done       = 1;
+                  $display("[%0t] uc.v linha 119 mvi",$time);
+                  DINout    <= 1;
+                  $display("[%0t] uc.v fazendo a coisa",$time);
+                  Rin       <= Wire_Rin;
+                  Done      <= 1;
                 end
-              3'b010:
+              /*3'b010:
                 begin
                   // add Rx,Ry
                   Rout[XXX] = 1;

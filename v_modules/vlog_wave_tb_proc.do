@@ -41,13 +41,12 @@ add wave -label "R0" -radix unsigned tb_processador/uut/R0/Q
 add wave -label "R1" -radix unsigned tb_processador/uut/R1/Q
 
 # Executa a simulacao
-run 1000ps
+run 300ps
 
 # Abre o waveform e ajusta exibição
 radix -unsigned
-
 view wave
-WaveRestoreZoom 0ps 400ps
+WaveRestoreZoom 0ps 200ps
 configure wave -timelineunits ps
 
 

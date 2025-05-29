@@ -37,8 +37,8 @@ module mux(Rout, Gout, DINout, R0out, R1out, R2out, R3out, R4out,
 
   always@(Rout)
     begin
-      $display("[%0t] mux.v - linha 40 vou mudar hein, Rout =  %0b",$time, Rout);
-      if (Rout ==  8'b1000_0000) 
+      $display("[%0t] mux.v - linha 40 vou mudar hein, Rout =  %8b",$time, Rout);
+      if (Rout ==  8'b0100_0000) 
         begin
           $display("[%0t] mux.v - Today is gona be the dayt",$time, Rout);
         end
@@ -49,7 +49,10 @@ module mux(Rout, Gout, DINout, R0out, R1out, R2out, R3out, R4out,
           $display("[%0t] fui de mudanca linha 45",$time);
         end
         8'b01000000:
+        begin
           BusWires = R1out;
+          $display("[%0t] fui de mudanca linha 54",$time);
+        end
         8'b00100000:
           BusWires = R2out;
         8'b00010000:
@@ -64,7 +67,7 @@ module mux(Rout, Gout, DINout, R0out, R1out, R2out, R3out, R4out,
           BusWires = R7out;
         default:
         begin
-          BusWires = 16'bxxxx_xxxx_xxxx_xxxx; // valor indefinido
+          // BusWires = 16'bxxxx_xxxx_xxxx_xxxx; // valor indefinido
           $display("[%0t] fui de default linha 63",$time);
         end
       endcase
@@ -78,7 +81,7 @@ module mux(Rout, Gout, DINout, R0out, R1out, R2out, R3out, R4out,
         end
       else if (Gout == 1'b0) // Se Gout não está ativo
         begin
-          BusWires = 16'bzzzz_zzzz_zzzz_zzzz; // valor padrão
+          // BusWires = 16'bzzzz_zzzz_zzzz_zzzz; // valor padrão
         end
     end
 
@@ -86,11 +89,14 @@ module mux(Rout, Gout, DINout, R0out, R1out, R2out, R3out, R4out,
     begin
       if (DINout== 1'b1)
         begin
+          $display("[%0t] mux.v linha 92",$time);
           BusWires = DINout_data;
         end
       else if (DINout == 1'b0)
         begin
-          BusWires = 16'bxxxx_xxxx_xxxx_xxxx; 
+          // $display("[%0t] To te lascando linha 96",$time);
+          
+          // BusWires = 16'bxxxx_xxxx_xxxx_xxxx; 
         end
     end
 

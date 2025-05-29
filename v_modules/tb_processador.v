@@ -25,6 +25,8 @@ module tb_processador;
 
   assign Instrucao = {Opcode, Rx, Ry}; // Instrução completa
   // Clock gerado a cada 50ps
+
+  integer counter_clock_cycle = 0;
   always #50 Clock = ~Clock;
 
   initial
@@ -38,22 +40,43 @@ module tb_processador;
       // -----------------------------
       // T0 - Instrução mv R0, R1 ,R0 <- R1
       // -----------------------------
-      Opcode = 3'b000; // mv
+      // teste_mv_R0_R1;
+      Opcode = 3'b001; // mvi R0 5
       Rx = 3'b000;     // R0
       Ry = 3'b001;     // R1
-      uut.R1.Q = 16'd10; // R1 = 1
-      uut.R0.Q = 16'd11; // R1 = 1
+      uut.R0.Q = 16'd11; // R0 = 11
+      uut.R1.Q = 16'd10; // R1 = 10
       DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
-      cabecalho_teste(1);
+      cabecalho_teste(2);
       #10Run = 1; // Agendado ja no inicio do ciclo
       $display("[%0t] instrucao = %3b_%3b_%3b = mv R0 R1 000_000_001", $time, Instrucao[8:6], Instrucao[5:3], Instrucao[2:0]);
       meio_teste_1_ciclo;
-      #600;
+      #500;
       // cabecalho_teste(1);
       // meio_teste;
       $stop;
     end
 
+  always @(posedge Clock)
+    begin
+      counter_clock_cycle = counter_clock_cycle + 1;
+      case (counter_clock_cycle)
+        1: $display("[%0t] Counter_CLock_Cycle ",$time);
+      endcase
+      
+    end
+
+
+  task teste_mv_R0_R1;
+    begin
+      Opcode = 3'b000; // mv
+      Rx = 3'b000;     // R0
+      Ry = 3'b001;     // R1
+      uut.R0.Q = 16'd11; // R0 = 11
+      uut.R1.Q = 16'd10; // R1 = 10
+      DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
+    end
+  endtask
 
   task cabecalho_teste(input integer numero_task);
     begin
