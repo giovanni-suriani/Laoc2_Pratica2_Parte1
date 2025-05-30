@@ -14,6 +14,8 @@ LEDG[1]    = Reset;
 
 // Saidas
 
+HEX4      = Registrador Ry
+HEX5      = Registrador Rx
 
 HEX3      = Opcode
 HEX2      = Rx
