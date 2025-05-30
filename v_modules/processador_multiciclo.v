@@ -163,6 +163,7 @@ module processador_multiciclo (DIN, Resetn,
                    .Clear     (Clear ),
                    .Clock     (Clock ),
                    .Run       (Run   ),
+                   .Resetn    (Resetn),
                    .Tstep     (Tstep)
                  );
 

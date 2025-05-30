@@ -53,7 +53,7 @@ module Pratica2_Parte1_top_level (
   );
   */
   Display D_Tstep(
-            .result(Tstep),
+            .result({2'b00,Tstep}),
             .HEX(HEX6)
           );
 

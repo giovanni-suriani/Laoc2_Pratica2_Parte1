@@ -14,5 +14,5 @@ module registrador(R, Rin, Clock, Resetn, Q);
     if (Rin && !Resetn) // se Rin for alto e Resetn for baixo, armazena R
       Q <= R;
     else if (Resetn)
-      Q <= 16'd1;
+      Q <= 16'd0;
 endmodule
