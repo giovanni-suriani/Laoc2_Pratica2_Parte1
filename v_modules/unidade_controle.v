@@ -146,7 +146,7 @@ module unidade_controle (
                 begin
                   // SUB Rx,Ry
                   // Coloca Rout no registrador A
-                  $display("[%0t] Te executei meu fio, desculpa polly",$time);
+                  // $display("[%0t] Te executei meu fio, desculpa polly",$time);
                   Ain  <= 1'b1;
                   Rout <=   Wire_Rin;
                 end

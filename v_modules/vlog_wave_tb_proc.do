@@ -37,10 +37,17 @@ add wave -label "Registrador IR" -radix binary tb_processador/uut/IR/Q
 #add wave -label "u_unidade_controle Rout" -radix binary tb_processador/uut/u_unidade_controle/Rout
 #add wave -label "Wire_Rin" -radix binary tb_processador/uut/u_unidade_controle/Wire_Rin
 #add wave -label "Wire_Rout" -radix binary tb_processador/uut/u_unidade_controle/Wire_Rout
-add wave -label "Rx_data" -radix unsigned tb_processador/uut/Rx_data
-add wave -label "Ry_data" -radix unsigned tb_processador/uut/Ry_data
+#add wave -label "Rx_data" -radix unsigned tb_processador/uut/Rx_data
+#add wave -label "Ry_data" -radix unsigned tb_processador/uut/Ry_data
 add wave -label "R0" -radix unsigned tb_processador/uut/R0/Q
 add wave -label "R1" -radix unsigned tb_processador/uut/R1/Q
+add wave -label "R2" -radix unsigned tb_processador/uut/R2/Q
+add wave -label "R3" -radix unsigned tb_processador/uut/R3/Q
+add wave -label "R4" -radix unsigned tb_processador/uut/R4/Q
+add wave -label "R5" -radix unsigned tb_processador/uut/R5/Q
+add wave -label "R6" -radix unsigned tb_processador/uut/R6/Q
+add wave -label "R7" -radix unsigned tb_processador/uut/R7/Q
+add wave -label "A" -radix unsigned tb_processador/uut/A/Q
 add wave -label "G" -radix unsigned tb_processador/uut/G/Q
 
 # Executa a simulacao
