@@ -1,5 +1,5 @@
 module processador_multiciclo (DIN, Resetn,
-                                 Clock, Run, Done, BusWires, Rx_data, Ry_data);
+                                 Clock, Run, Done, BusWires, Rx_data, Ry_data, Tstep);
 
   /*
     
@@ -29,7 +29,7 @@ module processador_multiciclo (DIN, Resetn,
 
   // Variaveis para controle
   wire [8:0] Instrucao;
-  wire [1:0] Tstep; // 00=T0,01=T1,10=T2,11=T3
+  output wire [1:0] Tstep; // 00=T0,01=T1,10=T2,11=T3
 
   // Para o mux
   wire [7:0]  Rout, Rin;      // campo de seleo para os registradores

@@ -34,11 +34,11 @@ module tb_processador;
 
 
 
-  integer mostra_teste1 = 0;
-  integer mostra_teste2 = 0;
-  integer mostra_teste3 = 0;
-  integer mostra_teste4 = 0;
-  integer mostra_teste5 = 0;
+  integer mostra_teste1 = 1;
+  integer mostra_teste2 = 1;
+  integer mostra_teste3 = 1;
+  integer mostra_teste4 = 1;
+  integer mostra_teste5 = 1;
   initial
     begin
       // Inicialização
