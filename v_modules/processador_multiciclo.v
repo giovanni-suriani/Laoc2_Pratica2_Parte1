@@ -1,17 +1,19 @@
-module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
+module processador_multiciclo (DIN, Resetn,
+ Clock, Run, Done, BusWires, R0out, R1out, 
+ R2out, R3out, R4out, R5out, R6out, R7out;);
 
   /*
     
   Um processador multiciclo simples, com 8 registradores de 16 bits (R0 a R7), um registrador de 16 bits A, 
-  um registrador de 16 bits G e uma ALU de soma/subtração.
+  um registrador de 16 bits G e uma ALU de soma/subtraÃ§Ã£o.
    
   Possui:
-      -Um contador (Tstep) controla os ciclos de execução (T1, T2, T3).
-      -Um registrador de instrução (IR) guarda a instrução atual.
-      -Sinais de controle são gerados dependendo da etapa (Tstep_Q) e do opcode (I).
-      -Registradores (R0 a R7, A, G) e a ALU (soma/subtração) são instanciados.
+      -Um contador (Tstep) controla os ciclos de execuÃ§Ã£o (T1, T2, T3).
+      -Um registrador de instruÃ§Ã£o (IR) guarda a instruÃ§Ã£o atual.
+      -Sinais de controle sÃ£o gerados dependendo da etapa (Tstep_Q) e do opcode (I).
+      -Registradores (R0 a R7, A, G) e a ALU (soma/subtraÃ§Ã£o) sÃ£o instanciados.
       -Um multiplexador define o valor presente no BusWires a cada momento.
-      -Um case aninhado é usado para acionar os sinais corretos de controle a cada T1/T2/T3.
+      -Um case aninhado Ã© usado para acionar os sinais corretos de controle a cada T1/T2/T3.
   */
 
   /*
@@ -31,16 +33,16 @@ module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
   wire [1:0] Tstep; // 00=T0,01=T1,10=T2,11=T3
 
   // Para o mux
-  wire [7:0]  Rout, Rin;      // campo de seleção para os registradores
+  wire [7:0]  Rout, Rin;      // campo de seleÃ§Ã£o para os registradores
   wire [8:0]  IRout;          // Saida do registrador IR
-  wire [15:0] R0out, R1out, R2out, R3out, R4out, R5out, R6out, R7out; // saída do registrador R0, R1, ..., R7
-  wire [15:0] ARout;          // saída do registrador GOUT
-  wire [15:0] GRout;          // saída do registrador GOUT
-  wire [15:0] Ulaout;         // saída da ULA
+  output wire [15:0] R0out, R1out, R2out, R3out, R4out, R5out, R6out, R7out; // saÃ­da do registrador R0, R1, ..., R7
+  wire [15:0] ARout;          // saÃ­da do registrador GOUT
+  wire [15:0] GRout;          // saÃ­da do registrador GOUT
+  wire [15:0] Ulaout;         // saÃ­da da ULA
   wire [1:0]  Ulaop;           // operacao da Ula
   wire        IRin, Ain, Gin; // habilita escrita no IR, A e G
   wire        Gout;           // habilita leitura do registrador G
-  wire        DINout;         // habilita a saída do barramento DIN
+  wire        DINout;         // habilita a saÃ­da do barramento DIN
   wire [15:0] BusWires_data;  // dados do barramento BusWires
 
   assign Instrucao = IRout;
@@ -62,42 +64,42 @@ module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
                    .R    (DIN[8:0]),          // entrada de dados (dado a ser escrito)
                    .Rin  (IRin),              // habilita escrita no registrador
                    .Clock(Clock),             // sinal de clock
-                   .Q    (IRout)              // saída Inutil
+                   .Q    (IRout)              // saÃ­da Inutil
                  );
 
   registrador R0 (
                 .R    (BusWires),   // entrada de dados
                 .Rin  (Rin[7]),    // habilita escrita
                 .Clock(Clock),       // sinal de clock
-                .Q    (R0out)   // saída registrada
+                .Q    (R0out)   // saÃ­da registrada
               );
 
   registrador R1 (
                 .R    (BusWires),   // entrada de dados
                 .Rin  (Rin[6]),    // habilita escrita
                 .Clock(Clock),       // sinal de clock
-                .Q    (R1out)   // saída registrada
+                .Q    (R1out)   // saÃ­da registrada
               );
 
   registrador R2 (
                 .R    (BusWires),   // entrada de dados
                 .Rin  (Rin[5]),    // habilita escrita
                 .Clock(Clock),       // sinal de clock
-                .Q    (R2out)   // saída registrada
+                .Q    (R2out)   // saÃ­da registrada
               );
 
   registrador A (
                 .R    (BusWires),   // entrada de dados
                 .Rin  (Ain),        // habilita escrita
                 .Clock(Clock),      // sinal de clock
-                .Q    (ARout)        // saída registrada
+                .Q    (ARout)        // saÃ­da registrada
               );
 
   registrador G (
                 .R    (Ulaout),   // entrada de dados
                 .Rin  (Gin),       // habilita escrita
                 .Clock(Clock),       // sinal de clock
-                .Q    (GRout)   // saída registrada
+                .Q    (GRout)   // saÃ­da registrada
               );
 
   contador_2bits u_contador_2bits(
@@ -136,18 +138,19 @@ module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
         .R7out       (R7out       ),
         .Gout        (Gout        ),  // Habilita colocar dados do registrador G no barramento BusWires
         .Gout_data   (GRout   ),  // Dados G para colocar no barramento BusWires DIN
-        .DINout      (DINout      ),  // Habilita a saída do barramento DIN
+        .DINout      (DINout      ),  // Habilita a saÃ­da do barramento DIN
         .DINout_data (DIN),           // Dados DIN para colocar no barramento BusWires DIN
         .BusWires    (BusWires)
       );
 
   ula u_ula(
-      .A        (ARout      ), // saída do registrador A
+      .A        (ARout      ), // saÃ­da do registrador A
       .BusWires (BusWires   ),
-      .Operacao (Ulaop      ),       // operação da ULA (soma ou subtração)
-      .Q        (Ulaout     ) // saída da ULA
+      .Operacao (Ulaop      ),       // operaÃ§Ã£o da ULA (soma ou subtraÃ§Ã£o)
+      .Q        (Ulaout     ) // saÃ­da da ULA
   );
   
+ 
 
   /*
     
@@ -155,35 +158,35 @@ module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
                   .R    (BusWires),   // entrada de dados
                   .Rin  (Rin[4]),    // habilita escrita
                   .Clock(clk),       // sinal de clock
-                  .Q    (R3out)   // saída registrada
+                  .Q    (R3out)   // saÃ­da registrada
                 );
    
     registrador R4 (
                   .R    (BusWires),   // entrada de dados
                   .Rin  (Rin[3]),    // habilita escrita
                   .Clock(clk),       // sinal de clock
-                  .Q    (R4out)   // saída registrada
+                  .Q    (R4out)   // saÃ­da registrada
                 );
    
     registrador R5 (
                   .R    (BusWires),   // entrada de dados
                   .Rin  (Rin[2]),    // habilita escrita
                   .Clock(clk),       // sinal de clock
-                  .Q    (R5out)   // saída registrada
+                  .Q    (R5out)   // saÃ­da registrada
                 );
    
     registrador R6 (
                   .R    (BusWires),   // entrada de dados
                   .Rin  (Rin[1]),    // habilita escrita
                   .Clock(clk),       // sinal de clock
-                  .Q    (R6out)   // saída registrada
+                  .Q    (R6out)   // saÃ­da registrada
                 );
    
     registrador R7 (
                   .R    (BusWires),   // entrada de dados
                   .Rin  (Rin[0]),    // habilita escrita
                   .Clock(clk),       // sinal de clock
-                  .Q    (R7_out)   // saída registrada
+                  .Q    (R7_out)   // saÃ­da registrada
                 );
    
     Nao funcional ainda
@@ -191,7 +194,7 @@ module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
                     .R    (BusWires),   // entrada de dados
                     .Rin  (Ain),       // habilita escrita
                     .Clock(clk),       // sinal de clock
-                    .Q    (data_out)   // saída registrada
+                    .Q    (data_out)   // saÃ­da registrada
                   ); 
            
    
@@ -199,7 +202,7 @@ module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
                   .R    (BusWires),   // entrada de dados
                   .Rin  (Gin),       // habilita escrita
                   .Clock(clk),       // sinal de clock
-                  .Q    (Gout)   // saída registrada
+                  .Q    (Gout)   // saÃ­da registrada
                 );
    
     contador_2bits u_contador_2bits(

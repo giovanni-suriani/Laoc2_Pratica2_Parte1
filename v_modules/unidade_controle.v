@@ -49,7 +49,7 @@ module unidade_controle (
   // Variaveis
   reg Run_d = 0;                   // armazena o valor anterior de Run
   reg En;                     // habilita o decodificador
-  reg [2:0] opcode;           // opcode III
+  wire [2:0] opcode;           // opcode III
   wire [5:3] Rx;              // campo destino
   wire [8:6] Ry;              // campo fonte
   wire [7:0] Wire_Rin;        // campo de seleção para os registradores
@@ -79,7 +79,16 @@ module unidade_controle (
   always @(Tstep or Run) // or Resetn
     begin
       /* Todos os sinais mudados aqui, devem ser alterados com <=, pq se nao fica com 0 pq eh non blocking*/
-      Clear   <= 0;
+      if (Run && !Run_d) // Borda de subida de Run
+        begin
+          Clear <= 1;
+          // $display("[%0t] bora pic, Run = %b, Run_d = %b",$time, Run, Run_d);
+        end
+      else
+        begin
+          // $display("[%0t] bora bona, Run = %b, Run_d = %b",$time, Run, Run_d);
+          Clear <= 0;
+        end
       Run_d   <= Run; // salva o valor anterior de Run
       IRin    <= 0;
       Rin     <= 8'b0;
@@ -200,19 +209,6 @@ module unidade_controle (
       endcase
     end
 
-  always@(Run)
-    begin
-      if (Run && !Run_d) // Borda de subida de Run
-        begin
-          Clear <= 1;
-          // $display("[%0t] bora pic, Run = %b, Run_d = %b",$time, Run, Run_d);
-        end
-      else
-        begin
-          // $display("[%0t] bora bona, Run = %b, Run_d = %b",$time, Run, Run_d);
-          Clear <= 0;
-        end
-    end
 
   // simples mapeamento dos campos XXX, YYY
   // supondo que você os extraia previamente em sinais separados
