@@ -22,7 +22,8 @@ module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
   input [15:0] DIN; // deve ser 000 000 001 para comecar
   input Resetn, Clock, Run;
   output Done;
-  output reg [15:0] BusWires;
+  output wire [15:0] BusWires;
+  // output reg [15:0] BusWires;
 
 
   // Variaveis para controle
@@ -54,7 +55,7 @@ module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
 
 
   registrador_IR IR (
-                   .R    (Instrucao),     // entrada de dados (dado a ser escrito)
+                   .R    (BusWires[8:0]),     // entrada de dados (dado a ser escrito)
                    .Rin  (IRin),          // habilita escrita no registrador
                    .Clock(Clock),         // sinal de clock
                    .Q    (UnusedQ9)       // saída Inutil
@@ -154,7 +155,7 @@ module processador_multiciclo (DIN, Resetn, Clock, Run, Done, BusWires);
         .Gout_data   (Gout_data   ),  // Dados G para colocar no barramento BusWires DIN
         .DINout      (DINout      ),  // Habilita a saída do barramento DIN
         .DINout_data (DIN),           // Dados DIN para colocar no barramento BusWires DIN
-        .BusWires    (BusWires_data)  
+        .BusWires    (BusWires)  
       );
 
 

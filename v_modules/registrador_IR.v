@@ -10,7 +10,12 @@ module registrador_IR(R, Rin, Clock, Q);
   output reg [8:0] Q; // valor armazenado
 
   // reg [8:0] Q;
-  always @(posedge Clock)
+  always @(negedge Clock)begin
     if (Rin)
-      Q <= R;
+      begin
+        // $display("[%0t] quero ve-la sorrir, Rin = %0d, R = %0d",$time, Rin, R);
+        Q <= R; // armazena o valor de R no registrador Q
+      end
+  end
+  
 endmodule

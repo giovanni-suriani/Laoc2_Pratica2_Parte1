@@ -25,6 +25,8 @@ module tb_processador;
 
   assign Instrucao = {Opcode, Rx, Ry}; // Instrução completa
   // Clock gerado a cada 50ps
+
+  integer counter_clock_cycle = 0;
   always #50 Clock = ~Clock;
 
   initial
@@ -38,20 +40,43 @@ module tb_processador;
       // -----------------------------
       // T0 - Instrução mv R0, R1 ,R0 <- R1
       // -----------------------------
-      Opcode = 3'b000; // mv
+      // teste_mv_R0_R1;
+      Opcode = 3'b001; // mvi R0 5
       Rx = 3'b000;     // R0
       Ry = 3'b001;     // R1
-      #100 DIN = {6'b000_000, Opcode, Ry, Rx}; // Formando a instrução: 000 001 000
-      cabecalho_teste(1);
+      uut.R0.Q = 16'd11; // R0 = 11
+      uut.R1.Q = 16'd10; // R1 = 10
+      DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
+      cabecalho_teste(2);
+      #10Run = 1; // Agendado ja no inicio do ciclo
       $display("[%0t] instrucao = %3b_%3b_%3b = mv R0 R1 000_000_001", $time, Instrucao[8:6], Instrucao[5:3], Instrucao[2:0]);
-      meio_teste;
-      Run = 1;
-      #100 Run = 0;
+      meio_teste_1_ciclo;
+      #500;
       // cabecalho_teste(1);
       // meio_teste;
       $stop;
     end
 
+  always @(posedge Clock)
+    begin
+      counter_clock_cycle = counter_clock_cycle + 1;
+      case (counter_clock_cycle)
+        1: $display("[%0t] Counter_CLock_Cycle ",$time);
+      endcase
+      
+    end
+
+
+  task teste_mv_R0_R1;
+    begin
+      Opcode = 3'b000; // mv
+      Rx = 3'b000;     // R0
+      Ry = 3'b001;     // R1
+      uut.R0.Q = 16'd11; // R0 = 11
+      uut.R1.Q = 16'd10; // R1 = 10
+      DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
+    end
+  endtask
 
   task cabecalho_teste(input integer numero_task);
     begin
@@ -61,7 +86,7 @@ module tb_processador;
     end
   endtask
 
-  integer disp_sinais = 0;
+  integer disp_sinais = 1;
   task meio_teste_1_ciclo;
     begin
       if (disp_sinais)
@@ -72,3 +97,14 @@ module tb_processador;
   endtask
 
 endmodule
+
+/* 
+1 Ciclo em verilog
+1. Avaliacao de condicoes, always, if,  e sinais agendados ( PROIBIDO USAR, ex: #2, se nao nao funciona FPGA)...
+2. Blocking e Non Blocking, (SO use BLOCKING em logica dentro dos blocos),
+3. Atribuicao dos Non Blocking Variaveis externas, sempre usar Non Blocking
+
+clear;vsim -c -do vlog_terminal_tb_proc.do
+killmodelsim;vsim -do vlog_wave_tb_proc.do 
+alias killmodelsim='ps aux | grep '\''intelFPGA/20.1/'\'' | grep -v grep | awk '\''{print $2}'\'' | xargs kill -9'
+*/
