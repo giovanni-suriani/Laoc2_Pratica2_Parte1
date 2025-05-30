@@ -22,4 +22,4 @@ HEX2      = Rx
 HEX1      = Ry
 HEX0      = imediato;
 
-Hex 17    = Clock
+Hex 7    = Clock

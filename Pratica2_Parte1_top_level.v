@@ -24,13 +24,13 @@ module Pratica2_Parte1_top_level (
   assign LEDG[2]    = Done;   // LEDG0 indica se a instrução foi concluída
   assign LEDG[1]    = Reset;  // LEDG0 indica se a instrução foi concluída
   assign Reset      = SW[16]; // Reset ativo em nível baixo
-  assign Clock      = SW[15]; // Reset ativo em nível baixo
-  //assign Clock      = !KEY[3];
+  // assign Clock      = SW[15]; // Reset ativo em nível baixo
+  assign Clock      = !KEY[3];
   assign LEDG[7]    = Clock;
   // Instancia o processador
 
   processador_multiciclo proc (
-                           .DIN({1'b0, SW[14:0]}),       // Dados de entrada
+                           .DIN({SW[15:0]}),       // Dados de entrada
                            .Resetn(Reset),      // Reset ativo em nível baixo
                            .Clock(Clock),       // Clock manual via botão
                            .Run(Run),         // Sinal de início via chave
