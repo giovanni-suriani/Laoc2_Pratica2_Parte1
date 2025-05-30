@@ -56,8 +56,12 @@ module processador_multiciclo (DIN, Resetn,
   output [15:0] Rx_data; // Dados do registrador Rx
   output [15:0] Ry_data; // Dados do registrador Ry
   reg [15:0] Rx_data_reg, Ry_data_reg;
+  reg [15:0] LazyBusWires;
+  reg [7:0] LazyRin;
   assign Rx_data = Rx_data_reg;
   assign Ry_data = Ry_data_reg;
+  // assign BusWires = LazyBusWires;
+  // assign Rin = LazyRin;
 
 
   // wire [8:0] useless_IR_out =
@@ -79,6 +83,7 @@ module processador_multiciclo (DIN, Resetn,
                 .R    (BusWires),   // entrada de dados
                 .Rin  (Rin[7]),    // habilita escrita
                 .Clock(Clock),       // sinal de clock
+                .Resetn(Resetn),     // sinal de reset
                 .Q    (R0out)   // saida registrada
               );
 
@@ -86,6 +91,7 @@ module processador_multiciclo (DIN, Resetn,
                 .R    (BusWires),   // entrada de dados
                 .Rin  (Rin[6]),    // habilita escrita
                 .Clock(Clock),       // sinal de clock
+                .Resetn(Resetn),     // sinal de reset
                 .Q    (R1out)   // saida registrada
               );
 
@@ -93,13 +99,55 @@ module processador_multiciclo (DIN, Resetn,
                 .R    (BusWires),   // entrada de dados
                 .Rin  (Rin[5]),    // habilita escrita
                 .Clock(Clock),       // sinal de clock
+                .Resetn(Resetn),     // sinal de reset
                 .Q    (R2out)   // saida registrada
+              );
+
+  registrador R3 (
+                .R    (BusWires),   // entrada de dados
+                .Rin  (Rin[4]),    // habilita escrita
+                .Clock(Clock),       // sinal de clock
+                .Resetn(Resetn),     // sinal de reset
+                .Q    (R3out)   // saida registrada
+              );
+
+  registrador R4 (
+                .R    (BusWires),   // entrada de dados
+                .Rin  (Rin[3]),    // habilita escrita
+                .Clock(Clock),       // sinal de clock
+                .Resetn(Resetn),     // sinal de reset
+                .Q    (R4out)   // saida registrada
+              );
+
+  registrador R5 (
+                .R    (BusWires),   // entrada de dados
+                .Rin  (Rin[2]),    // habilita escrita
+                .Clock(Clock),       // sinal de clock
+                .Resetn(Resetn),     // sinal de reset
+                .Q    (R5out)   // saida registrada
+              );
+
+  registrador R6 (
+                .R    (BusWires),   // entrada de dados
+                .Rin  (Rin[1]),    // habilita escrita
+                .Clock(Clock),       // sinal de clock
+                .Resetn(Resetn),     // sinal de reset
+                .Q    (R6out)   // saida registrada
+              );
+
+  registrador R7 (
+                .R    (BusWires),   // entrada de dados
+                .Rin  (Rin[0]),    // habilita escrita
+                .Clock(Clock),       // sinal de clock
+                .Resetn(Resetn),     // sinal de reset
+                .Q    (R7out)   // saida registrada
               );
 
   registrador A (
                 .R    (BusWires),   // entrada de dados
                 .Rin  (Ain),        // habilita escrita
                 .Clock(Clock),      // sinal de clock
+                .Resetn(Resetn),     // sinal de reset
                 .Q    (ARout)        // saida registrada
               );
 
@@ -107,6 +155,7 @@ module processador_multiciclo (DIN, Resetn,
                 .R    (Ulaout),   // entrada de dados
                 .Rin  (Gin),       // habilita escrita
                 .Clock(Clock),       // sinal de clock
+                .Resetn(Resetn),     // sinal de reset
                 .Q    (GRout)   // saida registrada
               );
 
@@ -161,7 +210,7 @@ module processador_multiciclo (DIN, Resetn,
   assign Rx_data = Rx_data_reg;
   assign Ry_data = Ry_data_reg;
 
-  always @(*)
+  always @(Clock)
     begin
       case (Rx)
         3'b000:
@@ -200,103 +249,11 @@ module processador_multiciclo (DIN, Resetn,
         3'b111:
           Ry_data_reg = R7out;
       endcase
+
     end
 
 
 
-  /*
-    
-    registrador R3 (
-                  .R    (BusWires),   // entrada de dados
-                  .Rin  (Rin[4]),    // habilita escrita
-                  .Clock(clk),       // sinal de clock
-                  .Q    (R3out)   // saida registrada
-                );
-   
-    registrador R4 (
-                  .R    (BusWires),   // entrada de dados
-                  .Rin  (Rin[3]),    // habilita escrita
-                  .Clock(clk),       // sinal de clock
-                  .Q    (R4out)   // saida registrada
-                );
-   
-    registrador R5 (
-                  .R    (BusWires),   // entrada de dados
-                  .Rin  (Rin[2]),    // habilita escrita
-                  .Clock(clk),       // sinal de clock
-                  .Q    (R5out)   // saida registrada
-                );
-   
-    registrador R6 (
-                  .R    (BusWires),   // entrada de dados
-                  .Rin  (Rin[1]),    // habilita escrita
-                  .Clock(clk),       // sinal de clock
-                  .Q    (R6out)   // saida registrada
-                );
-   
-    registrador R7 (
-                  .R    (BusWires),   // entrada de dados
-                  .Rin  (Rin[0]),    // habilita escrita
-                  .Clock(clk),       // sinal de clock
-                  .Q    (R7_out)   // saida registrada
-                );
-   
-    Nao funcional ainda
-    registrador A (
-                    .R    (BusWires),   // entrada de dados
-                    .Rin  (Ain),       // habilita escrita
-                    .Clock(clk),       // sinal de clock
-                    .Q    (data_out)   // saida registrada
-                  ); 
-           
-   
-    registrador G (
-                  .R    (BusWires),   // entrada de dados
-                  .Rin  (Gin),       // habilita escrita
-                  .Clock(clk),       // sinal de clock
-                  .Q    (Gout)   // saida registrada
-                );
-   
-    contador_2bits u_contador_2bits(
-                     .Clear     (Clear ),
-                     .Clock     (Clock ),
-                     .Tstep     (Tstep)
-                   );
-   
-    control_unit u_control_unit(
-                   .Instrucao (Instrucao ),
-                   .Tstep     (Tstep     ),
-                   .Run       (Run       ),
-                   .Resetn    (Resetn    ),
-                   .Clear     (Clear     ),
-                   .IRin      (IRin      ),
-                   .Rin       (Rin       ),
-                   .Rout      (Rout      ),
-                   .Ain       (Ain       ),
-                   .Gin       (Gin       ),
-                   .Gout      (Gout      ),
-                   .AddSub    (AddSub    ),
-                   .DINout    (DINout    ),
-                   .Done      (Done      )
-                 );
-   
-    mux u_mux(
-          .Rout        (Rout        ),
-          .R0out       (R0out       ),
-          .R1out       (R1out       ),
-          .R2out       (R2out       ),
-          .R3out       (R3out       ),
-          .R4out       (R4out       ),
-          .R5out       (R5out       ),
-          .R6out       (R6out       ),
-          .R7out       (R7out       ),
-          .Gout        (Gout        ),
-          .Gout_data   (Gout_data   ),
-          .DINout      (DINout      ),
-          .DINout_data (DINout_data ),
-          .BusWires    (BusWires    )
-        );
-  */
 
   /*
   killmodelsim;

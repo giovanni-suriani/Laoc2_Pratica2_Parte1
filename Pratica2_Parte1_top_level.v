@@ -6,8 +6,10 @@ module Pratica2_Parte1_top_level (
     output [17:0] LEDR    // LEDR15–0 = BusWires, LEDR17 = Done
   );
   wire Clock;
+  wire Reset;
   wire [15:0] BusWires;
   wire Done;
+  wire Run;
 
 
   // Componentes Do processador
@@ -17,19 +19,25 @@ module Pratica2_Parte1_top_level (
 
   // Mapeia as saídas para os LEDs
   assign LEDR[15:0] = BusWires;
-  assign LEDR[17]   = 0;
+  assign LEDR[17]   = Run;
+  assign Run        = SW[17]; // SW17 indica o início da execução
+  assign LEDG[0]    = Done; // LEDG0 indica se a instrução foi concluída
+  assign LEDG[1]    = Reset; // LEDG0 indica se a instrução foi concluída
+  assign Reset      = SW[16]; // Reset ativo em nível baixo
   assign Clock      = !KEY[3];
   assign LEDG[7]    = Clock;
   // Instancia o processador
 
-  /*processador_multiciclo proc (
+  processador_multiciclo proc (
         .DIN(SW[15:0]),       // Dados de entrada
-        .Resetn(KEY[0]),      // Reset ativo em nível baixo
+        .Resetn(Reset),      // Reset ativo em nível baixo
         .Clock(Clock),       // Clock manual via botão
-        .Run(SW[17]),         // Sinal de início via chave
+        .Run(Run),         // Sinal de início via chave
+        .Rx_data(Rx_data),     // Dados do registrador Rx
+        .Ry_data(Ry_data),     // Dados do registrador Ry
         .Done(Done),          // Indica fim da instrução
         .BusWires(BusWires)   // Saída no barramento
-  );*/
+  );
   /*
   Display D0(
   	 .result(Rx_data), // Sinal mem_write
@@ -42,6 +50,11 @@ module Pratica2_Parte1_top_level (
   );
   */
 
+  Display D_Ry_data(
+            .result(Ry_data[3:0]),
+            .HEX(HEX1)
+          );
+
   Display D_Rx_data(
             .result(Rx_data[3:0]),
             .HEX(HEX2)
@@ -53,7 +66,7 @@ module Pratica2_Parte1_top_level (
           );
 
   Display D_Clock(
-            .result({3'b001,Clock}),
+            .result({3'b000,Clock}),
             .HEX(HEX7)
           );
 

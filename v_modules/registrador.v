@@ -1,16 +1,18 @@
-module registrador(R, Rin, Clock, Q);
+module registrador(R, Rin, Clock, Resetn, Q);
   // Modulo que representa um registrador de 16 bits que quando habilitado
   // armazena o valor Rin na entrada R. O valor armazenado é lido na
 
   // inputs
   input [15:0] R;
-  input Rin, Clock;
+  input Rin, Clock, Resetn;
 
   // outputs
   output [15:0] Q; // valor armazenado
 
   reg [15:0] Q;
   always @(negedge Clock)
-    if (Rin)
+    if (Rin && !Resetn) // se Rin for alto e Resetn for baixo, armazena R
       Q <= R;
+    else if (Resetn)
+      Q <= 16'd1;
 endmodule

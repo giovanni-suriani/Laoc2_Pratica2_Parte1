@@ -10,14 +10,15 @@ module tb_processador;
   reg Clock, Resetn, Run;
   wire Done;
   wire [15:0] BusWires;
-  wire [5:3] Rx_wire;              // campo desti
-  wire [8:6] Ry_wire;              // campo fonte
+  wire [15:0] Rx_data, Ry_data; // Dados dos registradores Rx e Ry
 
   // Instancia o processador
   processador_multiciclo uut (
                            .DIN(DIN),
                            .Resetn(Resetn),
                            .Clock(Clock),
+                           .Rx_data(Rx_data),
+                           .Ry_data(Ry_data),
                            .Run(Run),
                            .Done(Done),
                            .BusWires(BusWires)
@@ -36,15 +37,32 @@ module tb_processador;
   integer mostra_teste1 = 0;
   integer mostra_teste2 = 0;
   integer mostra_teste3 = 0;
-  integer mostra_teste4 = 1;
-  integer mostra_teste5 = 1;
+  integer mostra_teste4 = 0;
+  integer mostra_teste5 = 0;
   initial
     begin
       // Inicialização
       Clock = 0;
-      Resetn = 0;
-      Run = 1;
+      Resetn = 1;
+      Run = 0;
       DIN = 16'b0;
+
+      @(posedge Clock);
+      // Reset do processador
+      Run = 1;
+      Resetn = 0;
+      #1;
+
+      @(posedge Clock);
+      #1;
+
+      @(posedge Clock);
+      #1;
+
+      @(posedge Clock);
+      #1;
+
+
 
       // -----------------------------
       // T1 - Instrução mv R0, R1 ,R0 <- R1

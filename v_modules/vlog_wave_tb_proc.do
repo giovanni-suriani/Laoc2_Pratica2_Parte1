@@ -14,7 +14,7 @@ vsim -L altera work.tb_processador
 
 # Sinais do ambiente de simulação
 add wave -label "clock" tb_processador/Clock
-add wave -label "Opcode" -radix binary tb_processador/Opcode
+#add wave -label "Opcode" -radix binary tb_processador/Opcode
 
 
 # Sinais do uut (unit under test)
@@ -37,6 +37,8 @@ add wave -label "Registrador IR" -radix binary tb_processador/uut/IR/Q
 #add wave -label "u_unidade_controle Rout" -radix binary tb_processador/uut/u_unidade_controle/Rout
 #add wave -label "Wire_Rin" -radix binary tb_processador/uut/u_unidade_controle/Wire_Rin
 #add wave -label "Wire_Rout" -radix binary tb_processador/uut/u_unidade_controle/Wire_Rout
+add wave -label "Rx_data" -radix unsigned tb_processador/uut/Rx_data
+add wave -label "Ry_data" -radix unsigned tb_processador/uut/Ry_data
 add wave -label "R0" -radix unsigned tb_processador/uut/R0/Q
 add wave -label "R1" -radix unsigned tb_processador/uut/R1/Q
 add wave -label "G" -radix unsigned tb_processador/uut/G/Q
