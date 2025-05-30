@@ -1,4 +1,4 @@
-module contador_2bits(Clear, Clock, Tstep);
+module contador_2bits(Clear, Clock, Tstep, Run);
 
   /*
   Usado pela unidade de controle para saber em que etapa da instrução está.
@@ -8,11 +8,11 @@ module contador_2bits(Clear, Clock, Tstep);
   Caso contrário, incrementa em cada borda de subida do clock.
   */
 
-  input Clear, Clock;
+  input Clear, Clock, Run;
   output reg [1:0] Tstep;
   always @(posedge Clock)
     if (Clear)
       Tstep <= 2'b0;
-    else
+    else if(Run)
       Tstep <= Tstep + 1'b1;
 endmodule

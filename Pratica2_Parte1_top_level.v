@@ -21,23 +21,24 @@ module Pratica2_Parte1_top_level (
   assign LEDR[15:0] = BusWires;
   assign LEDR[17]   = Run;
   assign Run        = SW[17]; // SW17 indica o início da execução
-  assign LEDG[0]    = Done; // LEDG0 indica se a instrução foi concluída
-  assign LEDG[1]    = Reset; // LEDG0 indica se a instrução foi concluída
+  assign LEDG[2]    = Done;   // LEDG0 indica se a instrução foi concluída
+  assign LEDG[1]    = Reset;  // LEDG0 indica se a instrução foi concluída
   assign Reset      = SW[16]; // Reset ativo em nível baixo
-  assign Clock      = !KEY[3];
+  assign Clock      = SW[15]; // Reset ativo em nível baixo
+  //assign Clock      = !KEY[3];
   assign LEDG[7]    = Clock;
   // Instancia o processador
 
   processador_multiciclo proc (
-        .DIN(SW[15:0]),       // Dados de entrada
-        .Resetn(Reset),      // Reset ativo em nível baixo
-        .Clock(Clock),       // Clock manual via botão
-        .Run(Run),         // Sinal de início via chave
-        .Rx_data(Rx_data),     // Dados do registrador Rx
-        .Ry_data(Ry_data),     // Dados do registrador Ry
-        .Done(Done),          // Indica fim da instrução
-        .BusWires(BusWires)   // Saída no barramento
-  );
+                           .DIN({1'b0, SW[14:0]}),       // Dados de entrada
+                           .Resetn(Reset),      // Reset ativo em nível baixo
+                           .Clock(Clock),       // Clock manual via botão
+                           .Run(Run),         // Sinal de início via chave
+                           .Rx_data(Rx_data),     // Dados do registrador Rx
+                           .Ry_data(Ry_data),     // Dados do registrador Ry
+                           .Done(Done),          // Indica fim da instrução
+                           .BusWires(BusWires)   // Saída no barramento
+                         );
   /*
   Display D0(
   	 .result(Rx_data), // Sinal mem_write
@@ -49,6 +50,11 @@ module Pratica2_Parte1_top_level (
   	 .HEX(HEX1)
   );
   */
+
+  Display D_Imm_data(
+            .result({11'b0, SW[4:0]}),
+            .HEX(HEX0)
+          );
 
   Display D_Ry_data(
             .result(Ry_data[3:0]),
@@ -64,6 +70,17 @@ module Pratica2_Parte1_top_level (
             .result({1'b0,SW[8:6]}),
             .HEX(HEX3)
           );
+
+  Display D_Ry(
+            .result({1'b0,SW[2:0]}),
+            .HEX(HEX4)
+          );
+
+  Display D_Rx(
+            .result({1'b0,SW[5:3]}),
+            .HEX(HEX5)
+          );
+
 
   Display D_Clock(
             .result({3'b000,Clock}),

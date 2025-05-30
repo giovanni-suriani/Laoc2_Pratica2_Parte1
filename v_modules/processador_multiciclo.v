@@ -162,6 +162,7 @@ module processador_multiciclo (DIN, Resetn,
   contador_2bits u_contador_2bits(
                    .Clear     (Clear ),
                    .Clock     (Clock ),
+                   .Run       (Run   ),
                    .Tstep     (Tstep)
                  );
 
@@ -249,6 +250,8 @@ module processador_multiciclo (DIN, Resetn,
         3'b111:
           Ry_data_reg = R7out;
       endcase
+
+      
 
     end
 

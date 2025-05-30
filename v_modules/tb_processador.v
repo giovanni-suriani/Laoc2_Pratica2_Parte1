@@ -42,25 +42,34 @@ module tb_processador;
   initial
     begin
       // Inicialização
-      Clock = 0;
+      Clock = 1;
       Resetn = 1;
       Run = 0;
       DIN = 16'b0;
+      // Reset do processador
 
       @(posedge Clock);
-      // Reset do processador
+      // So para ajeitar Clear
       Run = 1;
       Resetn = 0;
-      #1;
 
+      @(posedge Clock);
+      // Colocando a instrucao de fato
+      Opcode = 3'b011; // sub
+      Rx = 3'b000;     // R0
+      Ry = 3'b001;     // R1
+      DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
       @(posedge Clock);
       #1;
 
       @(posedge Clock);
-      #1;
+      $display("[%0t] Que horas sao",$time);
 
       @(posedge Clock);
-      #1;
+      $display("[%0t] Que horas sao2",$time);
+
+      @(posedge Clock);
+      $display("[%0t] Que horas sao3",$time);
 
 
 
@@ -279,7 +288,7 @@ module tb_processador;
 
   task teste_sub_R1_R0;
     begin
-      Opcode = 3'b011; // mv
+      Opcode = 3'b011; // sub
       Rx = 3'b001;     // R1
       Ry = 3'b000;     // R0
       uut.R0.Q = 16'd5; // R0 = 11

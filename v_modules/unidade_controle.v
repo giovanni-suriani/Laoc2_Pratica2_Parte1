@@ -76,7 +76,7 @@ module unidade_controle (
                   .Y  (Wire_Rout ) // Sinal de habilitação do registrador (R0in, R1out, etc.)
                 );
 
-  always @(Tstep or Run) // or Resetn
+  always @(Tstep or Run or Resetn) // or Resetn
     begin
       /* Todos os sinais mudados aqui, devem ser alterados com <=, pq se nao fica com 0 pq eh non blocking*/
       if (Run && !Run_d) // Borda de subida de Run
@@ -89,6 +89,10 @@ module unidade_controle (
           // $display("[%0t] bora bona, Run = %b, Run_d = %b",$time, Run, Run_d);
           Clear <= 0;
         end
+      if (Resetn) // Reset ativo em nível baixo
+        begin
+          Clear <= 1; // limpa o contador de Tstep
+        end
       Run_d   <= Run; // salva o valor anterior de Run
       IRin    <= 0;
       Rin     <= 8'b0;
@@ -96,7 +100,7 @@ module unidade_controle (
       Ain     <= 0;
       Gin     <= 0;
       Gout    <= 0;
-      Ulaop   <= 0;
+      Ulaop   <= 2'b00;
       DINout  <= 0;
       Done    <= 0;
       // En      <= 1; // Habilita o decodificador
@@ -183,7 +187,7 @@ module unidade_controle (
                   // SUB Rx,Ry
                   // Coloca Rin no bus
                   Rout  <= Wire_Rout; // Habilita o registrador Ry
-                  Ulaop <= 2'b1;    // Subtração na ULA
+                  Ulaop <= 2'b01;    // Subtração na ULA
                   Gin   <= 1'b1;     // Habilita escrita no registrador G
                 end
             endcase
