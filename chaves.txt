@@ -1,0 +1,25 @@
+SW[15:0] = DIN[15:0];
+SW[16]   = Reset;
+SW[17]   = Run;
+
+KEY[3]   = Clock;
+
+LEDR[17]   = Run;
+LEDG[7]    = Clock;
+LEDG[0]    = Done; 
+LEDG[1]    = Reset;
+
+
+
+
+// Saidas
+
+HEX4      = Registrador Ry
+HEX5      = Registrador Rx
+
+HEX3      = Opcode
+HEX2      = Rx
+HEX1      = Ry
+HEX0      = imediato;
+
+Hex 17    = Clock
