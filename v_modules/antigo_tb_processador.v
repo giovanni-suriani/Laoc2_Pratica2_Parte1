@@ -14,33 +14,33 @@ module tb_processador;
   wire [15:0] Rx_data, Ry_data; // Dados dos registradores Rx e Ry
 
   // Instancia o processador
-
   processador_multiciclo uut (
-                           .Resetn   (Resetn   ),
-                           .Clock    (Clock    ),
-                           .Run      (Run      ),
-                           .Done     (Done     ),
-                           .BusWires (BusWires ),
-                           .Tstep    (Tstep    ),
-                           .Rx_data  (Rx_data  ),
-                           .Ry_data  (Ry_data  )
+                           .DIN(DIN),
+                           .Resetn(Resetn),
+                           .Tstep(Tstep),
+                           .Clock(Clock),
+                           .Rx_data(Rx_data),
+                           .Ry_data(Ry_data),
+                           .Run(Run),
+                           .Done(Done),
+                           .BusWires(BusWires)
                          );
-
 
   assign Instrucao = {Opcode, Rx, Ry}; // Instrução completa
   // Clock gerado a cada 50ps
 
 
   integer detalhado = 1;
+  integer counter_clock_cycle = 0;
   always #50 Clock = ~Clock;
 
 
 
-  integer mostra_teste1 = 1;
+  integer mostra_teste1 = 0;
   integer mostra_teste2 = 0;
-  integer mostra_teste3 = 0;
-  integer mostra_teste4 = 0;
-  integer mostra_teste5 = 0;
+  integer mostra_teste3 = 1;
+  integer mostra_teste4 = 1;
+  integer mostra_teste5 = 1;
   initial
     begin
       // Inicialização
@@ -49,10 +49,6 @@ module tb_processador;
       Run = 1;
       DIN = 16'b0;
       // Reset do processador
-
-      // ------------------------------
-      // T0 - Resetn dos registradores e sinais
-      // ------------------------------
 
 
       // -----------------------------
@@ -251,7 +247,7 @@ module tb_processador;
     end
 
 
-  // Testes do AVA
+// Testes do AVA
   task teste_mvi_R2_1;
     begin
       Opcode = 3'b001; // mvi
@@ -310,7 +306,7 @@ module tb_processador;
   endtask
 
 
-  // Testes Internos
+// Testes Internos
 
   task teste_mv_R0_R1;
     begin
@@ -389,30 +385,30 @@ module tb_processador;
     end
   endtask
 
-  /*
-    always @(posedge Clock)
-      begin
-        counter_clock_cycle = counter_clock_cycle + 1;
-        // $display("[%0t] Counter_Clock_Cycle ",$time);
-        case (counter_clock_cycle)
-          1:
-            begin
-              // Opcode = 3'b001; // mvi R0 5
-              // Rx = 3'b000;     // R0
-              // Ry = 3'b001;     // R1
-              // uut.R0.Q = 16'd11; // R0 = 11
-              // uut.R1.Q = 16'd10; // R1 = 10
-              // DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
-              // cabecalho_teste(2);
-              // Run = 1; // Agendado ja no inicio do ciclo
-              // $display("[%0t] instrucao = %3b_%3b_%3b = mv R0 R1 000_000_001", $time, Instrucao[8:6], Instrucao[5:3], Instrucao[2:0]);
-            end
-   
-   
-        endcase
-   
-      end
-  */
+
+  always @(posedge Clock)
+    begin
+      counter_clock_cycle = counter_clock_cycle + 1;
+      // $display("[%0t] Counter_Clock_Cycle ",$time);
+      case (counter_clock_cycle)
+        1:
+          begin
+            // Opcode = 3'b001; // mvi R0 5
+            // Rx = 3'b000;     // R0
+            // Ry = 3'b001;     // R1
+            // uut.R0.Q = 16'd11; // R0 = 11
+            // uut.R1.Q = 16'd10; // R1 = 10
+            // DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
+            // cabecalho_teste(2);
+            // Run = 1; // Agendado ja no inicio do ciclo
+            // $display("[%0t] instrucao = %3b_%3b_%3b = mv R0 R1 000_000_001", $time, Instrucao[8:6], Instrucao[5:3], Instrucao[2:0]);
+          end
+
+
+      endcase
+
+    end
+
 
 
 endmodule

@@ -1,4 +1,4 @@
-module processador_multiciclo (DIN, Resetn,
+module processador_multiciclo (Resetn,
                                  Clock, Run, Done, BusWires, Rx_data, Ry_data, Tstep);
 
   /*
@@ -20,7 +20,7 @@ module processador_multiciclo (DIN, Resetn,
   */
 
 
-  input [15:0] DIN; // deve ser 000 000 001 para comecar
+  // input [15:0] DIN; // deve ser 000 000 001 para comecar
   input Resetn, Clock, Run;
   output Done;
   output wire [15:0] BusWires;
@@ -32,14 +32,20 @@ module processador_multiciclo (DIN, Resetn,
   output wire [1:0] Tstep; // 00=T0,01=T1,10=T2,11=T3
 
   // Para o mux
+  wire W_D;
+  wire Clear;
+  wire IncrPc;
+  wire [15:0] DIN;            // barramento de entrada de dados
   wire [7:0]  Rout, Rin;      // campo de seleo para os registradores
   wire [8:0]  IRout;          // Saida do registrador IR
   wire [15:0] R0out, R1out, R2out, R3out, R4out, R5out, R6out, R7out; // saida do registrador R0, R1, ..., R7
   wire [15:0] ARout;          // saida do registrador GOUT
   wire [15:0] GRout;          // saida do registrador GOUT
+  wire [15:0] ADDRout;        // saida do registrador ADDR
+  wire [15:0] DOUTout;        // saida do registrador DOUT
   wire [15:0] Ulaout;         // saida da ULA
   wire [1:0]  Ulaop;           // operacao da Ula
-  wire        IRin, Ain, Gin; // habilita escrita no IR, A e G
+  wire        IRin, Ain, Gin, ADDRin, DOUTin; // habilita escrita no IR, A, G, ADDR e DOUT
   wire        Gout;           // habilita leitura do registrador G
   wire        DINout;         // habilita a saida do barramento DIN
   wire [15:0] BusWires_data;  // dados do barramento BusWires
@@ -66,11 +72,13 @@ module processador_multiciclo (DIN, Resetn,
 
   // wire [8:0] useless_IR_out =
 
-  /*  always @(DIN)
-     begin
-       Instrucao = DIN[8:0]; // pega os 9 bits de opcode
-     end */
-
+  memoram Memoria_instrucao (
+            .address(ADDRout[5:0]), // tem 64 enderecos,
+            .clock(Clock),
+            .data(DOUTout),
+            .wren(W_D),
+            .q(DIN)
+          );
 
   registrador_IR IR (
                    .R    (DIN[8:0]),          // entrada de dados (dado a ser escrito)
@@ -78,6 +86,22 @@ module processador_multiciclo (DIN, Resetn,
                    .Clock(Clock),             // sinal de clock
                    .Q    (IRout)              // saida Inutil
                  );
+
+  registrador ADDR (
+                .R    (BusWires),         // entrada de dados (dado a ser escrito)
+                .Rin  (ADDRin),           // habilita escrita no registrador
+                .Resetn(Resetn),        // sinal de reset
+                .Clock(Clock),            // sinal de clock
+                .Q    (ADDRout)           // saida Inutil
+              );
+
+  registrador DOUT (
+                .R    (BusWires),         // entrada de dados (dado a ser escrito)
+                .Rin  (DOUTin),            // habilita escrita no registrador
+                .Resetn(Resetn),          // sinal de reset
+                .Clock(Clock),             // sinal de clock
+                .Q    (DOUTout)          // saida Inutil
+              );
 
   registrador R0 (
                 .R    (BusWires),   // entrada de dados
@@ -135,13 +159,14 @@ module processador_multiciclo (DIN, Resetn,
                 .Q    (R6out)   // saida registrada
               );
 
-  registrador R7 (
-                .R    (BusWires),   // entrada de dados
-                .Rin  (Rin[0]),    // habilita escrita
-                .Clock(Clock),       // sinal de clock
-                .Resetn(Resetn),     // sinal de reset
-                .Q    (R7out)   // saida registrada
-              );
+  registradorPC R7(
+                  .R      (BusWires     ),
+                  .Rin    (Rin[0]    ),
+                  .Clock  (Clock  ),
+                  .Resetn (Resetn ),
+                  .IncrPc (IncrPc ),
+                  .Q      (R7out     )
+                );
 
   registrador A (
                 .R    (BusWires),   // entrada de dados
@@ -170,6 +195,10 @@ module processador_multiciclo (DIN, Resetn,
   unidade_controle u_unidade_controle(
                      .Instrucao (Instrucao ),
                      .Tstep     (Tstep     ),
+                     .IncrPc   (IncrPc   ),
+                     .W_D      (W_D      ),
+                     .ADDRin   (ADDRin   ),
+                     .DOUTin   (DOUTin   ),
                      .Run       (Run       ),
                      .Resetn    (Resetn    ),
                      .Clear     (Clear     ),
@@ -251,9 +280,6 @@ module processador_multiciclo (DIN, Resetn,
         3'b111:
           Ry_data_reg = R7out;
       endcase
-
-      
-
     end
 
 

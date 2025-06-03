@@ -4,13 +4,17 @@ module unidade_controle (
     Tstep,   // 00=T0,01=T1,10=T2,11=T3
     Run,     // start instruction
     Clear,   // limpa contador de Tstep
+    IncrPc, // incrementa PC
     GRout,   // saída do registrador G
     IRin,    // carrega IR
     Rin,     // habilita escrita em R0..R7
     Rout,    // habilita leitura de R0..R7
+    ADDRin, // habilita escrita no barramento
+    DOUTin, // habilita escrita no barramento
     Ain,     // carrega registrador A
     Gin,     // carrega registrador G
     Gout,    // lê registrador G
+    W_D, // habilita escrita no barramento
     Resetn,  // recomecar da primeira instrucao
     Ulaop,  // escolhe subtração na ALU
     DINout,  // coloca DIN no barramento
@@ -31,8 +35,12 @@ module unidade_controle (
   input  wire       Run;        // start instruction
   input  wire       Resetn;     // recomecar da primeira instrucao
   input  wire [15:0] GRout;     // saída do registrador G
+  input  ADDRin;                // habilita escrita no barramento
+  input  DOUTin;                // habilita escrita no barramento
 
   // outputs
+  output reg        IncrPc;
+  output reg        W_D;
   output reg        Clear;   // limpa contador de Tstep
   output reg        IRin;    // carrega IR
   // output wire [7:0]  Rin;     // habilita escrita em R0..R7
@@ -103,7 +111,6 @@ module unidade_controle (
       Ulaop   <= 2'b00;
       DINout  <= 0;
       Done    <= 0;
-      // En      <= 1; // Habilita o decodificador
 
       case (Tstep)
         2'b00:
