@@ -22,7 +22,7 @@ DATA_RADIX=BIN;
 
 CONTENT BEGIN
     -- mvi R2, #1
-    0   :   0000000101000000;  -- instrução: mvi R2
+    0   :   0000000001010000;  -- instrução: mvi R2
     1   :   0000000000000001;  -- imediato: 1
 
     -- mvi R4, #10

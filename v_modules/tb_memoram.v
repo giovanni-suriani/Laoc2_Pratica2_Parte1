@@ -30,13 +30,34 @@ module tb_memoram;
 
       // Inicializações
       Clock = 0;
-      address = 0;
+      address = 6'd1;
       data = 0;
       wren = 0;
 
 
       // Aguarda alguns ciclos
-      #100;
+      @(posedge Clock);
+      #1;
+
+      @(posedge Clock);
+      #1;
+      $display("[%0t] Lendo endereco 1,demorou dois ciclos",$time);
+      $display("[%0t] Endereco = %0d, Data = %0b",$time, address, q);
+      
+      wren = 1; // Habilita escrita
+      data = 16'd42; // Valor a ser escrito
+      @(posedge Clock);
+      #1;
+      $display("[%0t] Escrevendo no endereco 1 o valor 42",$time);
+      $display("[%0t] Endereco = %0d, Data = %0d",$time, address, q);
+      
+      wren = 0; // Desabilita escrita
+      @(posedge Clock);
+      #1;
+      $display("[%0t] Lendo endereco 1",$time);
+      $display("[%0t] Endereco = %0d, Data = %0d",$time, address, q);
+
+      
 
       // Leitura da primeira posicao (endereço 0)
       $display("[%0t] Lendo endereco 0",$time);

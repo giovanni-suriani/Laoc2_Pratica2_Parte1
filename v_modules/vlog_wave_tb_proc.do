@@ -6,7 +6,7 @@ vlib altera
 # vlog -work altera /home/gi/altera/13.0sp1/modelsim_ase/altera/verilog/src/altera_mf.v
 
 # Compila os arquivos Verilog necessários, *FALTA* memoram.v
-vlog +acc processador_multiciclo.v registrador.v registrador_IR.v mux.v unidade_controle.v contador_2bits.v memoram.v decode3_8bits.v ula.v tb_processador.v
+vlog +acc processador_multiciclo.v registrador.v registrador_IR.v registradorPC.v mux.v unidade_controle.v contador_2bits.v memoram.v decode3_8bits.v ula.v tb_processador.v
 vsim -L altera work.tb_processador
 
 
@@ -19,7 +19,9 @@ add wave -label "clock" tb_processador/Clock
 
 # Sinais do uut (unit under test)
 #add wave -label "clock_processador" tb_processador/uut/Clock
+add wave -label "Resetn" -radix unsigned tb_processador/uut/Resetn
 add wave -label "Run" tb_processador/uut/Run
+add wave -label "Run_d" tb_processador/uut/u_unidade_controle/Run_d
 add wave -label "Clear" -radix unsigned tb_processador/uut/Clear
 add wave -label "Done" -radix binary tb_processador/Done
 add wave -label "DIN_uut" -radix binary /tb_processador/uut/DIN

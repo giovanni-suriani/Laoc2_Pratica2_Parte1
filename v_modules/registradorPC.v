@@ -12,8 +12,8 @@ module registradorPC(R, IncrPc, Rin, Clock, Resetn, Q);
   reg [15:0] Q;
   always @(posedge Clock or negedge Resetn)
     begin
-      if (!Resetn)
-        Q <= 16'd0;                         // Reset síncrono ativo em 0
+      if (Resetn)
+        Q <= 16'd0;                         // Reset síncrono ativo em 1
       else if (Rin)
         Q <= R;                             // Load direto se Rin = 1
       else if (IncrPc)

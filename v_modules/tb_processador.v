@@ -27,7 +27,8 @@ module tb_processador;
                          );
 
 
-  assign Instrucao = {Opcode, Rx, Ry}; // Instrução completa
+
+  assign Instrucao = uut.Instrucao; // Instrução completa
   // Clock gerado a cada 50ps
 
 
@@ -36,7 +37,7 @@ module tb_processador;
 
 
 
-  integer mostra_teste1 = 1;
+  integer mostra_teste1 = 0;
   integer mostra_teste2 = 0;
   integer mostra_teste3 = 0;
   integer mostra_teste4 = 0;
@@ -44,15 +45,45 @@ module tb_processador;
   initial
     begin
       // Inicialização
-      Clock = 1;
-      Resetn = 0;
-      Run = 1;
+      Clock = 0;
+      Resetn = 1;
+      Run = 0;
       DIN = 16'b0;
       // Reset do processador
 
       // ------------------------------
       // T0 - Resetn dos registradores e sinais
       // ------------------------------
+      @(posedge Clock);
+      #1;
+      $display("[%0t] Teste Resetn (mux, registradores, e outros sinais)",$time);
+      $display("[%0t] BusWires = %0d, DIN = %0d, Tstep = %0d",$time, BusWires, uut.DIN, uut.Tstep);
+      $display("[%0t] R1 = %0d R2 = %0d, .. R6 = %0d R7 = %0b",$time, uut.R1.Q, uut.R2.Q, uut.R6.Q, uut.R7.Q);
+      $display("[%0t] IncrPc=%0d W_D=%0d ADDRin=%0d DOUTin=%0d",
+               $time, uut.IncrPc, uut.W_D, uut.ADDRin, uut.DOUTin);
+      $display("[%0t] Run=%0d Resetn=%0d Clear=%0d GRout=%0d",
+               $time, uut.Run, uut.Resetn, uut.Clear, uut.GRout);
+      $display("[%0t] IRin=%0d Rin=%b Rout=%b Ain=%0d",
+               $time, uut.IRin, uut.Rin, uut.Rout, uut.Ain);
+      $display("[%0t] Gin=%0d Gout=%0d Ulaop=%b DINout=%h",
+               $time, uut.Gin, uut.Gout, uut.Ulaop, uut.DINout);
+      $display("[%0t] Done=%0d",
+               $time, uut.Done);
+      $display("[%0t] Teste 0 Finalizado",$time);
+      $display("--------------------------------------------------");
+
+
+      // -----------------------------
+      // T1 - Primeira instrucao
+      // -----------------------------
+      // @(posedge Clock);
+      Run = 1; // Ativa o Run
+      Resetn = 0; // Desativa o reset
+      @(posedge Clock);
+      #1;
+      $display("[%0t] instucao %0b", $time, uut.Instrucao);
+
+      #200;
 
 
       // -----------------------------

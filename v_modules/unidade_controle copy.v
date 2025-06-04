@@ -58,7 +58,6 @@ module unidade_controle (
 
   // Variaveis
   reg Run_d = 0;                   // armazena o valor anterior de Run
-  reg Resetn_d = 1;                   // armazena o valor anterior de Run
   reg En;                     // habilita o decodificador
   wire [2:0] opcode;           // opcode III
   wire [5:3] Rx;              // campo destino
@@ -88,12 +87,11 @@ module unidade_controle (
                 );
 
   // always @(Tstep or Run or Resetn) // or Resetn
-  always @(Tstep or Resetn) // or Resetn
+  always @(posedge Clock) // or Resetn
     begin
       /* Todos os sinais mudados aqui, devem ser alterados com <=, pq se nao fica com 0 pq eh non blocking*/
       if (Resetn && !Run ) // Reset ativo em nível baixo
         begin
-          Resetn_d <= 1; // reseta o valor de Resetn_d
           Run_d   <= 0; // reseta Run_d
           Clear   <= 1; // limpa o contador de Tstep
           IncrPc  <= 0; // não incrementa o PC
@@ -102,8 +100,6 @@ module unidade_controle (
           IRin    <= 0; // não carrega IR
           Rin     <= 8'b0; // não habilita escrita em R0..R7
           Rout    <= 8'b0; // não habilita leitura de R0..R7
-          ADDRin  <= 1; // habilita escrita no barramento
-          DOUTin  <= 0; // não habilita escrita no barramento
           Ain     <= 0; // não carrega registrador A
           Gin     <= 0; // não carrega registrador G
           Gout    <= 0; // não lê registrador G
@@ -113,130 +109,131 @@ module unidade_controle (
         end
       else
         begin
+          if (Run && !Run_d) // Borda de subida de Run
+            Clear <= 1;
           // $display("[%0t] bora pic, Run = %b, Run_d = %b",$time, Run, Run_d);
-          Clear   <= 0; // não limpa o contador de Tstep
-          IRin    <= 0;
-          Rin     <= 8'b0;
-          Rout    <= 8'b0;
-          Ain     <= 0;
-          Gin     <= 0;
-          Gout    <= 0;
-          Ulaop   <= 2'b00;
-          DINout  <= 0;
-          Done    <= 0;
+          else
+            begin
+              Clear <= 0; // não limpa o contador de Tstep
+              Run_d   <= Run; // salva o valor anterior de Run
+              IRin    <= 0;
+              Rin     <= 8'b0;
+              Rout    <= 8'b0;
+              Ain     <= 0;
+              Gin     <= 0;
+              Gout    <= 0;
+              Ulaop   <= 2'b00;
+              DINout  <= 0;
+              Done    <= 0;
 
-          case (Tstep)
-            2'b00:
-              begin
-                // T0: fetch da instrução
-                IRin    <= 1;
-                ADDRin  <= 1; // Habilita escrita no registrador ADDR
-                if (opcode == 3'b001) 
+              case (Tstep)
+                2'b00:
                   begin
-                    IncrPc <= 1; // Incrementa o PC se a instrução for mvi para pegar imediato
+                    // T0: fetch da instrução
+                    IRin    <= 1;
+                    ADDRin  <= 1; // Habilita escrita no registrador ADDR
                   end
-              end
-            2'b01:
-              begin
-                // T1: primeiro passo de execução
-                case (opcode)
-                  // mv Rx, Ry
-                  3'b000:
-                    begin
+
+                2'b01:
+                  begin
+                    // T1: primeiro passo de execução
+                    case (opcode)
                       // mv Rx, Ry
-                      // Logica do registrador fonte (in)
-                      // $display("[%0t] uc.v linha 106 mv",$time);
-                      // $display("[%0t] uc.v %b_%b Rout",$time, Rout[7:4], Rout[3:0]);
-                      Rin   <= Wire_Rin;  // Habilita o registrador Rx  000 ´1000_0000 (processador)
-                      Rout  <= Wire_Rout; // Habilita o registrador Ry  001 ´0100_0000 (mux)
-                      Done  <= 1'b1;
-                      Clear <= 1'b1; // limpa o contador de Tstep
-                    end
-
-                  // mvi Rx, #D
-                  3'b001:
-                    begin
-                      // mvi Rx,#D
-                      // $display("[%0t] uc.v linha 119 mvi",$time);
-                      DINout    <= 1;
-                      // $display("[%0t] uc.v fazendo a coisa",$time);
-                      Rin       <= Wire_Rin;
-                      // $display("[%0t] Era pra eu te executar mexilhao",$time);
-
-                      Done      <= 1;
-                      Clear     <= 1'b1; // limpa o contador de Tstep
-                    end
-
-                  // SUB Rx, G
-                  3'b011:
-                    begin
-                      // SUB Rx,Ry
-                      // Coloca Rout no registrador A
-                      // $display("[%0t] Te executei meu fio, desculpa polly",$time);
-                      Ain  <= 1'b1;
-                      Rout <=   Wire_Rin;
-                    end
-
-                  // mvnz Rx, Ry
-                  3'b100:
-                    begin
-                      // mvnz Rx, Ry,
-                      // $display("[%0t] uc.v linha 119 mvi",$time);
-                      // // $display("[%0t] uc.v fazendo a coisa",$time);
-                      Rin       <= Wire_Rin;
-                      if (GRout != 0) // se G for diferente de zero
+                      3'b000:
                         begin
-                          Rout <= Wire_Rout; // Joga Ry em bus
+                          // mv Rx, Ry
+                          // Logica do registrador fonte (in)
+                          // $display("[%0t] uc.v linha 106 mv",$time);
+                          // $display("[%0t] uc.v %b_%b Rout",$time, Rout[7:4], Rout[3:0]);
+                          Rin   <= Wire_Rin;  // Habilita o registrador Rx  000 ´1000_0000 (processador)
+                          Rout  <= Wire_Rout; // Habilita o registrador Ry  001 ´0100_0000 (mux)
+                          Done  <= 1'b1;
+                          Clear <= 1'b1; // limpa o contador de Tstep
                         end
-                      else if (GRout == 0) // se G for igual a zero
+
+                      // mvi Rx, #D
+                      3'b001:
                         begin
-                          Rout <= Wire_Rin; // Joga Rx em bus (proprio dado)
+                          // mvi Rx,#D
+                          // $display("[%0t] uc.v linha 119 mvi",$time);
+                          DINout    <= 1;
+                          // $display("[%0t] uc.v fazendo a coisa",$time);
+                          Rin       <= Wire_Rin;
+                          Done      <= 1;
+                          Clear     <= 1'b1; // limpa o contador de Tstep
                         end
-                      Done      <= 1;
-                      Clear     <= 1'b1; // limpa o contador de Tstep
-                    end
-                  /*3'b001:
-                   begin
-                     // add Rx,Ry
-                     Rout[XXX] = 1;
-                     Ain       = 1;
-                   end 
-                   */
-                endcase
-              end
 
-            2'b10:
-              begin
-                case (opcode)
-                  3'b011:
-                    begin
-                      // SUB Rx,Ry
-                      // Coloca Rin no bus
-                      Rout  <= Wire_Rout; // Habilita o registrador Ry
-                      Ulaop <= 2'b01;    // Subtração na ULA
-                      Gin   <= 1'b1;     // Habilita escrita no registrador G
-                    end
-                endcase
-              end
+                      // SUB Rx, G
+                      3'b011:
+                        begin
+                          // SUB Rx,Ry
+                          // Coloca Rout no registrador A
+                          // $display("[%0t] Te executei meu fio, desculpa polly",$time);
+                          Ain  <= 1'b1;
+                          Rout <=   Wire_Rin;
+                        end
 
-            2'b11:
-              begin
-                case (opcode)
-                  3'b011:
-                    begin
-                      Rin <= Wire_Rin; // Habilita o registrador Rx
-                      Gout <= 1'b1; // Lê o registrador G
-                      Done <= 1'b1; // Indica que a instrução foi concluída
-                      Clear <= 1'b1; // Limpa o contador de Tstep
+                      // mvnz Rx, Ry
+                      3'b100:
+                        begin
+                          // mvnz Rx, Ry,
+                          // $display("[%0t] uc.v linha 119 mvi",$time);
+                          // // $display("[%0t] uc.v fazendo a coisa",$time);
+                          Rin       <= Wire_Rin;
+                          if (GRout != 0) // se G for diferente de zero
+                            begin
+                              Rout <= Wire_Rout; // Joga Ry em bus
+                            end
+                          else if (GRout == 0) // se G for igual a zero
+                            begin
+                              Rout <= Wire_Rin; // Joga Rx em bus (proprio dado)
+                            end
+                          Done      <= 1;
+                          Clear     <= 1'b1; // limpa o contador de Tstep
+                        end
+                      /*3'b001:
+                       begin
+                         // add Rx,Ry
+                         Rout[XXX] = 1;
+                         Ain       = 1;
+                       end 
+                       */
+                    endcase
+                  end
 
-                      // SUB Rx,Ry
-                      // Coloca Rin no bus
-                      // Rout <= Wire_Rin; // Habilita o registrador Ry
-                      // Gin  <= 1'b1;     // Habilita escrita no registrador G
-                    end
-                endcase
-              end
-          endcase
+                2'b10:
+                  begin
+                    case (opcode)
+                      3'b011:
+                        begin
+                          // SUB Rx,Ry
+                          // Coloca Rin no bus
+                          Rout  <= Wire_Rout; // Habilita o registrador Ry
+                          Ulaop <= 2'b01;    // Subtração na ULA
+                          Gin   <= 1'b1;     // Habilita escrita no registrador G
+                        end
+                    endcase
+                  end
+
+                2'b11:
+                  begin
+                    case (opcode)
+                      3'b011:
+                        begin
+                          Rin <= Wire_Rin; // Habilita o registrador Rx
+                          Gout <= 1'b1; // Lê o registrador G
+                          Done <= 1'b1; // Indica que a instrução foi concluída
+                          Clear <= 1'b1; // Limpa o contador de Tstep
+
+                          // SUB Rx,Ry
+                          // Coloca Rin no bus
+                          // Rout <= Wire_Rin; // Habilita o registrador Ry
+                          // Gin  <= 1'b1;     // Habilita escrita no registrador G
+                        end
+                    endcase
+                  end
+              endcase
+            end
         end
     end
 

@@ -12,10 +12,11 @@ module mux(
     input  wire [15:0] R7out,
     input  wire [15:0] Gout_data,
     input  wire [15:0] DINout_data,
+    input  wire Resetn,          // sinal de reset
     output reg  [15:0] BusWires
   );
 
-  always @(DINout or Gout or Rout)
+  always @(DINout or Gout or Rout or Resetn)
     begin
       // Prioridade: DINout > Gout > Rout
       if (DINout)
@@ -25,6 +26,10 @@ module mux(
       else if (Gout)
         begin
           BusWires = Gout_data;
+        end
+      else if (Resetn)
+        begin
+          BusWires = 16'b0;  // valor de reset no bus
         end
       else
         begin

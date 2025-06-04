@@ -4,7 +4,7 @@ vlib work
 vlib altera
 # Compila a biblioteca altera necessária 
 # vlog -work altera /home/gi/altera/13.0sp1/modelsim_ase/altera/verilog/src/altera_mf.v
-vlog -work altera /home/giovanni/intelFPGA/20.1/modelsim_ase/altera/verilog/src/altera_mf.v
+# vlog -work altera /home/gi/intelFPGA/20.1/modelsim_ase/altera/verilog/src/altera_mf.v
 
 # Compila os arquivos Verilog necessários, *FALTA* memoram.v
 vlog +acc tb_memoram.v memoram.v
