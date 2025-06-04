@@ -131,10 +131,11 @@ module unidade_controle (
                 // T0: fetch da instrução
                 IRin    <= 1;
                 ADDRin  <= 1; // Habilita escrita no registrador ADDR
-                if (opcode == 3'b001) 
-                  begin
-                    IncrPc <= 1; // Incrementa o PC se a instrução for mvi para pegar imediato
-                  end
+                IncrPc <= 1; // Incrementa o PC se a instrução for mvi para pegar imediato
+                // ADDRout
+                // if (opcode == 3'b001) 
+                //   begin
+                //   end
               end
             2'b01:
               begin

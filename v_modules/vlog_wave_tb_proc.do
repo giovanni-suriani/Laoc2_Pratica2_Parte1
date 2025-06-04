@@ -20,8 +20,9 @@ add wave -label "clock" tb_processador/Clock
 # Sinais do uut (unit under test)
 #add wave -label "clock_processador" tb_processador/uut/Clock
 add wave -label "Resetn" -radix unsigned tb_processador/uut/Resetn
+add wave -label "ADDRout" -radix unsigned tb_processador/uut/ADDRout
 add wave -label "Run" tb_processador/uut/Run
-add wave -label "Run_d" tb_processador/uut/u_unidade_controle/Run_d
+#add wave -label "Run_d" tb_processador/uut/u_unidade_controle/Run_d
 add wave -label "Clear" -radix unsigned tb_processador/uut/Clear
 add wave -label "Done" -radix binary tb_processador/Done
 add wave -label "DIN_uut" -radix binary /tb_processador/uut/DIN
