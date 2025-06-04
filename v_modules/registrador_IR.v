@@ -3,11 +3,11 @@ module registrador_IR(R, Rin, Clock, Resetn, Q);
   // armazena o valor Rin na entrada R. O valor armazenado é lido na
 
   // inputs
-  input [8:0] R; // entrada de dados
+  input [9:0] R; // entrada de dados
   input Rin, Clock, Resetn; // Rin habilita escrita, Clock é o clock do processador, Resetn é o reset
 
   // outputs
-  output reg [8:0] Q; // valor armazenado
+  output reg [9:0] Q; // valor armazenado
 
   // reg [8:0] Q;
   always @(negedge Clock)

@@ -9,7 +9,7 @@ module tb_processador;
   wire [8:0] Instrucao; // Instrução completa
   reg Clock, Resetn, Run;
   wire Done;
-  wire [1:0] Tstep; // Sinal de Tstep
+  wire [2:0] Tstep; // Sinal de Tstep
   wire [15:0] BusWires;
   wire [15:0] Rx_data, Ry_data; // Dados dos registradores Rx e Ry
 
@@ -37,8 +37,8 @@ module tb_processador;
 
 
 
-  integer mostra_teste1 = 0;
-  integer mostra_teste2 = 0;
+  integer mostra_teste1 = 1;
+  integer mostra_teste2 = 1;
   integer mostra_teste3 = 0;
   integer mostra_teste4 = 0;
   integer mostra_teste5 = 0;
@@ -54,6 +54,8 @@ module tb_processador;
       // ------------------------------
       // T0 - Resetn dos registradores e sinais
       // ------------------------------
+      // @(posedge Clock);
+      // #1;
       @(posedge Clock);
       #1;
       $display("[%0t] Teste Resetn (mux, registradores, e outros sinais)",$time);
@@ -73,60 +75,62 @@ module tb_processador;
       $display("--------------------------------------------------");
 
 
+      Run = 1; // Ativa o Run
+      Resetn = 0; // Desativa o reset
+
       // -----------------------------
       // T1 - Primeira instrucao
       // -----------------------------
-      // @(posedge Clock);
-      Run = 1; // Ativa o Run
-      Resetn = 0; // Desativa o reset
-      @(posedge Clock);
-      #1;
-      $display("[%0t] instucao %0b", $time, uut.Instrucao);
+      if (mostra_teste1)
+      begin
+         $display("[%0t] Teste instrucao mvi R2 1, R2 com o valor inicial %0d, Tstep = %0d", $time, uut.R2.Q, uut.Tstep);
+        @(posedge Clock);
+        #351;
+        $display("[%0t] Ciclo 4 NEG_EDGE", $time);
+        $display("[%0t]           IR = %10b, R2 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R2.Q, uut.Tstep);
+        if (detalhado)
+          $display("[%0t] ESPERADO: IR = 001010000, R2 = 1 Tstep = 4",$time);
+        $display("[%0t] Teste mvi R2 1 concluido.", $time);
+        $display("--------------------------------------------------");
+      end
 
-      #200;
+      if (mostra_teste2)
+      begin
+         $display("[%0t] Teste instrucao mvi R4 10, R4 com o valor inicial %0d, Tstep = %0d", $time, uut.R4.Q, uut.Tstep);
+        @(posedge Clock);
+        #451;
+        $display("[%0t] Ciclo 4 NEG_EDGE", $time);
+        $display("[%0t]           IR = %10b, R4 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R4.Q, uut.Tstep);
+        if (detalhado)
+          $display("[%0t] ESPERADO: IR = 001100000, R4 = 10 Tstep = 4",$time);
+        $display("[%0t] Teste mvi R2 1 concluido.", $time);
+        $display("--------------------------------------------------");
+      end
 
+      if (mostra_teste3)
+      begin
+         $display("[%0t] Teste instrucao mv R0, R5 R0 inicial = %0d, R5 inicial = %0d, Tstep = %0d", $time, uut.R0.Q, uut.R5.Q, uut.Tstep);
+        @(posedge Clock);
+        #451;
+        $display("[%0t] Ciclo 4 NEG_EDGE", $time);
+        $display("[%0t]           IR = %10b, R0 = %0d, R5 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R0.Q, uut.R5.Q, uut.Tstep);
+        if (detalhado)
+          $display("[%0t] ESPERADO: IR = 001100000, R0 = 10  R5 = 10 Tstep = 4",$time);
+        $display("[%0t] Teste mvi R2 1 concluido.", $time);
+        $display("--------------------------------------------------");
+      end
 
+       
       // -----------------------------
       // T1 - Instrução mvi R2, #4 ,R0 <- R1
       // -----------------------------
-      if (mostra_teste1)
-        begin
-          @(posedge Clock);
-          // Resetn = 0; // Desativa o reset
-          teste_mvi_R2_1;
-          #1;
-          $display("[%0t] Teste instrucao mvi R2 4, R2 com o valor inicial %0d, Tstep = %0d", $time, uut.R2.Q, uut.Tstep);
-          $display("[%0t] Ciclo 0: Fetch IR", $time);
-          $display("[%0t] DIN = %9b, Tstep = %0d", $time, uut.DIN[8:0], uut.Tstep);
-
-          @(negedge Clock);
-          #1;
-          $display("[%0t] Atribuindo DIN[8:0] em IR no negedge ", $time);
-          $display("[%0t]           IR = %9b, R2 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R2.Q, uut.Tstep);
-          if (detalhado)
-            $display("[%0t] ESPERADO: IR = 001010000, R2 = 0 Tstep = 0 ",$time); // Esperado
-
-          @(posedge Clock);
-          DIN = 16'd1; // Carrega o valor 4 no barramento DIN
-          #1;
-          $display("[%0t] Ciclo 1: Coloca 1 em R2", $time);
-          $display("[%0t] bus = %9b, Tstep = %0d", $time, BusWires, uut.Tstep);
-
-          @(negedge Clock);
-          #1;
-          $display("[%0t] Atribuindo bus em R2 no negedge", $time);
-          $display("[%0t]           IR = %9b, R2 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R2.Q, uut.Tstep);
-          if (detalhado)
-            $display("[%0t] ESPERADO: IR = 001010000, R2 = 1 Tstep = 1",$time);
-          $display("[%0t] Teste mvi R2 1 concluido.", $time);
-          $display("--------------------------------------------------");
-        end
+     
       // #100;
 
       // -----------------------------
       // T2 - Instrução mvi R4, #10 ,R0 <- 5
       // -----------------------------
-      if (mostra_teste2)
+      /* if (mostra_teste2)
         begin
           @(posedge Clock);
           teste_mvi_R4_10;
@@ -153,39 +157,12 @@ module tb_processador;
             $display("[%0t] ESPERADO: IR = 001100000, R4 = 10 Tstep = 1",$time);
           $display("[%0t] Teste mvi R4 10 concluido.", $time);
           $display("--------------------------------------------------");
-        end
+        end */
 
       // -----------------------------
       // T3 - MV R5 R7
       // -----------------------------
-      if (mostra_teste3)
-        begin
-          teste_mv_R5_R7;
-          @(posedge Clock);
-          #1;
-          $display("[%0t] Teste instrucao MV R5 R7, R5 com o valor %0d e R7 com o valor %0d, Tstep = %0d", $time, uut.R5.Q, uut.R7.Q, uut.Tstep);
-          $display("[%0t] Ciclo 0: Fetch IR", $time);
-          $display("[%0t] DIN = %9b, Tstep = %0d", $time, uut.DIN[8:0], uut.Tstep);
-          @(negedge Clock);
-          #1;
-          $display("[%0t] Atribuindo DIN[8:0] em IR no negedge ", $time);
-          $display("[%0t]           IR = %9b, R5 = %0d e R7 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R5.Q, uut.R7.Q, uut.Tstep);
-          if (detalhado)
-            $display("[%0t] ESPERADO: IR = 000101111, R5 = 0 e R7 = 0 Tstep = 0 ",$time); // Esperado
-          @(posedge Clock);
-          #1;
-          $display("[%0t] Ciclo 1: Coloca R7 em R5", $time);
-          $display("[%0t] bus = %9b, Tstep = %0d", $time, BusWires, uut.Tstep);
-          @(negedge Clock);
-          #1;
-          $display("[%0t] Atribuindo bus em R5 no negedge", $time);
-          $display("[%0t]           IR = %9b, R5 = %0d e R7 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R5.Q, uut.R7.Q, uut.Tstep);
-          if (detalhado)
-            $display("[%0t] ESPERADO: IR = 000101111, R5 = 0 e R7 = 0 Tstep = 1",$time);
-          $display("[%0t] Teste MV R5 R7 concluido.", $time);
-          $display("--------------------------------------------------");
-        end
-
+     
       // ------------------------------
       // T4 -SUB R4, R2
       // ------------------------------

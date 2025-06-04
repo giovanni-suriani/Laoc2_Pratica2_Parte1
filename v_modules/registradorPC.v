@@ -10,13 +10,13 @@ module registradorPC(R, IncrPc, Rin, Clock, Resetn, Q);
   output [15:0] Q; // valor armazenado
 
   reg [15:0] Q;
-  always @(posedge Clock or negedge Resetn)
+  always @(negedge Clock or Resetn or posedge IncrPc)
     begin
       if (Resetn)
         Q <= 16'd0;                         // Reset síncrono ativo em 1
       else if (Rin)
         Q <= R;                             // Load direto se Rin = 1
-      else if (IncrPc)
+      else if (IncrPc && Clock == 1'b1)
         Q <= Q + 1;                         // Incrementa PC se habilitado
     end
 endmodule

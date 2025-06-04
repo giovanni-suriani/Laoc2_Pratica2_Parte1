@@ -57,6 +57,17 @@ module tb_memoram;
       $display("[%0t] Lendo endereco 1",$time);
       $display("[%0t] Endereco = %0d, Data = %0d",$time, address, q);
 
+      address = 6'd2; // Muda o endereço para 2
+      @(posedge Clock);
+      #1;
+      $display("[%0t] Lendo endereco 2",$time);
+      $display("[%0t] Endereco = %0d, Data = %0d",$time, address, q);
+      
+      @(posedge Clock);
+      #1;
+      $display("[%0t] Lendo endereco 2",$time);
+      $display("[%0t] Endereco = %0d, Data = %0d",$time, address, q);
+
       
 
       // Leitura da primeira posicao (endereço 0)

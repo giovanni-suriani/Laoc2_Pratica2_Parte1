@@ -32,7 +32,7 @@ module unidade_controle (
 
   // inputs
   input  wire       Clock;      // clock do processador
-  input  wire [9:0] Instrucao;  // opcode III CONECTA com o memoram
+  input  wire [8:0] Instrucao;  // opcode III CONECTA com o memoram
   input  wire [2:0] Tstep;      // 00=T0,01=T1,10=T2,11=T3
   input  wire       Run;        // start instruction
   input  wire       Resetn;     // recomecar da primeira instrucao
@@ -60,7 +60,7 @@ module unidade_controle (
   reg Run_d = 0;                   // armazena o valor anterior de Run
   reg Resetn_d = 1;                   // armazena o valor anterior de Run
   reg En;                     // habilita o decodificador
-  wire [3:0] opcode;           // opcode III
+  wire [2:0] opcode;           // opcode III
   wire [5:3] Rx;              // campo destino
   wire [8:6] Ry;              // campo fonte
   wire [7:0] Wire_Rin;        // campo de seleção para os registradores
@@ -70,7 +70,7 @@ module unidade_controle (
   // Instanciacoes
   assign Ry     = Instrucao[2:0]; // campo fonte   (quem fornece o dado)
   assign Rx     = Instrucao[5:3]; // campo destino (quem fica com o dado fornecido)
-  assign opcode = Instrucao[9:6]; // opcode IIII
+  assign opcode = Instrucao[8:6]; // opcode III
   //Run_d = 0; // inicializa Run_d
 
 
@@ -128,7 +128,7 @@ module unidade_controle (
           Done    <= 0;
 
           case (Tstep)
-            3'd0:
+            3'b000:
               begin
                 // T0: carrega PC em Bus para ser escrito em Rin
                 // IRin    <= 1;
@@ -140,42 +140,53 @@ module unidade_controle (
                 //   begin
                 //   end
               end
-            3'd1:
+            3'b001:
               begin
                 Rout    <= 8'b0000_0001;
                 // T1: fetch da instrução na MEMORIA
                 // Espera ciclo 1
+                // IRin    <= 1;
+                // ADDRin  <= 1; // Habilita escrita no registrador ADDR
+                // IncrPc  <= 1; // Incrementa o PC se a instrução for mvi para pegar imediato
+                // ADDRout
+                // if (opcode == 3'b001)
+                //   begin
+                //   end
               end
-            3'd2:
+            3'b010:
               begin
+                Rout    <= 8'b0000_0001;
+                // T2: fetch da instrução na MEMORIA
+                // Espera ciclo 2
+              end
+            3'b011:
+              begin
+                // T3: Fetch DIN para IRin
                 IRin    <= 1;
                 DINout  <= 1; // Coloca DIN no barramento
                 IncrPc  <= 1; // Incrementa o PC
                 ADDRin  <= 1; // Habilita escrita no barramento ADDR
               end
-            3'd3:
+            3'b100:
               begin
                 case (opcode)
                   3'b000: // mv Rx Ry
-                    begin
-
-                    end
+                  begin
+                    
+                  end
                   3'b001: // mvi Rx,imediato
                     begin
                       // Espera ciclo 1 para carregar o imediato da memoria
                     end
                 endcase
               end
-            3'd4:
+            3'b101:
               begin
                 case (opcode)
                   3'b000: // mv Rx Ry
-                    begin
-                      Rin <= Wire_Rin; // Habilita o registrador Rx
-                      Rout <= Wire_Rout; // Habilita o registrador Ry
-                      Clear <= 1'b1; // Limpa o contador de Tstep
-                      Done <= 1'b1; // Indica que a instrução foi concluída
-                    end
+                  begin
+                    
+                  end
                   3'b001: // mvi Rx,imediato
                     begin
                       Rin <= Wire_Rin; // Habilita o registrador Rx
@@ -186,24 +197,17 @@ module unidade_controle (
                     end
                 endcase
               end
-            3'd5:
+            3'b110:
               begin
                 case (opcode)
                   3'b000: // mv Rx Ry
-                    begin
-
-                    end
+                  begin
+                    
+                  end
                   3'b001: // mvi Rx,imediato
                     begin
-                    end
-                endcase
-              end
-            3'd6:
-              begin
-                case (opcode)
-                  3'b000: // mv Rx Ry
-                    begin
-
+                      Rin <= Wire_Rin; // Habilita o registrador Rx
+                      DINout <= 1'b1; // Coloca DIN no barramento
                     end
                 endcase
               end

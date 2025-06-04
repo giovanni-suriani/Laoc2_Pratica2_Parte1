@@ -28,8 +28,8 @@ module processador_multiciclo (Resetn,
 
 
   // Variaveis para controle
-  wire [8:0] Instrucao;
-  output wire [1:0] Tstep; // 00=T0,01=T1,10=T2,11=T3
+  wire [9:0] Instrucao;
+  output wire [2:0] Tstep; // 00=T0,01=T1,10=T2,11=T3
   wire W_D;
   wire Clear;
   wire IncrPc;
@@ -37,7 +37,7 @@ module processador_multiciclo (Resetn,
   // Para o mux
   wire [15:0] DIN;            // barramento de entrada de dados
   wire [7:0]  Rout, Rin;      // campo de seleo para os registradores
-  wire [8:0]  IRout;          // Saida do registrador IR
+  wire [9:0]  IRout;          // Saida do registrador IR
   wire [15:0] R0out, R1out, R2out, R3out, R4out, R5out, R6out, R7out; // saida do registrador R0, R1, ..., R7
   wire [15:0] ARout;          // saida do registrador GOUT
   wire [15:0] GRout;          // saida do registrador GOUT
@@ -55,6 +55,7 @@ module processador_multiciclo (Resetn,
   // Variaveis inuteis
   wire [8:0] UnusedQ9;
   wire [15:0] UnusedQ16;
+  wire [15:0] NumeroInstrucoesExecutadas;
 
   // Variaveis da simulacao FPGA
   wire [2:0] Rx = IRout[5:3];
@@ -82,7 +83,7 @@ module processador_multiciclo (Resetn,
           );
 
   registrador_IR IR (
-                   .R     (DIN[8:0]),          // entrada de dados (dado a ser escrito)
+                   .R     (DIN[9:0]),          // entrada de dados (dado a ser escrito)
                    .Rin   (IRin),              // habilita escrita no registrador
                    .Clock (Clock),             // sinal de clock
                    .Resetn(Resetn),         // sinal de reset
@@ -114,6 +115,12 @@ module processador_multiciclo (Resetn,
                 .Q    (DOUTout)          // saida Inutil
               );
 
+ /*  contaInstrucao u_contaInstrucao(
+      .Resetn (Resetn ),
+      .Done   (Done   ),
+      .Q      (NumeroInstrucoesExecutadas      )
+  ); */
+  
   registrador R0 (
                 .R    (BusWires),   // entrada de dados
                 .Rin  (Rin[7]),    // habilita escrita
@@ -186,7 +193,7 @@ module processador_multiciclo (Resetn,
                 .Q    (GRout)   // saida registrada
               );
 
-  contador_2bits u_contador_2bits(
+  contador_3bits u_contador_3bits(
                    .Clear     (Clear ),
                    .Clock     (Clock ),
                    .Run       (Run   ),
