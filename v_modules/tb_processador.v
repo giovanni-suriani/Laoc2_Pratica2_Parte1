@@ -49,6 +49,9 @@ module tb_processador;
   integer mostra_teste10 = 1;
   integer mostra_teste11 = 1;
   integer mostra_teste12 = 1;
+  integer mostra_teste13 = 1;
+  integer mostra_teste14 = 1;
+  integer mostra_teste15 = 1;
 
   initial
     begin
@@ -231,11 +234,11 @@ module tb_processador;
         end
 
       // ------------------------------
-      // T10 - ST R1, R0
+      // T10 - ST R1, R0 MODIFIQUEI CONTEUDO DE R1
       // ------------------------------
       if (mostra_teste10) 
         begin
-          // uut.R1.Q = 16'd10; // R1 = 10
+          uut.R1.Q = 16'd10; // R1 = 10
           $display("[%0t] Teste 10 instrucao ST R1, R0, R1 inicial = %0d, R0 inicial = %0d, Tstep = %0d", $time, uut.R1.Q, uut.R0.Q, uut.Tstep);
           @(posedge Clock);
           #551;
@@ -248,20 +251,53 @@ module tb_processador;
         end
 
       // ------------------------------
-      // T11 - LD R3, R1
+      // T11 - LD R3, R0
       // ------------------------------
       if (mostra_teste11)
         begin
-          $display("[%0t] Teste 11 instrucao LD R3, R1, R3 inicial = %0d, R1 inicial = %0d, Tstep = %0d", $time, uut.R3.Q, uut.R1.Q, uut.Tstep);
+          $display("[%0t] Teste 11 instrucao LD R3, R0, R3 inicial = %0d, R0 inicial = %0d, Tstep = %0d", $time, uut.R3.Q, uut.R0.Q, uut.Tstep);
           @(posedge Clock);
           #551;
           $display("[%0t] Ciclo 5 NEG_EDGE", $time);
-          $display("[%0t]           IR = %10b, R3 = %0d, R1 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R3.Q, uut.R1.Q, uut.Tstep);
+          $display("[%0t]           IR = %10b, R3 = %0d, R0 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R3.Q, uut.R0.Q, uut.Tstep);
           if (detalhado)
-            $display("[%0t] ESPERADO: IR = 0101001010, R3 = 2  R1 = 1 Tstep = 5",$time);
-          $display("[%0t] Teste LD R3, R1 concluido.", $time);
+            $display("[%0t] ESPERADO: IR = 0101001010, R3 = 2  R0 = 1 Tstep = 5",$time);
+          $display("[%0t] Teste LD R3, R0 concluido.", $time);
           $display("--------------------------------------------------");
         end
+
+      // ------------------------------
+      // T12 - PUSH R0
+      // ------------------------------
+      if (mostra_teste12)
+        begin
+          $display("[%0t] Teste 12 instrucao PUSH R0, R0 inicial = %0d, Tstep = %0d", $time, uut.R0.Q, uut.Tstep);
+          @(posedge Clock);
+          #551;
+          $display("[%0t] Ciclo 5 NEG_EDGE", $time);
+          $display("[%0t]           IR = %10b, R0 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R0.Q, uut.Tstep);
+          if (detalhado)
+            $display("[%0t] ESPERADO: IR = 0101001010, R0 = 2 Tstep = 5",$time);
+          $display("[%0t] Teste PUSH R0 concluido.", $time);
+          $display("--------------------------------------------------");
+        end
+
+      // ------------------------------
+      // T13 - LD R3, R6 - 4 MODIFIQUEI CONTEUDO DE R6
+      // ------------------------------
+      if (mostra_teste13)
+      begin
+        uut.R6.Q = 16'd60; // R2 = 2
+        $display("[%0t] Teste 13 instrucao LD R3, R6, R3 inicial = %0d, R6 inicial = %0d, Tstep = %0d", $time, uut.R3.Q, uut.R6.Q, uut.Tstep);
+        @(posedge Clock);
+        #551;
+        $display("[%0t] Ciclo 5 NEG_EDGE", $time);
+        $display("[%0t]           IR = %10b, R3 = %0d, R6 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R3.Q, uut.R6.Q, uut.Tstep);
+        if (detalhado)
+          $display("[%0t] ESPERADO: IR = 0101001010, R3 = 2  R6 = 1 Tstep = 5",$time);
+        $display("[%0t] Teste LD R3, R6 concluido.", $time);
+        $display("--------------------------------------------------");
+      end
 
 
       #300;

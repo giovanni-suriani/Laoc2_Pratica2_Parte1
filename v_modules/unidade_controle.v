@@ -68,7 +68,7 @@ module unidade_controle (
   output reg        Gin;     // carrega registrador G
   output reg        Gout;    // lê registrador G
   output reg        Memout;   // le da memoria
-  output reg [1:0]  Ulaop;  // escolhe subtração ou adicao na ALU
+  output reg [2:0]  Ulaop;  // escolhe subtração ou adicao na ALU
   output reg        DINout;  // coloca DIN no barramento
   output reg        Done;    // instrucao concluída
 
@@ -123,8 +123,9 @@ module unidade_controle (
           Ain     <= 0; // não carrega registrador A
           Gin     <= 0; // não carrega registrador G
           Gout    <= 0; // não lê registrador G
-          Ulaop   <= 2'b00; // não escolhe operação na ULA
+          Ulaop   <= 0; // não escolhe operação na ULA
           DINout  <= 0; // não coloca DIN no barramento
+          Memout  <= 0; // não lê da memória
           Done    <= 0; // não indica que a instrução foi concluída
         end
       else
@@ -141,7 +142,7 @@ module unidade_controle (
           Ain     <= 0;
           Gin     <= 0;
           Gout    <= 0;
-          Ulaop   <= 2'b00;
+          Ulaop   <= 0;
           DINout  <= 0;
           Memout  <= 0; // não lê da memória
           Done    <= 0;
@@ -235,6 +236,13 @@ module unidade_controle (
                       Rout <= Wire_Rin; // Habilita o registrador Ry
                       DOUTin <= 1'b1;   // Habilita escrita no barramento DOUT
                     end
+                  push: // PUSH Rx
+                    begin
+                      // Fazendo $sp = $sp - 4 $sp = R6
+                      Rout <= 8'b0000_0010; // Habilita o registrador R6 (SP)
+                      Ulaop <= 3'b101; // Subtrai 4 na ULA
+                      Gin <= 1'b1; // Habilita escrita no registrador G
+                    end
                 endcase
               end
             3'd4:
@@ -251,25 +259,25 @@ module unidade_controle (
                   add: // ADD Rx,Ry
                     begin
                       Rout  <= Wire_Rout; // Habilita o registrador Ry
-                      Ulaop <= 2'b00;    // Subtração na ULA
+                      Ulaop <= 3'b000;    // Subtração na ULA
                       Gin   <= 1'b1;     // Habilita escrita no registrador G
                     end
                   sub: // SUB Rx,Ry
                     begin
                       Rout  <= Wire_Rout; // Habilita o registrador Ry
-                      Ulaop <= 2'b01;    // Subtração na ULA
+                      Ulaop <= 3'b001;    // Subtração na ULA
                       Gin   <= 1'b1;     // Habilita escrita no registrador G
                     end
                   slt: // SLT Rx,Ry
                     begin
                       Rout  <= Wire_Rout; // Habilita o registrador Ry
-                      Ulaop <= 2'b10;    // Set Less Than na ULA
+                      Ulaop <= 3'b010;    // Set Less Than na ULA
                       Gin   <= 1'b1;     // Habilita escrita no registrador G
                     end
                   cmp: // CMP Rx,Ry
                     begin
                       Rout  <= Wire_Rout; // Habilita o registrador Ry
-                      Ulaop <= 2'b11;    // Compare na ULA
+                      Ulaop <= 3'b011;    // Compare na ULA
                       Gin   <= 1'b1;     // Habilita escrita no registrador G
                     end
                   ld: // LD Rx,Ry
@@ -282,8 +290,15 @@ module unidade_controle (
                       Rout <= Wire_Rout; // Habilita o registrador Ry
                       ADDRin <= 1'b1; // Habilita escrita no barramento ADDR
                       W_D    <= 1'b1; // Habilita escrita no barramento DOUT
+                      Done  <= 1'b1; // Indica que a instrução foi concluída
+                      Clear <= 1'b1; // Limpa o contador de Tstep
                     end
-
+                  push: // PUSH Rx
+                    begin
+                      // Fazendo Mem[$sp] = [Rx], $sp = R6
+                      Gout   <= 1'b1; // Mandando o dado de G para o barramento
+                      ADDRin <= 1'b1; // Habilita escrita no registrador ADDR 
+                    end
                 endcase
               end
             3'd5:
@@ -338,10 +353,13 @@ module unidade_controle (
                       // Clear <= 1'b1; // Limpa o contador de Tstep
                       // IncrPc <= 1; // Incrementa o PC pois o incremento anterior era para o imediato
                     end
-                  st:
+                  push: // PUSH Rx
                     begin
-                      Done  <= 1'b1; // Indica que a instrução foi concluída
-                      Clear <= 1'b1; // Limpa o contador de Tstep
+                      Rout   <= Wire_Rin; // Mandando o dado de Rx para o barramento
+                      DOUTin <= 1'b1;     // Habilita escrita no registrador DOUT
+                      W_D    <= 1'b1;     // Habilita escrita na memoria
+                      Done   <= 1'b1;     // Indica que a instrução foi concluída
+                      Clear  <= 1'b1;     // Limpa o contador de Tstep
                     end
                 endcase
               end

@@ -32,8 +32,8 @@ add wave -label "Clear" -radix unsigned tb_processador/uut/Clear
 add wave -label "Done" -radix binary tb_processador/Done
 add wave -label "DIN_uut" -radix binary /tb_processador/uut/DIN
 add wave -label "Instrucao_uut" -radix binary tb_processador/uut/Instrucao
-#add wave -label "IRin_uut" tb_processador/uut/IRin
-#add wave -label "Rin_uut" -radix binary tb_processador/uut/Rin
+add wave -label "IRin_uut" tb_processador/uut/IRin
+add wave -label "Rin_uut" -radix binary tb_processador/uut/Rin
 add wave -label "Rout_uut" -radix binary tb_processador/uut/Rout
 add wave -label "R0out_uut" tb_processador/uut/R0out
 add wave -label "R1out_uut" tb_processador/uut/R1out

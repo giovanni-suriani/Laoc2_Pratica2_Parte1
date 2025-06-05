@@ -45,7 +45,7 @@ module processador_multiciclo (Resetn,
   wire [15:0] Memout_data;        // saida do registrador ADDR
   wire [15:0] DOUTout;        // saida do registrador DOUT
   wire [15:0] Ulaout;         // saida da ULA
-  wire [1:0]  Ulaop;           // operacao da Ula
+  wire [2:0]  Ulaop;           // operacao da Ula
   wire        IRin, Ain, Gin, ADDRin, DOUTin; // habilita escrita no IR, A, G, ADDR e DOUT
   wire        Gout;           // habilita leitura do registrador G
   wire        DINout;         // habilita a saida do barramento DIN
@@ -114,15 +114,6 @@ module processador_multiciclo (Resetn,
 				.IncrPc (IncrPc       ),
 				.Q      (R7out        )
 			 );
-
-  /* regzin ADDRe (
-                .R    (BusWires),         // entrada de dados (dado a ser escrito)
-                .Rin  (ADDRin),           // habilita escrita no registrador
-                .Resetn(Resetn),        // sinal de reset
-                .IncrPc(IncrPc),      // sinal de incremento do PC
-                .Clock(Clock),            // sinal de clock
-                .Q    (ADDRout)           // saida Inutil
-              ); */
 
   registrador ADDR (
                 .R    (BusWires),         // entrada de dados (dado a ser escrito)
@@ -194,7 +185,8 @@ module processador_multiciclo (Resetn,
                 .Q    (R5out)   // saida registrada
               );
 
-  registrador R6 (
+  // Registrador SP
+  registrador_SP R6 (
                 .R    (BusWires),   // entrada de dados
                 .Rin  (Rin[1]),    // habilita escrita
                 .Clock(Clock),       // sinal de clock
@@ -229,11 +221,11 @@ module processador_multiciclo (Resetn,
   unidade_controle u_unidade_controle(
                      .Instrucao (Instrucao ),
                      .Tstep     (Tstep     ),
-                     .IncrPc   (IncrPc   ),
-                     .Clock     (Clock ),
-                     .W_D      (W_D      ),
-                     .ADDRin   (ADDRin   ),
-                     .DOUTin   (DOUTin   ),
+                     .IncrPc    (IncrPc    ),
+                     .Clock     (Clock     ),
+                     .W_D       (W_D       ),
+                     .ADDRin    (ADDRin    ),
+                     .DOUTin    (DOUTin    ),
                      .Run       (Run       ),
                      .Resetn    (Resetn    ),
                      .Clear     (Clear     ),
@@ -246,7 +238,7 @@ module processador_multiciclo (Resetn,
                      .Gout      (Gout      ),
                      .Ulaop     (Ulaop     ),
                      .DINout    (DINout    ),
-                     .Memout    (Memout),        
+                     .Memout    (Memout    ),        
                      .Done      (Done      )
                    );
 
@@ -273,7 +265,7 @@ module processador_multiciclo (Resetn,
   ula u_ula(
         .A        (ARout      ), // saida do registrador A
         .BusWires (BusWires   ),
-        .Operacao (Ulaop      ),       // operao da ULA (soma ou subtrao)
+        .Ulaop    (Ulaop      ),       // operao da ULA (soma ou subtrao)
         .Q        (Ulaout     ) // saida da ULA
       );
 

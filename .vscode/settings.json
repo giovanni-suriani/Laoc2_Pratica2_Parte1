@@ -27,9 +27,15 @@
     "**/LAOC2_PRATICA2_PARTE1.sta.summary": true,
     "**/LAOC2_PRATICA2_PARTE1.v.bak": true,
     "**/LAOC2_PRATICA2_PARTE1.ver": true,
+    "**/LAOC2_PRATICA2_PARTE1/v_modules/.v.bak": true,
     "**/modelsim.ini": true,
     "**/vsim.wlf": true,
 
+    // Arquivos de simulação do ModelSim
+    "**/v_modules/instrucoes_pratica2_1.ver": true,
+    "**/v_modules/**/*.ver": true,
+    "**/v_modules/**/*.bak": true,
+    
     // Arquivos aleatórios (wIft...)
     "**/wIft5EfsEG": true,
     "**/wIft8KVCVH": true,
