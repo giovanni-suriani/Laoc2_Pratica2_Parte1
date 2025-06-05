@@ -50,12 +50,16 @@ module processador_multiciclo (Resetn,
   wire        DINout;         // habilita a saida do barramento DIN
   wire [15:0] BusWires_data;  // dados do barramento BusWires
 
+
   assign Instrucao = IRout;
 
   // Variaveis inuteis
   wire [8:0] UnusedQ9;
   wire [15:0] UnusedQ16;
   wire [15:0] NumeroInstrucoesExecutadas;
+  wire [3:0]  Opcode;
+
+  assign Opcode = Instrucao[9:6]; // opcode III
 
   // Variaveis da simulacao FPGA
   wire [2:0] Rx = IRout[5:3];

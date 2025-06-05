@@ -24,6 +24,7 @@ add wave -label "ADDRout" -radix unsigned tb_processador/uut/ADDRout
 add wave -label "IncrPc" -radix binary tb_processador/uut/u_unidade_controle/IncrPc
 add wave -label "Tstep_uut" tb_processador/uut/Tstep
 add wave -label "Run" tb_processador/uut/Run
+add wave -label "Opcode" -radix binary /tb_processador/uut/Opcode
 #add wave -label "Run_d" tb_processador/uut/u_unidade_controle/Run_d
 add wave -label "ADDR" -radix unsigned tb_processador/uut/ADDR/Q
 add wave -label "Clear" -radix unsigned tb_processador/uut/Clear
@@ -56,12 +57,12 @@ add wave -label "A" -radix unsigned tb_processador/uut/A/Q
 add wave -label "G" -radix unsigned tb_processador/uut/G/Q
 
 # Executa a simulacao
-run 1500ps
+run 5000ps
 
 # Abre o waveform e ajusta exibição
 radix -unsigned
 view wave
-WaveRestoreZoom 0ps 500ps
+WaveRestoreZoom 2000ps 2500ps
 configure wave -timelineunits ps
 
 

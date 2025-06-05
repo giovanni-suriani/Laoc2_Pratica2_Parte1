@@ -22,6 +22,20 @@ module unidade_controle (
     Done     // instrucao concluída
   );
 
+  parameter mv   = 4'b0000; // mv Rx,Ry
+  parameter mvi  = 4'b0001; // mvi Rx,imediato
+  parameter mvnz = 4'b0010; // mvnz Rx,Ry
+
+  parameter add  = 4'b0011; // add Rx,Ry
+  parameter sub  = 4'b0100; // sub Rx,Ry
+  parameter slt  = 4'b0101; // slt Rx,Ry
+  parameter cmp  = 4'b0110; // cmp Rx,Ry
+
+  parameter ld   = 4'b0111; // ld Rx,imediato
+  parameter st   = 4'b1000; // st Rx,imediato
+  parameter push = 4'b1001; // push Rx
+  parameter pop  = 4'b1010; // pop Rx
+
   /*
    contador_2bits u_contador_2bits(
     .Clear (Clear ),
@@ -156,54 +170,126 @@ module unidade_controle (
             3'd3:
               begin
                 case (opcode)
-                  3'b000: // mv Rx Ry
-                    begin
-
-                    end
-                  3'b001: // mvi Rx,imediato
-                    begin
-                      // Espera ciclo 1 para carregar o imediato da memoria
-                    end
-                endcase
-              end
-            3'd4:
-              begin
-                case (opcode)
-                  3'b000: // mv Rx Ry
+                  mv: // mv Rx Ry
                     begin
                       Rin <= Wire_Rin; // Habilita o registrador Rx
                       Rout <= Wire_Rout; // Habilita o registrador Ry
                       Clear <= 1'b1; // Limpa o contador de Tstep
                       Done <= 1'b1; // Indica que a instrução foi concluída
                     end
-                  3'b001: // mvi Rx,imediato
+                  mvi: // mvi Rx,imediato
+                    begin
+                      // Espera ciclo 1 para carregar o imediato da memoria
+                    end
+                  mvnz: // mvnz Rx,Ry
+                    begin
+                      Rin       <= Wire_Rin;
+                      if (GRout != 0) // se G for diferente de zero
+                        begin
+                          Rout <= Wire_Rout; // Joga Ry em bus
+                        end
+                      else if (GRout == 0) // se G for igual a zero
+                        begin
+                          Rout <= Wire_Rin; // Joga Rx em bus (proprio dado)
+                        end
+                      Done      <= 1;
+                      Clear     <= 1'b1; // limpa o contador de Tstep
+                    end
+                  add: // ADD Rx,Ry
+                    begin
+                      // Coloca Rout no registrador A
+                      Ain  <=   1'b1;
+                      Rout <=   Wire_Rin;
+                    end
+                  sub: // SUB Rx,Ry
+                    begin
+                      // Coloca Rout no registrador A
+                      Ain  <=   1'b1;
+                      Rout <=   Wire_Rin;
+                    end
+                  ld:  // LD Rx, Ry
+                    begin
+                      Rout <= Wire_Rout; // Habilita o registrador Ry
+                      ADDRin <= 1'b1; // Habilita escrita no barramento ADDR
+                    end
+                endcase
+              end
+            3'd4:
+              begin
+                case (opcode)
+                  mvi: // mvi Rx,imediato
                     begin
                       Rin <= Wire_Rin; // Habilita o registrador Rx
                       DINout <= 1'b1; // Coloca DIN no barramento
                       Done <= 1'b1; // Indica que a instrução foi concluída
                       Clear <= 1'b1; // Limpa o contador de Tstep
-                      IncrPc <= 1; // Incrementa o PC se a instrução for mvi para pegar imediato
+                      IncrPc <= 1; // Incrementa o PC pois o incremento anterior era para o imediato
+                    end
+                  add: // ADD Rx,Ry
+                    begin
+                      Rout  <= Wire_Rout; // Habilita o registrador Ry
+                      Ulaop <= 2'b00;    // Subtração na ULA
+                      Gin   <= 1'b1;     // Habilita escrita no registrador G
+                    end
+                  sub: // SUB Rx,Ry
+                    begin
+                      Rout  <= Wire_Rout; // Habilita o registrador Ry
+                      Ulaop <= 2'b01;    // Subtração na ULA
+                      Gin   <= 1'b1;     // Habilita escrita no registrador G
+                    end
+                  ld: // LD Rx,Ry
+                    begin
+                      // Espera 1 ciclo
                     end
                 endcase
               end
             3'd5:
               begin
                 case (opcode)
-                  3'b000: // mv Rx Ry
+                  add: // ADD Rx,Ry
                     begin
+                      Rin   <= Wire_Rin; // Habilita o registrador Rx
+                      Gout  <= 1'b1; // Habilita leitura do registrador G
+                      Done  <= 1'b1; // Indica que a instrução foi concluída
+                      Clear <= 1'b1; // Limpa o contador de Tstep
 
+                      // ADD Rx,Ry
+                      // Coloca Rin no bus
+                      // Rout <= Wire_Rin; // Habilita o registrador Ry
+                      // Gin  <= 1'b1;     // Habilita escrita no registrador G
                     end
-                  3'b001: // mvi Rx,imediato
+                  sub: // SUB Rx,Ry
                     begin
+                      Rin   <= Wire_Rin; // Habilita o registrador Rx
+                      Gout  <= 1'b1; // Habilita leitura do registrador G
+                      Done  <= 1'b1; // Indica que a instrução foi concluída
+                      Clear <= 1'b1; // Limpa o contador de Tstep
+
+                      // SUB Rx,Ry
+                      // Coloca Rin no bus
+                      // Rout <= Wire_Rin; // Habilita o registrador Ry
+                      // Gin  <= 1'b1;     // Habilita escrita no registrador G
+                    end
+                  ld: // LD Rx,Ry
+                    begin
+                      Rin   <= Wire_Rin; // Habilita o registrador Rx
+                      DINout <= 1'b1;    // Coloca DIN no barramento
+                      // Done  <= 1'b1; // Indica que a instrução foi concluída
+                      // Clear <= 1'b1; // Limpa o contador de Tstep
+                      // IncrPc <= 1; // Incrementa o PC pois o incremento anterior era para o imediato
                     end
                 endcase
               end
             3'd6:
               begin
                 case (opcode)
-                  3'b000: // mv Rx Ry
+                  ld: // LD Rx,Ry
                     begin
-
+                      Done  <= 1'b1; // Indica que a instrução foi concluída
+                      Clear <= 1'b1; // Limpa o contador de Tstep
+                      // Voltando para o PC
+                      ADDRin  <= 1; // Habilita escrita no registrador ADDR
+                      Rout    <= 8'b0000_0001; // Habilita leitura do registrador PC no Bus
                     end
                 endcase
               end
