@@ -6,7 +6,7 @@ module Pratica2_Parte1_top_level (
     output [17:0] LEDR    // LEDR15–0 = BusWires, LEDR17 = Done
   );
   wire Clock;
-  wire Reset;
+  wire Resetn;
   wire [15:0] BusWires;
   wire Done;
   wire Run;
@@ -23,24 +23,25 @@ module Pratica2_Parte1_top_level (
   assign LEDR[17]   = Run;
   assign Run        = SW[17]; // SW17 indica o início da execução
   assign LEDG[2]    = Done;   // LEDG0 indica se a instrução foi concluída
-  assign LEDG[1]    = Reset;  // LEDG0 indica se a instrução foi concluída
-  assign Reset      = SW[16]; // Reset ativo em nível baixo
+  assign LEDG[1]    = Resetn;  // LEDG0 indica se a instrução foi concluída
+  assign Resetn      = SW[16]; // Reset ativo em nível baixo
   // assign Clock      = SW[15]; // Reset ativo em nível baixo
   assign Clock      = !KEY[3];
   assign LEDG[7]    = Clock;
   // Instancia o processador
 
-  processador_multiciclo proc (
-                           .DIN({SW[15:0]}),       // Dados de entrada
-                           .Resetn(Reset),      // Reset ativo em nível baixo
-                           .Clock(Clock),       // Clock manual via botão
-                           .Run(Run),         // Sinal de início via chave
-                           .Rx_data(Rx_data),     // Dados do registrador Rx
-                           .Ry_data(Ry_data),     // Dados do registrador Ry
-                           .Done(Done),          // Indica fim da instrução
-                           .BusWires(BusWires),   // Saída no barramento
-                           .Tstep(Tstep) // Sinal de Tstep
-                         );
+  processador_multiciclo u_processador_multiciclo(
+      .Resetn   (Resetn   ),
+      .Clock    (Clock    ),
+      .Run      (Run      ),
+      .Done     (Done     ),
+      .BusWires (BusWires ),
+      .Tstep    (Tstep    ),
+      .Rx_data  (Rx_data  ),
+      .Ry_data  (Ry_data  )
+  );
+  
+
   /*
   Display D0(
   	 .result(Rx_data), // Sinal mem_write

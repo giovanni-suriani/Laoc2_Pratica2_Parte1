@@ -481,16 +481,17 @@ set_location_assignment PIN_W25 -to GPIO_1[34]
 set_location_assignment PIN_W23 -to GPIO_1[35]
 set_global_assignment -name LL_ROOT_REGION ON -section_id "Root Region"
 set_global_assignment -name LL_MEMBER_STATE LOCKED -section_id "Root Region"
-set_global_assignment -name VERILOG_FILE display.v
-set_global_assignment -name VERILOG_FILE tb_hierarquia_memoria_escrita.v
+set_global_assignment -name VERILOG_FILE v_modules/registrador_PC.v
 set_global_assignment -name VERILOG_FILE v_modules/unidade_controle.v
 set_global_assignment -name VERILOG_FILE v_modules/ula.v
 set_global_assignment -name VERILOG_FILE v_modules/registrador_IR.v
 set_global_assignment -name VERILOG_FILE v_modules/registrador.v
 set_global_assignment -name VERILOG_FILE v_modules/processador_multiciclo.v
 set_global_assignment -name VERILOG_FILE v_modules/mux.v
+set_global_assignment -name VERILOG_FILE v_modules/memoram_dados.v
 set_global_assignment -name VERILOG_FILE v_modules/memoram.v
 set_global_assignment -name VERILOG_FILE v_modules/decode3_8bits.v
-set_global_assignment -name VERILOG_FILE v_modules/contador_2bits.v
+set_global_assignment -name VERILOG_FILE v_modules/contador_3bits.v
+set_global_assignment -name VERILOG_FILE display.v
 set_global_assignment -name VERILOG_FILE Pratica2_Parte1_top_level.v
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

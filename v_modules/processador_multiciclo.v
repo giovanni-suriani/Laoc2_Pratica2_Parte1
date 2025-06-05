@@ -42,15 +42,18 @@ module processador_multiciclo (Resetn,
   wire [15:0] ARout;          // saida do registrador GOUT
   wire [15:0] GRout;          // saida do registrador GOUT
   wire [15:0] ADDRout;        // saida do registrador ADDR
+  wire [15:0] Memout_data;        // saida do registrador ADDR
   wire [15:0] DOUTout;        // saida do registrador DOUT
   wire [15:0] Ulaout;         // saida da ULA
   wire [1:0]  Ulaop;           // operacao da Ula
   wire        IRin, Ain, Gin, ADDRin, DOUTin; // habilita escrita no IR, A, G, ADDR e DOUT
   wire        Gout;           // habilita leitura do registrador G
   wire        DINout;         // habilita a saida do barramento DIN
+  wire        Memout;         // habilita a saida do barramento Memout  
   wire [15:0] BusWires_data;  // dados do barramento BusWires
+  wire [5:0]  endereco_mem; // endereco da memoria de dados
 
-
+  assign endereco_mem = ADDRout[5:0];
   assign Instrucao = IRout;
 
   // Variaveis inuteis
@@ -77,12 +80,21 @@ module processador_multiciclo (Resetn,
 
   // wire [8:0] useless_IR_out =
 
-  memoram Memoria_instrucao (
-            .address(ADDRout[5:0]), // tem 64 enderecos,
-            // .address(6'b000_000), // tem 64 enderecos,
+  memoram_dados Memoria_Dados (
+            .address(endereco_mem), // tem 64 enderecos,
+            // .address(6'b001010), // tem 64 enderecos,
             .clock(Clock),
             .data(DOUTout),
             .wren(W_D),
+            .q(Memout_data)
+          );
+
+  memoram Memoria_instrucao (
+            .address(R7out[5:0]), // tem 64 enderecos,
+            // .address(6'b000_000), // tem 64 enderecos,
+            .clock(Clock),
+            .data(DOUTout),
+            .wren(1'b0), // nao escreve na memoria de instrucao nunca
             .q(DIN)
           );
 
@@ -94,17 +106,26 @@ module processador_multiciclo (Resetn,
                    .Q     (IRout)              // saida Inutil
                  );
 
-  registradorPC R7(
-                  .R      (BusWires     ),
-                  .Rin    (Rin[0]       ),
-                  .Clock  (Clock        ),
-                  .Resetn (Resetn       ),
-                  .IncrPc (IncrPc       ),
-                  .Q      (R7out        )
-                );
+  registrador_PC R7(
+				.R      (BusWires     ),
+				.Rin    (Rin[0]       ),
+				.Clock  (Clock        ),
+				.Resetn (Resetn       ),
+				.IncrPc (IncrPc       ),
+				.Q      (R7out        )
+			 );
+
+  /* regzin ADDRe (
+                .R    (BusWires),         // entrada de dados (dado a ser escrito)
+                .Rin  (ADDRin),           // habilita escrita no registrador
+                .Resetn(Resetn),        // sinal de reset
+                .IncrPc(IncrPc),      // sinal de incremento do PC
+                .Clock(Clock),            // sinal de clock
+                .Q    (ADDRout)           // saida Inutil
+              ); */
 
   registrador ADDR (
-                .R    (R7out),         // entrada de dados (dado a ser escrito)
+                .R    (BusWires),         // entrada de dados (dado a ser escrito)
                 .Rin  (ADDRin),           // habilita escrita no registrador
                 .Resetn(Resetn),        // sinal de reset
                 .Clock(Clock),            // sinal de clock
@@ -225,6 +246,7 @@ module processador_multiciclo (Resetn,
                      .Gout      (Gout      ),
                      .Ulaop     (Ulaop     ),
                      .DINout    (DINout    ),
+                     .Memout    (Memout),        
                      .Done      (Done      )
                    );
 
@@ -243,6 +265,8 @@ module processador_multiciclo (Resetn,
         .Gout_data   (GRout       ),  // Dados G para colocar no barramento BusWires DIN
         .DINout      (DINout      ),  // Habilita a saida do barramento DIN
         .DINout_data (DIN),           // Dados DIN para colocar no barramento BusWires DIN
+        .Memout_data (Memout_data),   // Dados da Memoria de Dados para colocar no barramento BusWires
+        .Memout      (Memout),        // Habilita a saida do barramento Memout
         .BusWires    (BusWires)
       );
 

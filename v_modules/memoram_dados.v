@@ -35,7 +35,7 @@
 
 // synopsys translate_off
 // synopsys translate_on
-module memoram (
+module memoram_dados (
 	address,
 	clock,
 	data,
@@ -98,7 +98,7 @@ module memoram (
 		altsyncram_component.widthad_a = 6,
 		altsyncram_component.width_a = 16,
 		altsyncram_component.width_byteena_a = 1, 
-		altsyncram_component.init_file = "instrucoes_pratica2_1.mif";
+		altsyncram_component.init_file = "dados_pratica2_1.mif";
 
 
 endmodule

@@ -6,6 +6,7 @@ module unidade_controle (
     Clear,   // limpa contador de Tstep
     IncrPc, // incrementa PC
     GRout,   // saída do registrador G
+    Memout,  // saída da memória
     IRin,    // carrega IR
     Rin,     // habilita escrita em R0..R7
     Rout,    // habilita leitura de R0..R7
@@ -66,6 +67,7 @@ module unidade_controle (
   output reg        Ain;     // carrega registrador A
   output reg        Gin;     // carrega registrador G
   output reg        Gout;    // lê registrador G
+  output reg        Memout;   // le da memoria
   output reg [1:0]  Ulaop;  // escolhe subtração ou adicao na ALU
   output reg        DINout;  // coloca DIN no barramento
   output reg        Done;    // instrucao concluída
@@ -130,15 +132,18 @@ module unidade_controle (
           // $display("[%0t] bora pic, Run = %b, Run_d = %b",$time, Run, Run_d);
           Clear   <= 0; // não limpa o contador de Tstep
           IncrPc  <= 0; // não incrementa o PC
+          W_D     <= 0; // não habilita escrita na memoria
           IRin    <= 0;
           Rin     <= 8'b0;
           ADDRin  <= 0; // não habilita escrita no barramento
+          DOUTin  <= 0; // não habilita escrita no barramento
           Rout    <= 8'b0;
           Ain     <= 0;
           Gin     <= 0;
           Gout    <= 0;
           Ulaop   <= 2'b00;
           DINout  <= 0;
+          Memout  <= 0; // não lê da memória
           Done    <= 0;
 
           case (Tstep)
@@ -146,8 +151,8 @@ module unidade_controle (
               begin
                 // T0: carrega PC em Bus para ser escrito em Rin
                 // IRin    <= 1;
-                ADDRin  <= 1; // Habilita escrita no registrador ADDR
-                Rout    <= 8'b0000_0001; // Habilita leitura do registrador PC no Bus
+                // ADDRin  <= 1; // Habilita escrita no registrador ADDR
+                // Rout    <= 8'b0000_0001; // Habilita leitura do registrador PC no Bus
                 // IncrPc <= 1; // Incrementa o PC se a instrução for mvi para pegar imediato
                 // ADDRout
                 // if (opcode == 3'b001)
@@ -156,7 +161,7 @@ module unidade_controle (
               end
             3'd1:
               begin
-                Rout    <= 8'b0000_0001;
+                // Rout    <= 8'b0000_0001;
                 // T1: fetch da instrução na MEMORIA
                 // Espera ciclo 1
               end
@@ -165,7 +170,7 @@ module unidade_controle (
                 IRin    <= 1;
                 DINout  <= 1; // Coloca DIN no barramento
                 IncrPc  <= 1; // Incrementa o PC
-                ADDRin  <= 1; // Habilita escrita no barramento ADDR
+                // ADDRin  <= 1; // Habilita escrita no barramento ADDR
               end
             3'd3:
               begin
@@ -207,10 +212,28 @@ module unidade_controle (
                       Ain  <=   1'b1;
                       Rout <=   Wire_Rin;
                     end
+                  slt: // SLT Rx,Ry
+                    begin
+                      // Coloca Rout no registrador A
+                      Ain  <=   1'b1;
+                      Rout <=   Wire_Rin;
+                    end
+                  cmp: // CMP Rx,Ry
+                    begin
+                      // Coloca Rout no registrador A
+                      Ain  <=   1'b1;
+                      Rout <=   Wire_Rin;
+                    end
                   ld:  // LD Rx, Ry
                     begin
                       Rout <= Wire_Rout; // Habilita o registrador Ry
                       ADDRin <= 1'b1; // Habilita escrita no barramento ADDR
+                    end
+                  st:  // ST Rx, Ry
+                    begin
+                      // Passando o dado de Rx para ser escrito na memoria
+                      Rout <= Wire_Rin; // Habilita o registrador Ry
+                      DOUTin <= 1'b1;   // Habilita escrita no barramento DOUT
                     end
                 endcase
               end
@@ -237,10 +260,30 @@ module unidade_controle (
                       Ulaop <= 2'b01;    // Subtração na ULA
                       Gin   <= 1'b1;     // Habilita escrita no registrador G
                     end
+                  slt: // SLT Rx,Ry
+                    begin
+                      Rout  <= Wire_Rout; // Habilita o registrador Ry
+                      Ulaop <= 2'b10;    // Set Less Than na ULA
+                      Gin   <= 1'b1;     // Habilita escrita no registrador G
+                    end
+                  cmp: // CMP Rx,Ry
+                    begin
+                      Rout  <= Wire_Rout; // Habilita o registrador Ry
+                      Ulaop <= 2'b11;    // Compare na ULA
+                      Gin   <= 1'b1;     // Habilita escrita no registrador G
+                    end
                   ld: // LD Rx,Ry
                     begin
                       // Espera 1 ciclo
                     end
+                  st: // ST Rx,Ry
+                    begin
+                      // Passando o dado de Ry como endereco
+                      Rout <= Wire_Rout; // Habilita o registrador Ry
+                      ADDRin <= 1'b1; // Habilita escrita no barramento ADDR
+                      W_D    <= 1'b1; // Habilita escrita no barramento DOUT
+                    end
+
                 endcase
               end
             3'd5:
@@ -270,13 +313,35 @@ module unidade_controle (
                       // Rout <= Wire_Rin; // Habilita o registrador Ry
                       // Gin  <= 1'b1;     // Habilita escrita no registrador G
                     end
+                  slt: // SLT Rx,Ry
+                    begin
+                      Rin   <= Wire_Rin; // Habilita o registrador Rx
+                      Gout  <= 1'b1; // Habilita leitura do registrador G
+                      Done  <= 1'b1; // Indica que a instrução foi concluída
+                      Clear <= 1'b1; // Limpa o contador de Tstep
+                    end
+                  cmp: // CMP Rx,Ry
+                    begin
+                      Rin   <= Wire_Rin; // Habilita o registrador Rx
+                      Gout  <= 1'b1; // Habilita leitura do registrador G
+                      Done  <= 1'b1; // Indica que a instrução foi concluída
+                      Clear <= 1'b1; // Limpa o contador de Tstep
+                    end
                   ld: // LD Rx,Ry
                     begin
                       Rin   <= Wire_Rin; // Habilita o registrador Rx
-                      DINout <= 1'b1;    // Coloca DIN no barramento
+                      Memout <= 1'b1; // Habilita leitura da memória
+                      Done  <= 1'b1; // Indica que a instrução foi concluída
+                      Clear <= 1'b1; // Limpa o contador de Tstep
+                      // DINout <= 1'b1;    // Coloca DIN no barramento
                       // Done  <= 1'b1; // Indica que a instrução foi concluída
                       // Clear <= 1'b1; // Limpa o contador de Tstep
                       // IncrPc <= 1; // Incrementa o PC pois o incremento anterior era para o imediato
+                    end
+                  st:
+                    begin
+                      Done  <= 1'b1; // Indica que a instrução foi concluída
+                      Clear <= 1'b1; // Limpa o contador de Tstep
                     end
                 endcase
               end
@@ -285,11 +350,6 @@ module unidade_controle (
                 case (opcode)
                   ld: // LD Rx,Ry
                     begin
-                      Done  <= 1'b1; // Indica que a instrução foi concluída
-                      Clear <= 1'b1; // Limpa o contador de Tstep
-                      // Voltando para o PC
-                      ADDRin  <= 1; // Habilita escrita no registrador ADDR
-                      Rout    <= 8'b0000_0001; // Habilita leitura do registrador PC no Bus
                     end
                 endcase
               end
