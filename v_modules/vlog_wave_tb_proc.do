@@ -65,7 +65,8 @@ run 9000ps
 # Abre o waveform e ajusta exibição
 radix -unsigned
 view wave
-WaveRestoreZoom 7000ps 7500ps
+#WaveRestoreZoom 7000ps 7500ps
+WaveRestoreZoom 000ps 500ps
 configure wave -timelineunits ps
 
 
