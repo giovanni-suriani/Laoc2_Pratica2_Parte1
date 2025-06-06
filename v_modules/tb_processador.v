@@ -247,7 +247,7 @@ module tb_processador;
           $display("[%0t] Ciclo 5 NEG_EDGE", $time);
           $display("[%0t]           IR = %10b, R0 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R0.Q, uut.Tstep);
           if (detalhado)
-            $display("[%0t] ESPERADO: IR = 1001001000, R0 = 1 Tstep = 5",$time);
+            $display("[%0t] ESPERADO: IR = 0101000001, R0 = 1 Tstep = 5",$time);
           $display("[%0t] Teste slt R0, R1 concluido.", $time);
           $display("--------------------------------------------------");
           if (mostra_registradores)
