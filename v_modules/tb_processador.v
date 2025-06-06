@@ -11,7 +11,9 @@ module tb_processador;
   wire Done;
   wire [2:0] Tstep; // Sinal de Tstep
   wire [15:0] BusWires;
-  wire [15:0] Rx_data, Ry_data; // Dados dos registradores Rx e Ry
+  // wire [15:0] Rx_data, Ry_data; // Dados dos registradores Rx e Ry
+  wire [15:0] ContaInstrucao;
+  wire [15:0] R0out, R1out, R2out, R3out, R4out; // Dados dos registradores Rx e Ry
 
   // Instancia o processador
 
@@ -22,17 +24,19 @@ module tb_processador;
                            .Done     (Done     ),
                            .BusWires (BusWires ),
                            .Tstep    (Tstep    ),
-                           .Rx_data  (Rx_data  ),
-                           .Ry_data  (Ry_data  )
+                           .R0out               (R0out               ),
+                           .R1out               (R1out               ),
+                           .R2out               (R2out               ),
+                           .R3out               (R3out               ),
+                           .Wire_ContaInstrucao (ContaInstrucao )
                          );
-
 
 
   assign Instrucao = uut.Instrucao; // Instrução completa
   // Clock gerado a cada 50ps
 
 
-  integer detalhado = 0;
+  integer detalhado = 1;
   integer mostra_registradores = 1;
 
   always #50 Clock = ~Clock;
@@ -267,7 +271,7 @@ module tb_processador;
           $display("[%0t] Ciclo 5 NEG_EDGE", $time);
           $display("[%0t]           IR = %10b, R1 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R1.Q, uut.Tstep);
           if (detalhado)
-            $display("[%0t] ESPERADO: IR = 0101001010, R1 = 3 Tstep = 5",$time);
+            $display("[%0t] ESPERADO: IR = 1001001000, R1 = 3 Tstep = 5",$time);
           $display("[%0t] Teste push R1 concluido.", $time);
           $display("--------------------------------------------------");
           if (mostra_registradores)
