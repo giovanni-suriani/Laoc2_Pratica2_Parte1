@@ -8,6 +8,7 @@ module Pratica2_Parte1_top_level (
   wire Clock;
   wire Resetn;
   wire [15:0] BusWires;
+  wire [15:0] ContaInstrucao;
   wire Done;
   wire Run;
   wire [2:0] Tstep;

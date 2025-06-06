@@ -49,6 +49,7 @@ add wave -label "Registrador IR" -radix binary tb_processador/uut/IR/Q
 #add wave -label "Rx_data" -radix unsigned tb_processador/uut/Rx_data
 #add wave -label "Ry_data" -radix unsigned tb_processador/uut/Ry_data
 add wave -label "Memout_data" -radix binary tb_processador/uut/Memout_data
+add wave -label "ContaInstrucao" -radix unsigned tb_processador/uut/ContaInstrucao/Q
 add wave -label "R0" -radix unsigned tb_processador/uut/R0/Q
 add wave -label "R1" -radix unsigned tb_processador/uut/R1/Q
 add wave -label "R2" -radix unsigned tb_processador/uut/R2/Q

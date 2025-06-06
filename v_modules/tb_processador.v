@@ -32,7 +32,7 @@ module tb_processador;
   // Clock gerado a cada 50ps
 
 
-  integer detalhado = 1;
+  integer detalhado = 0;
   integer mostra_registradores = 1;
 
   always #50 Clock = ~Clock;
@@ -385,7 +385,7 @@ module tb_processador;
 
     end
 
-  task display_registradoresele;
+  task display_registradores;
     begin
       // $display("+------------+--------------+ Registradores +-------------+--------+--------+", $time);
       $display("+-------------------+-------+ Registradores +-------+-----------------------+");
@@ -395,7 +395,7 @@ module tb_processador;
     end
   endtask
 
-  task display_registradores;
+  task display_registradorese;
     begin
       // $display("+------------+--------------+ Registradores +-------------+--------+--------+", $time);
       $display("                                 /////////                                           ");

@@ -1,5 +1,5 @@
 module processador_multiciclo (Resetn,
-                                 Clock, Run, Done, BusWires, Rx_data, Ry_data, Tstep);
+                                 Clock, Run, Done, BusWires, Rx_data, Ry_data, Tstep, Wire_ContaInstrucao);
 
   /*
     
@@ -69,6 +69,7 @@ module processador_multiciclo (Resetn,
   wire [2:0] Ry = IRout[2:0];
   output [15:0] Rx_data; // Dados do registrador Rx
   output [15:0] Ry_data; // Dados do registrador Ry
+  output [15:0] Wire_ContaInstrucao;
   reg [15:0] Rx_data_reg, Ry_data_reg;
   reg [15:0] LazyBusWires;
   reg [7:0] LazyRin;
@@ -114,6 +115,15 @@ module processador_multiciclo (Resetn,
 				.IncrPc (IncrPc       ),
 				.Q      (R7out        )
 			 );
+  
+  registrador_PC ContaInstrucao(
+        .R      (BusWires     ),  // entrada de dados (dado a ser escrito)
+        .Rin    (1'b0       ),  // habilita escrita no registrador
+        .Clock  (Clock        ),  // sinal de clock
+        .Resetn (Resetn       ),  // sinal de reset
+        .IncrPc (Done       ),  // incrementa o PC
+        .Q      (Wire_ContaInstrucao    )   // saida Inutil
+  );
 
   registrador ADDR (
                 .R    (BusWires),         // entrada de dados (dado a ser escrito)
