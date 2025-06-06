@@ -66,7 +66,7 @@ run 9000ps
 radix -unsigned
 view wave
 #WaveRestoreZoom 7000ps 7500ps
-WaveRestoreZoom 3000ps 3500ps
+WaveRestoreZoom 5000ps 5500ps
 configure wave -timelineunits ps
 
 

@@ -304,6 +304,7 @@ module unidade_controle (
                       // Fazendo Mem[$sp] = [Rx], $sp = R6
                       Gout   <= 1'b1; // Mandando o dado de G para o barramento
                       ADDRin <= 1'b1; // Habilita escrita no registrador ADDR 
+                      Rin    <= 8'b0000_0010;
                     end
                   pop: // POP Rx
                     begin
@@ -367,6 +368,7 @@ module unidade_controle (
                     end
                   push: // PUSH Rx
                     begin
+                      // Mem[$sp] = [Rx] Mandando o dado de Rx para a memoria
                       Rout   <= Wire_Rin; // Mandando o dado de Rx para o barramento
                       DOUTin <= 1'b1;     // Habilita escrita no registrador DOUT
                       W_D    <= 1'b1;     // Habilita escrita na memoria
