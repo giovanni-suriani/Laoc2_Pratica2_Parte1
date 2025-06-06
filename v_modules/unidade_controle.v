@@ -243,6 +243,12 @@ module unidade_controle (
                       Ulaop <= 3'b101; // Subtrai 4 na ULA
                       Gin <= 1'b1; // Habilita escrita no registrador G
                     end
+                  pop: // POP Rx
+                    begin
+                      // Colocando SP como endereco
+                      ADDRin <= 1'b1; // Habilita escrita no barramento ADDR
+                      Rout <= 8'b0000_0010; // Habilita o registrador R6 (SP)
+                    end
                 endcase
               end
             3'd4:
@@ -298,6 +304,12 @@ module unidade_controle (
                       // Fazendo Mem[$sp] = [Rx], $sp = R6
                       Gout   <= 1'b1; // Mandando o dado de G para o barramento
                       ADDRin <= 1'b1; // Habilita escrita no registrador ADDR 
+                    end
+                  pop: // POP Rx
+                    begin
+                      // [Rx] = Mem[$sp]
+                      Rin    <= Wire_Rin; // Habilita o registrador Rx
+                      Memout <= 1'b1; // Habilita leitura da memória
                     end
                 endcase
               end
@@ -361,13 +373,25 @@ module unidade_controle (
                       Done   <= 1'b1;     // Indica que a instrução foi concluída
                       Clear  <= 1'b1;     // Limpa o contador de Tstep
                     end
+                  pop: // POP Rx
+                    begin
+                      // Fazendo $sp = $sp + 4
+                      Rout    <= 8'b0000_0010; // Escreve no registrador SP
+                      Ulaop  <= 3'b100;       // Adiciona 4 na ULA
+                      Gin    <= 1'b1;         // Habilita escrita no registrador G
+                    end
                 endcase
               end
             3'd6:
               begin
                 case (opcode)
-                  ld: // LD Rx,Ry
+                  pop: // POP Rx
                     begin
+                      // Colocando o dado de Mem[$sp] no registrador Rx
+                      Rin    <= 8'b0000_0010; // Habilita escrita no registrador SP
+                      Gout   <= 1'b1; // Coloca o dado de G no barramento
+                      Done   <= 1'b1; // Indica que a instrução foi concluída
+                      Clear  <= 1'b1; // Limpa o contador de Tstep
                     end
                 endcase
               end
