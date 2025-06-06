@@ -97,6 +97,7 @@ module Pratica2_Parte1_top_level (
 
 /* 
 comandos para o quartus rodar na placa
+cd ~/quartus/bin; ./quartus --64bit
 lsusb
 sudo chmod 666 /dev/bus/usb/001/010
 */
