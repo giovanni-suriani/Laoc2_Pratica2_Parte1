@@ -95,10 +95,11 @@ module Pratica2_Parte1_top_level (
           );
 
 
-  // Opcode
-  // Imediato
-  // Rx
-  // Ry
+/* 
+comandos para o quartus rodar na placa
+lsusb
+sudo chmod 666 /dev/bus/usb/001/010
+*/
 
 
 endmodule

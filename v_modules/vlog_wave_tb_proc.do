@@ -4,9 +4,10 @@ vlib work
 vlib altera
 # Compila a biblioteca altera necessária 
 # vlog -work altera /home/gi/altera/13.0sp1/modelsim_ase/altera/verilog/src/altera_mf.v
+# vlog -work altera /home/giovanni/intelFPGA/20.1/modelsim_ase/altera/verilog/src/altera_mf.v
 
 # Compila os arquivos Verilog necessários
-vlog +acc processador_multiciclo.v registrador.v registrador_IR.v registrador_PC.v mux.v unidade_controle.v contador_3bits.v memoram.v memoram_dados.v decode3_8bits.v ula.v tb_processador.v
+vlog +acc processador_multiciclo.v registrador.v registrador_IR.v registrador_SP.v registrador_PC.v mux.v unidade_controle.v contador_3bits.v memoram.v memoram_dados.v decode3_8bits.v ula.v tb_processador.v
 vsim -L altera work.tb_processador
 
 
