@@ -1,5 +1,8 @@
 module processador_multiciclo (Resetn,
-                                 Clock, Run, Done, BusWires, Rx_data, Ry_data, Tstep, Wire_ContaInstrucao);
+                                 Clock, Run, Done, BusWires,
+                                 R0out, R1out, R2out, R3out,
+                                 Tstep,
+                                 Wire_ContaInstrucao);
 
   /*
     
@@ -38,7 +41,8 @@ module processador_multiciclo (Resetn,
   wire [15:0] DIN;            // barramento de entrada de dados
   wire [7:0]  Rout, Rin;      // campo de seleo para os registradores
   wire [9:0]  IRout;          // Saida do registrador IR
-  wire [15:0] R0out, R1out, R2out, R3out, R4out, R5out, R6out, R7out; // saida do registrador R0, R1, ..., R7
+  output wire [15:0] R0out, R1out, R2out, R3out;
+  wire [15:0] R4out, R5out, R6out, R7out; // saida do registrador R0, R1, ..., R7
   wire [15:0] ARout;          // saida do registrador GOUT
   wire [15:0] GRout;          // saida do registrador GOUT
   wire [15:0] ADDRout;        // saida do registrador ADDR
@@ -49,7 +53,7 @@ module processador_multiciclo (Resetn,
   wire        IRin, Ain, Gin, ADDRin, DOUTin; // habilita escrita no IR, A, G, ADDR e DOUT
   wire        Gout;           // habilita leitura do registrador G
   wire        DINout;         // habilita a saida do barramento DIN
-  wire        Memout;         // habilita a saida do barramento Memout  
+  wire        Memout;         // habilita a saida do barramento Memout
   wire [15:0] BusWires_data;  // dados do barramento BusWires
   wire [5:0]  endereco_mem; // endereco da memoria de dados
 
@@ -67,8 +71,10 @@ module processador_multiciclo (Resetn,
   // Variaveis da simulacao FPGA
   wire [2:0] Rx = IRout[5:3];
   wire [2:0] Ry = IRout[2:0];
-  output [15:0] Rx_data; // Dados do registrador Rx
-  output [15:0] Ry_data; // Dados do registrador Ry
+  wire [15:0] Rx_data; // Dados do registrador Rx
+  wire [15:0] Ry_data; // Dados do registrador Ry
+  // output wire [15:0] Rx_data; // Dados do registrador Rx
+  // output wire [15:0] Ry_data; // Dados do registrador Ry
   output [15:0] Wire_ContaInstrucao;
   reg [15:0] Rx_data_reg, Ry_data_reg;
   reg [15:0] LazyBusWires;
@@ -82,13 +88,13 @@ module processador_multiciclo (Resetn,
   // wire [8:0] useless_IR_out =
 
   memoram_dados Memoria_Dados (
-            .address(endereco_mem), // tem 64 enderecos,
-            // .address(6'b001010), // tem 64 enderecos,
-            .clock(Clock),
-            .data(DOUTout),
-            .wren(W_D),
-            .q(Memout_data)
-          );
+                  .address(endereco_mem), // tem 64 enderecos,
+                  // .address(6'b001010), // tem 64 enderecos,
+                  .clock(Clock),
+                  .data(DOUTout),
+                  .wren(W_D),
+                  .q(Memout_data)
+                );
 
   memoram Memoria_instrucao (
             .address(R7out[5:0]), // tem 64 enderecos,
@@ -108,22 +114,22 @@ module processador_multiciclo (Resetn,
                  );
 
   registrador_PC R7(
-				.R      (BusWires     ),
-				.Rin    (Rin[0]       ),
-				.Clock  (Clock        ),
-				.Resetn (Resetn       ),
-				.IncrPc (IncrPc       ),
-				.Q      (R7out        )
-			 );
-  
+                   .R      (BusWires     ),
+                   .Rin    (Rin[0]       ),
+                   .Clock  (Clock        ),
+                   .Resetn (Resetn       ),
+                   .IncrPc (IncrPc       ),
+                   .Q      (R7out        )
+                 );
+
   registrador_PC ContaInstrucao(
-        .R      (BusWires     ),  // entrada de dados (dado a ser escrito)
-        .Rin    (1'b0       ),  // habilita escrita no registrador
-        .Clock  (Clock        ),  // sinal de clock
-        .Resetn (Resetn       ),  // sinal de reset
-        .IncrPc (Done       ),  // incrementa o PC
-        .Q      (Wire_ContaInstrucao    )   // saida Inutil
-  );
+                   .R      (BusWires     ),  // entrada de dados (dado a ser escrito)
+                   .Rin    (1'b0       ),  // habilita escrita no registrador
+                   .Clock  (Clock        ),  // sinal de clock
+                   .Resetn (Resetn       ),  // sinal de reset
+                   .IncrPc (Done       ),  // incrementa o PC
+                   .Q      (Wire_ContaInstrucao    )   // saida Inutil
+                 );
 
   registrador ADDR (
                 .R    (BusWires),         // entrada de dados (dado a ser escrito)
@@ -141,12 +147,12 @@ module processador_multiciclo (Resetn,
                 .Q    (DOUTout)          // saida Inutil
               );
 
- /*  contaInstrucao u_contaInstrucao(
-      .Resetn (Resetn ),
-      .Done   (Done   ),
-      .Q      (NumeroInstrucoesExecutadas      )
-  ); */
-  
+  /*  contaInstrucao u_contaInstrucao(
+       .Resetn (Resetn ),
+       .Done   (Done   ),
+       .Q      (NumeroInstrucoesExecutadas      )
+   ); */
+
   registrador R0 (
                 .R    (BusWires),   // entrada de dados
                 .Rin  (Rin[7]),    // habilita escrita
@@ -197,12 +203,12 @@ module processador_multiciclo (Resetn,
 
   // Registrador SP
   registrador_SP R6 (
-                .R    (BusWires),   // entrada de dados
-                .Rin  (Rin[1]),    // habilita escrita
-                .Clock(Clock),       // sinal de clock
-                .Resetn(Resetn),     // sinal de reset
-                .Q    (R6out)   // saida registrada
-              );
+                   .R    (BusWires),   // entrada de dados
+                   .Rin  (Rin[1]),    // habilita escrita
+                   .Clock(Clock),       // sinal de clock
+                   .Resetn(Resetn),     // sinal de reset
+                   .Q    (R6out)   // saida registrada
+                 );
 
   registrador A (
                 .R    (BusWires),   // entrada de dados
@@ -248,7 +254,7 @@ module processador_multiciclo (Resetn,
                      .Gout      (Gout      ),
                      .Ulaop     (Ulaop     ),
                      .DINout    (DINout    ),
-                     .Memout    (Memout    ),        
+                     .Memout    (Memout    ),
                      .Done      (Done      )
                    );
 

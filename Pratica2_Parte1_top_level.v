@@ -12,6 +12,8 @@ module Pratica2_Parte1_top_level (
   wire Done;
   wire Run;
   wire [2:0] Tstep;
+  wire [15:0] R0out, R1out, R2out, R3out;             
+  wire [15:0] Wire_ContaInstrucao;
 
 
   // Componentes Do processador
@@ -31,64 +33,52 @@ module Pratica2_Parte1_top_level (
   assign LEDG[7]    = Clock;
   // Instancia o processador
 
+ 
   processador_multiciclo u_processador_multiciclo(
-      .Resetn   (Resetn   ),
-      .Clock    (Clock    ),
-      .Run      (Run      ),
-      .Done     (Done     ),
-      .BusWires (BusWires ),
-      .Tstep    (Tstep    ),
-      .Rx_data  (Rx_data  ),
-      .Ry_data  (Ry_data  )
+      .Resetn              (Resetn              ),
+      .Clock               (Clock               ),
+      .Run                 (Run                 ),
+      .Done                (Done                ),
+      .BusWires            (BusWires            ),
+      .Tstep               (Tstep               ),
+      .R0out               (R0out               ),
+      .R1out               (R1out               ),
+      .R2out               (R2out               ),
+      .R3out               (R3out               ),
+      .Wire_ContaInstrucao (Wire_ContaInstrucao )
   );
   
+  
 
-  /*
-  Display D0(
-  	 .result(Rx_data), // Sinal mem_write
-  	 .HEX(HEX0)
-  );
-
-  Display D1(
-  	 .result(Ry_data), 
-  	 .HEX(HEX1)
-  );
-  */
-  Display D_Tstep(
-            .result({2'b00,Tstep}),
-            .HEX(HEX6)
-          );
-
-  Display D_Imm_data(
-            .result({11'b0, SW[4:0]}),
-            .HEX(HEX0)
-          );
-
-  Display D_Ry_data(
-            .result(Ry_data[3:0]),
-            .HEX(HEX1)
-          );
-
-  Display D_Rx_data(
-            .result(Rx_data[3:0]),
-            .HEX(HEX2)
-          );
-
-  Display D_Opcode(
-            .result({1'b0,SW[8:6]}),
-            .HEX(HEX3)
-          );
-
-  Display D_Ry(
-            .result({1'b0,SW[2:0]}),
-            .HEX(HEX4)
-          );
-
-  Display D_Rx(
-            .result({1'b0,SW[5:3]}),
+  Display D_ContaInstrucao(
+            .result(Wire_ContaInstrucao[3:0]),
             .HEX(HEX5)
           );
 
+  Display D_Tstep(
+            .result({1'b0,Tstep}),
+            .HEX(HEX4)
+          );
+          
+  Display D_R0_data(
+            .result(R0out[3:0]),
+            .HEX(HEX3)
+          );
+
+  Display D_R1_data(
+            .result(R1out[3:0]),
+            .HEX(HEX2)
+          );
+
+  Display D_R2_data(
+            .result(R2out[3:0]),
+            .HEX(HEX1)
+          );
+
+  Display D_R3_data(
+            .result(R3out[3:0]),
+            .HEX(HEX0)
+          );
 
   Display D_Clock(
             .result({3'b000,Clock}),
