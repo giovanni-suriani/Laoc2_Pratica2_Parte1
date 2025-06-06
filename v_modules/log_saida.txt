@@ -1,0 +1,119 @@
+Reading pref.tcl
+
+# 2020.1
+
+# do vlog_terminal_tb_proc.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# ** Warning: (vlib-34) Library already exists at "altera".
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:30:19 on Jun 05,2025
+# vlog processador_multiciclo.v registrador.v registrador_IR.v registrador_PC.v mux.v unidade_controle.v contador_3bits.v memoram.v memoram_dados.v tb_processador.v decode3_8bits.v ula.v 
+# -- Compiling module processador_multiciclo
+# -- Compiling module registrador
+# -- Compiling module registrador_IR
+# -- Compiling module registrador_PC
+# -- Compiling module mux
+# -- Compiling module unidade_controle
+# -- Compiling module contador_3bits
+# -- Compiling module memoram
+# -- Compiling module memoram_dados
+# -- Compiling module tb_processador
+# -- Compiling module decode3_8bits
+# -- Compiling module ula
+# 
+# Top level modules:
+# 	tb_processador
+# End time: 23:30:19 on Jun 05,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -L altera -voptargs=""+acc"" work.tb_processador -c -do "run 10000ps; quit" 
+# Start time: 23:30:19 on Jun 05,2025
+# Loading work.tb_processador
+# Loading work.processador_multiciclo
+# Loading work.memoram_dados
+# Loading altera.altsyncram
+# Loading altera.ALTERA_DEVICE_FAMILIES
+# Loading altera.ALTERA_MF_MEMORY_INITIALIZATION
+# Loading work.memoram
+# Loading work.registrador_IR
+# Loading work.registrador_PC
+# Loading work.registrador
+# Loading work.registrador_SP
+# Loading work.contador_3bits
+# Loading work.unidade_controle
+# Loading work.decode3_8bits
+# Loading work.mux
+# Loading work.ula
+# run 10000ps
+# [51] Teste Resetn (mux, registradores, e outros sinais)
+# [51] BusWires = 0, DIN = 0, Tstep = 0
+# [51] R1 = 0 R2 = 0, .. R6 = 64 R7 = 0
+# [51] IncrPc=0 W_D=0 ADDRin=1 DOUTin=0
+# [51] Run=0 Resetn=1 Clear=1 GRout=0
+# [51] IRin=0 Rin=00000000 Rout=00000000 Ain=0
+# [51] Gin=0 Gout=0 Ulaop=000 DINout=0
+# [51] Memout=0 ADDRout=0 ADDRout=0    0
+# [51] W_D DOUTin=0, DOUTout=0    0
+# [51] Done=0
+# [51] Teste 0 Finalizado
+# --------------------------------------------------
+# [51] Teste 1 instrucao mvi R0, #2, R0 inicial = 0 Tstep = 0
+# [501] Ciclo 5 NEG_EDGE
+# [501]           IR = 0001000000, R0 = 2 Tstep = 4
+# [501] ESPERADO: IR = 0001000000, R0 = 2 Tstep = 4
+# [501] Teste mvi r0, #2 concluido.
+# --------------------------------------------------
+# [501] Teste 2 instrucao mvi R1, #3, R1 inicial = 0  Tstep = 4
+# [1001] Ciclo 5 NEG_EDGE
+# [1001]           IR = 0001001000, R1 = 3 Tstep = 4
+# [1001] ESPERADO: IR = 0001001000, R1 = 3 Tstep = 4
+# [1001] Teste mvi r1, #3 concluido.
+# --------------------------------------------------
+# [1001] Teste 3 instrucao LD R2, R1, R2 inicial = 0 R1 inicial = 3 Tstep = 4
+# [1601] Ciclo 5 NEG_EDGE
+# [1601]           IR = 0111010001, R2 = 4 Tstep = 5
+# [1601] ESPERADO: IR = 0001010000, R2 = 4 Tstep = 5
+# [1601] Teste LD R2, R1 concluido.
+# --------------------------------------------------
+# [1601] Teste 4 instrucao ADD R1, R2, R1 inicial = 3 R2 inicial = 4 Tstep = 5
+# [2201] Ciclo 5 NEG_EDGE
+# [2201]           IR = 0011001010, R1 = 7 Tstep = 5
+# [2201] ESPERADO: IR = 0001100000, R1 = 7 Tstep = 5
+# [2201] Teste ADD R1, R2 concluido.
+# --------------------------------------------------
+# [2201] Teste 5 instrucao mv R3, R1, R1 inicial = 7 R3 inicial = 0 Tstep = 5
+# [2601] Ciclo 5 NEG_EDGE
+# [2601]           IR = 0000011001, R3 = 7 Tstep = 3
+# [2601] ESPERADO: IR = 0001110000, R3 = 7 Tstep = 3
+# [2601] Teste mv r3, r1 concluido.
+# --------------------------------------------------
+# [2601] Teste 6 instrucao sub R1, R2, R1 inicial = 7 R2 inicial = 4 Tstep = 3
+# [3201] Ciclo 5 NEG_EDGE
+# [3201]           IR = 0100001010, R1 = 3 Tstep = 5
+# [3201] ESPERADO: IR = 0001110000, R1 = 3 Tstep = 5
+# [3201] Teste sub R1, R2 concluido.
+# --------------------------------------------------
+# [3201] Teste 7 instrucao st R1, R0, R1 inicial = 3 R0 inicial = 2 Tstep = 5
+# [3801] Ciclo 5 NEG_EDGE
+# [3801]           IR = 1000001000, R1 = 3 Tstep = 0
+# [3801] ESPERADO: IR = 0010000000, R1 = 3 Tstep = 5
+# [3801] Teste st R1, R0 concluido.
+# --------------------------------------------------
+# [3801] Teste 8 instrucao slt R0, R1, R0 inicial = 2 R1 inicial = 3 Tstep = 0
+# [4401] Ciclo 5 NEG_EDGE
+# [4401]           IR = 0101000001, R0 = 1 Tstep = 0
+# [4401] ESPERADO: IR = 0010010000, R0 = 1 Tstep = 5
+# [4401] Teste slt R0, R1 concluido.
+# --------------------------------------------------
+# [4401] Teste 9 instrucao push R1, R1 inicial = 3 Tstep = 0
+# [5001] Ciclo 5 NEG_EDGE
+# [5001]           IR = 1001001000, R1 = 3 Tstep = 0
+# [5001] ESPERADO: IR = 0010100000, R1 = 3 Tstep = 5
+# [5001] Teste push R1 concluido.
+# --------------------------------------------------
+# ** Note: $stop    : tb_processador.v(298)
+#    Time: 5301 ps  Iteration: 0  Instance: /tb_processador
+# Break in Module tb_processador at tb_processador.v line 298
+# Stopped at tb_processador.v line 298
+#  quit
+# End time: 23:30:19 on Jun 05,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0

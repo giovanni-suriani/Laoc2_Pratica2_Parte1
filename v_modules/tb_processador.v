@@ -145,7 +145,7 @@ module tb_processador;
           $display("[%0t] Ciclo 5 NEG_EDGE", $time);
           $display("[%0t]           IR = %10b, R2 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R2.Q, uut.Tstep);
           if (detalhado)
-            $display("[%0t] ESPERADO: IR = 0001010000, R2 = 4 Tstep = 5",$time);
+            $display("[%0t] ESPERADO: IR = 0111010001, R2 = 4 Tstep = 5",$time);
           $display("[%0t] Teste LD R2, R1 concluido.", $time);
           $display("--------------------------------------------------");
           if (mostra_registradores)
@@ -165,7 +165,7 @@ module tb_processador;
           $display("[%0t] Ciclo 5 NEG_EDGE", $time);
           $display("[%0t]           IR = %10b, R1 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R1.Q, uut.Tstep);
           if (detalhado)
-            $display("[%0t] ESPERADO: IR = 0001100000, R1 = 7 Tstep = 5",$time);
+            $display("[%0t] ESPERADO: IR = 0011001010, R1 = 7 Tstep = 5",$time);
           $display("[%0t] Teste ADD R1, R2 concluido.", $time);
           $display("--------------------------------------------------");
           if (mostra_registradores)
@@ -185,7 +185,7 @@ module tb_processador;
           $display("[%0t] Ciclo 5 NEG_EDGE", $time);
           $display("[%0t]           IR = %10b, R3 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R3.Q, uut.Tstep);
           if (detalhado)
-            $display("[%0t] ESPERADO: IR = 0001110000, R3 = 7 Tstep = 3",$time);
+            $display("[%0t] ESPERADO: IR = 0000011001, R3 = 7 Tstep = 3",$time);
           $display("[%0t] Teste mv r3, r1 concluido.", $time);
           $display("--------------------------------------------------");
           if (mostra_registradores)
@@ -206,7 +206,7 @@ module tb_processador;
           $display("[%0t] Ciclo 5 NEG_EDGE", $time);
           $display("[%0t]           IR = %10b, R1 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R1.Q, uut.Tstep);
           if (detalhado)
-            $display("[%0t] ESPERADO: IR = 0001110000, R1 = 3 Tstep = 5",$time);
+            $display("[%0t] ESPERADO: IR =  0100001010, R1 = 3 Tstep = 5",$time);
           $display("[%0t] Teste sub R1, R2 concluido.", $time);
           $display("--------------------------------------------------");
           // display_registradores;
@@ -227,7 +227,7 @@ module tb_processador;
           $display("[%0t] Ciclo 5 NEG_EDGE", $time);
           $display("[%0t]           IR = %10b, R1 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R1.Q, uut.Tstep);
           if (detalhado)
-            $display("[%0t] ESPERADO: IR = 0010000000, R1 = 3 Tstep = 5",$time);
+            $display("[%0t] ESPERADO: IR = 0101000001, R1 = 3 Tstep = 5",$time);
           $display("[%0t] Teste st R1, R0 concluido.", $time);
           $display("--------------------------------------------------");
           if (mostra_registradores)
@@ -247,7 +247,7 @@ module tb_processador;
           $display("[%0t] Ciclo 5 NEG_EDGE", $time);
           $display("[%0t]           IR = %10b, R0 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R0.Q, uut.Tstep);
           if (detalhado)
-            $display("[%0t] ESPERADO: IR = 0010010000, R0 = 1 Tstep = 5",$time);
+            $display("[%0t] ESPERADO: IR = 1001001000, R0 = 1 Tstep = 5",$time);
           $display("[%0t] Teste slt R0, R1 concluido.", $time);
           $display("--------------------------------------------------");
           if (mostra_registradores)
@@ -267,7 +267,7 @@ module tb_processador;
           $display("[%0t] Ciclo 5 NEG_EDGE", $time);
           $display("[%0t]           IR = %10b, R1 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R1.Q, uut.Tstep);
           if (detalhado)
-            $display("[%0t] ESPERADO: IR = 0010100000, R1 = 3 Tstep = 5",$time);
+            $display("[%0t] ESPERADO: IR = 0101001010, R1 = 3 Tstep = 5",$time);
           $display("[%0t] Teste push R1 concluido.", $time);
           $display("--------------------------------------------------");
           if (mostra_registradores)
