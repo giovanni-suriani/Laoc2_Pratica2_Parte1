@@ -481,6 +481,7 @@ set_location_assignment PIN_W25 -to GPIO_1[34]
 set_location_assignment PIN_W23 -to GPIO_1[35]
 set_global_assignment -name LL_ROOT_REGION ON -section_id "Root Region"
 set_global_assignment -name LL_MEMBER_STATE LOCKED -section_id "Root Region"
+set_global_assignment -name VERILOG_FILE v_modules/registrador_SP.v
 set_global_assignment -name VERILOG_FILE v_modules/registrador_PC.v
 set_global_assignment -name VERILOG_FILE v_modules/unidade_controle.v
 set_global_assignment -name VERILOG_FILE v_modules/ula.v
