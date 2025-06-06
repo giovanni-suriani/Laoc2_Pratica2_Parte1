@@ -398,6 +398,7 @@ module tb_processador;
   task display_registradores;
     begin
       // $display("+------------+--------------+ Registradores +-------------+--------+--------+", $time);
+      $display("                                 /////////                                           ");
       $display("                                ( O  u  O )                                            ");
       $display("                                    | |                                                ");
       $display(" +-------------------+-------+ Registradores +-------+-----------------------+ ");
