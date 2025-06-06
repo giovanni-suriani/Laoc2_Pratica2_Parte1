@@ -12,7 +12,8 @@ module Pratica2_Parte1_top_level (
   wire Done;
   wire Run;
   wire [2:0] Tstep;
-  wire [15:0] R0out, R1out, R2out, R3out;             
+  wire [15:0] R0out, R1out, R2out, R3out;
+  wire [9:0] IRout;             
   wire [15:0] Wire_ContaInstrucao;
 
 
@@ -45,6 +46,7 @@ module Pratica2_Parte1_top_level (
       .R1out               (R1out               ),
       .R2out               (R2out               ),
       .R3out               (R3out               ),
+      .IRout               (IRout               ),
       .Wire_ContaInstrucao (Wire_ContaInstrucao )
   );
   
@@ -78,6 +80,11 @@ module Pratica2_Parte1_top_level (
   Display D_R3_data(
             .result(R3out[3:0]),
             .HEX(HEX0)
+          );
+
+  Display D_IRout(
+            .result(IRout[9:6]),
+            .HEX(HEX6)
           );
 
   Display D_Clock(

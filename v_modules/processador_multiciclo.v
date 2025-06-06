@@ -1,6 +1,7 @@
 module processador_multiciclo (Resetn,
                                  Clock, Run, Done, BusWires,
                                  R0out, R1out, R2out, R3out,
+                                 IRout,
                                  Tstep,
                                  Wire_ContaInstrucao);
 
@@ -40,7 +41,7 @@ module processador_multiciclo (Resetn,
   // Para o mux
   wire [15:0] DIN;            // barramento de entrada de dados
   wire [7:0]  Rout, Rin;      // campo de seleo para os registradores
-  wire [9:0]  IRout;          // Saida do registrador IR
+  output wire [9:0]  IRout;          // Saida do registrador IR
   output wire [15:0] R0out, R1out, R2out, R3out;
   wire [15:0] R4out, R5out, R6out, R7out; // saida do registrador R0, R1, ..., R7
   wire [15:0] ARout;          // saida do registrador GOUT
