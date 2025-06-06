@@ -33,8 +33,9 @@ module tb_processador;
 
 
   integer detalhado = 1;
+  integer mostra_registradores = 0;
+  
   always #50 Clock = ~Clock;
-
 
 
   integer mostra_teste1  = 1;
@@ -107,6 +108,10 @@ module tb_processador;
             $display("[%0t] ESPERADO: IR = 0001000000, R0 = 2 Tstep = 4",$time);
           $display("[%0t] Teste mvi r0, #2 concluido.", $time);
           $display("--------------------------------------------------");
+          if (mostra_registradores)
+            begin
+              display_registradores;
+            end
         end
 
       // -----------------------------
@@ -123,6 +128,10 @@ module tb_processador;
             $display("[%0t] ESPERADO: IR = 0001001000, R1 = 3 Tstep = 4",$time);
           $display("[%0t] Teste mvi r1, #3 concluido.", $time);
           $display("--------------------------------------------------");
+          if (mostra_registradores)
+            begin
+              display_registradores;
+            end
         end
 
       // -----------------------------
@@ -139,6 +148,10 @@ module tb_processador;
             $display("[%0t] ESPERADO: IR = 0001010000, R2 = 4 Tstep = 5",$time);
           $display("[%0t] Teste LD R2, R1 concluido.", $time);
           $display("--------------------------------------------------");
+          if (mostra_registradores)
+            begin
+              display_registradores;
+            end
         end
 
       // -----------------------------
@@ -155,6 +168,10 @@ module tb_processador;
             $display("[%0t] ESPERADO: IR = 0001100000, R1 = 7 Tstep = 5",$time);
           $display("[%0t] Teste ADD R1, R2 concluido.", $time);
           $display("--------------------------------------------------");
+          if (mostra_registradores)
+            begin
+              display_registradores;
+            end
         end
 
       // -----------------------------
@@ -164,13 +181,17 @@ module tb_processador;
         begin
           $display("[%0t] Teste 5 instrucao mv R3, R1, R1 inicial = %0d R3 inicial = %0d Tstep = %0d", $time, uut.R1.Q, uut.R3.Q, uut.Tstep);
           @(posedge Clock);
-          #551;
+          #351;
           $display("[%0t] Ciclo 5 NEG_EDGE", $time);
           $display("[%0t]           IR = %10b, R3 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R3.Q, uut.Tstep);
           if (detalhado)
-            $display("[%0t] ESPERADO: IR = 0001110000, R3 = 3 Tstep = 5",$time);
+            $display("[%0t] ESPERADO: IR = 0001110000, R3 = 7 Tstep = 3",$time);
           $display("[%0t] Teste mv r3, r1 concluido.", $time);
           $display("--------------------------------------------------");
+          if (mostra_registradores)
+            begin
+              display_registradores;
+            end
         end
 
 
@@ -188,7 +209,71 @@ module tb_processador;
             $display("[%0t] ESPERADO: IR = 0001110000, R1 = 3 Tstep = 5",$time);
           $display("[%0t] Teste sub R1, R2 concluido.", $time);
           $display("--------------------------------------------------");
-          display_registradores;
+          // display_registradores;
+          if (mostra_registradores)
+            begin
+              display_registradores;
+            end
+        end
+
+      // -----------------------------
+      // T7 - st r1, r0
+      // -----------------------------
+      if (mostra_teste7)
+        begin
+          $display("[%0t] Teste 7 instrucao st R1, R0, R1 inicial = %0d R0 inicial = %0d Tstep = %0d", $time, uut.R1.Q, uut.R0.Q, uut.Tstep);
+          @(posedge Clock);
+          #551;
+          $display("[%0t] Ciclo 5 NEG_EDGE", $time);
+          $display("[%0t]           IR = %10b, R1 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R1.Q, uut.Tstep);
+          if (detalhado)
+            $display("[%0t] ESPERADO: IR = 0010000000, R1 = 3 Tstep = 5",$time);
+          $display("[%0t] Teste st R1, R0 concluido.", $time);
+          $display("--------------------------------------------------");
+          if (mostra_registradores)
+            begin
+              display_registradores;
+            end
+        end
+
+      // -----------------------------
+      // T8 - slt r0, r1
+      // -----------------------------
+      if (mostra_teste8)
+        begin
+          $display("[%0t] Teste 8 instrucao slt R0, R1, R0 inicial = %0d R1 inicial = %0d Tstep = %0d", $time, uut.R0.Q, uut.R1.Q, uut.Tstep);
+          @(posedge Clock);
+          #551;
+          $display("[%0t] Ciclo 5 NEG_EDGE", $time);
+          $display("[%0t]           IR = %10b, R0 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R0.Q, uut.Tstep);
+          if (detalhado)
+            $display("[%0t] ESPERADO: IR = 0010010000, R0 = 1 Tstep = 5",$time);
+          $display("[%0t] Teste slt R0, R1 concluido.", $time);
+          $display("--------------------------------------------------");
+          if (mostra_registradores)
+            begin
+              display_registradores;
+            end
+        end
+
+      // -----------------------------
+      // T9 - push r1
+      // -----------------------------
+      if (mostra_teste9)
+        begin
+          $display("[%0t] Teste 9 instrucao push R1, R1 inicial = %0d Tstep = %0d", $time, uut.R1.Q, uut.Tstep);
+          @(posedge Clock);
+          #551;
+          $display("[%0t] Ciclo 5 NEG_EDGE", $time);
+          $display("[%0t]           IR = %10b, R1 = %0d Tstep = %0d", $time, uut.IR.Q, uut.R1.Q, uut.Tstep);
+          if (detalhado)
+            $display("[%0t] ESPERADO: IR = 0010100000, R1 = 3 Tstep = 5",$time);
+          $display("[%0t] Teste push R1 concluido.", $time);
+          $display("--------------------------------------------------");
+          if (mostra_registradores)
+            begin
+              display_registradores;
+            end
         end
 
       // ------------------------------
@@ -218,7 +303,7 @@ module tb_processador;
 
     end
 
-   task display_registradores;
+  task display_registradores;
     begin
       // $display("+------------+--------------+ Registradores +-------------+--------+--------+", $time);
       $display("+-------------------+-------+ Registradores +-------+-----------------------+");
@@ -226,7 +311,7 @@ module tb_processador;
                uut.R0.Q, uut.R1.Q, uut.R2.Q, uut.R3.Q);
       $display("+-------------------+---------------+---------------+-----------------------+");
     end
-   endtask
+  endtask
 
   task display_registradores_elegante;
     begin
@@ -240,187 +325,187 @@ module tb_processador;
       $display("                         |                          |                             ");
       $display("                        _|                          |_                            ");
       $display(" \\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\/\\\ ");
-    end
-  endtask
+             end
+             endtask
 
 
-  // Testes do AVA
-  task teste_mvi_R2_1;
-    begin
-      Opcode = 3'b001; // mvi
-      Rx = 3'b010;     // R2
-      Ry = 3'b000;     // R0
-      uut.R2.Q = 16'd0; // R0 = 11
-      //uut.R1.Q = 16'd10; // R1 = 10
-      DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 010
-    end
-  endtask
+               // Testes do AVA
+               task teste_mvi_R2_1;
+               begin
+               Opcode = 3'b001; // mvi
+               Rx = 3'b010;     // R2
+               Ry = 3'b000;     // R0
+               uut.R2.Q = 16'd0; // R0 = 11
+               //uut.R1.Q = 16'd10; // R1 = 10
+               DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 010
+             end
+             endtask
 
-  task teste_mvi_R4_10;
-    begin
-      Opcode = 3'b001; // mvi
-      Rx = 3'b100;     // R0
-      Ry = 3'b000;     // zzz
-      uut.R4.Q = 16'd0; // R0 = 11
-      //uut.R1.Q = 16'd10; // R1 = 10
-      DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
-    end
-  endtask
+               task teste_mvi_R4_10;
+               begin
+               Opcode = 3'b001; // mvi
+               Rx = 3'b100;     // R0
+               Ry = 3'b000;     // zzz
+               uut.R4.Q = 16'd0; // R0 = 11
+               //uut.R1.Q = 16'd10; // R1 = 10
+               DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
+             end
+             endtask
 
-  task teste_mv_R5_R7;
-    begin
-      Opcode = 3'b000; // mvi
-      Rx = 3'b101;     // R0
-      Ry = 3'b111;     // zzz
-      uut.R5.Q = 16'd1; // R0 = 11
-      uut.R7.Q = 16'd2; // R0 = 11
-      //uut.R1.Q = 16'd10; // R1 = 10
-      DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
-    end
-  endtask
+               task teste_mv_R5_R7;
+               begin
+               Opcode = 3'b000; // mvi
+               Rx = 3'b101;     // R0
+               Ry = 3'b111;     // zzz
+               uut.R5.Q = 16'd1; // R0 = 11
+               uut.R7.Q = 16'd2; // R0 = 11
+               //uut.R1.Q = 16'd10; // R1 = 10
+               DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
+             end
+             endtask
 
-  task teste_sub_R4_R2;
-    begin
-      Opcode = 3'b011; // sub
-      Rx = 3'b100;     // R4
-      Ry = 3'b010;     // R2
-      uut.R4.Q = 16'd10; // R4 = 10
-      uut.R2.Q = 16'd6; // R2 = 6
-      DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
-    end
-  endtask
+               task teste_sub_R4_R2;
+               begin
+               Opcode = 3'b011; // sub
+               Rx = 3'b100;     // R4
+               Ry = 3'b010;     // R2
+               uut.R4.Q = 16'd10; // R4 = 10
+               uut.R2.Q = 16'd6; // R2 = 6
+               DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
+             end
+             endtask
 
-  task teste_mvnz_R7_R5;
-    begin
-      Opcode = 3'b100; // mvnz
-      Rx = 3'b111;     // R7
-      Ry = 3'b101;     // R5
-      uut.R7.Q = 16'd0; // R7 = 0
-      uut.R5.Q = 16'd0; // R5 = 0
-      uut.G.Q  = 16'd4; // G = 4
-      DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
-    end
-  endtask
-
-
-  // Testes Internos
-
-  task teste_mv_R0_R1;
-    begin
-      Opcode = 3'b000; // mv
-      Rx = 3'b000;     // R0
-      Ry = 3'b001;     // R1
-      uut.R0.Q = 16'd11; // R0 = 11
-      uut.R1.Q = 16'd10; // R1 = 10
-      DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
-    end
-  endtask
-
-  task teste_mvi_R0_5;
-    begin
-      Opcode = 3'b001; // mv
-      Rx = 3'b000;     // R0
-      Ry = 3'b001;     // R1
-      uut.R0.Q = 16'd11; // R0 = 11
-      uut.R1.Q = 16'd10; // R1 = 10
-      DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
-    end
-  endtask
-
-  task teste_sub_R1_R0;
-    begin
-      Opcode = 3'b011; // sub
-      Rx = 3'b001;     // R1
-      Ry = 3'b000;     // R0
-      uut.R0.Q = 16'd5; // R0 = 11
-      uut.R1.Q = 16'd10; // R1 = 10
-      DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
-    end
-  endtask
-
-  task teste1_mvnz_R0_R1;
-    begin
-      Opcode = 3'b100; // mvnz
-      Rx = 3'b000;     // R0
-      Ry = 3'b001;     // R1
-      uut.R0.Q = 16'd11; // R0 = 11
-      uut.R1.Q = 16'd10; // R1 = 10
-      uut.G.Q  = 16'd0;  // G = 0
-      DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
-    end
-  endtask
-
-  task teste2_mvnz_R0_R1;
-    begin
-      Opcode = 3'b100; // mvnz
-      Rx = 3'b000;     // R0
-      Ry = 3'b001;     // R1
-      uut.R0.Q = 16'd11; // R0 = 11
-      uut.R1.Q = 16'd10; // R1 = 10
-      uut.G.Q  = 16'd5;  // G = 0
-      DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
-    end
-  endtask
+               task teste_mvnz_R7_R5;
+               begin
+               Opcode = 3'b100; // mvnz
+               Rx = 3'b111;     // R7
+               Ry = 3'b101;     // R5
+               uut.R7.Q = 16'd0; // R7 = 0
+               uut.R5.Q = 16'd0; // R5 = 0
+               uut.G.Q  = 16'd4; // G = 4
+               DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
+             end
+             endtask
 
 
+               // Testes Internos
 
-  task cabecalho_teste(input integer numero_task);
-    begin
-      $display("--------------------------------------------------");
-      $display("[%0t] Teste %0d", $time, numero_task);
-      $display("--------------------------------------------------");
-    end
-  endtask
+               task teste_mv_R0_R1;
+               begin
+               Opcode = 3'b000; // mv
+               Rx = 3'b000;     // R0
+               Ry = 3'b001;     // R1
+               uut.R0.Q = 16'd11; // R0 = 11
+               uut.R1.Q = 16'd10; // R1 = 10
+               DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
+             end
+             endtask
 
-  integer disp_sinais = 1;
-  task meio_teste_1_ciclo;
-    begin
-      if (disp_sinais)
-        $display("[%0t] Clock: %b, Resetn: %b, Run: %b, DIN: %b",$time, Clock, Resetn, Run, DIN);
-      $display("[%0t] Barramento: %b, Tempo_Instrucao = %0d",$time, BusWires, uut.Tstep);
-      $display("[%0t] Done: %b",$time, Done);
-    end
-  endtask
+               task teste_mvi_R0_5;
+               begin
+               Opcode = 3'b001; // mv
+               Rx = 3'b000;     // R0
+               Ry = 3'b001;     // R1
+               uut.R0.Q = 16'd11; // R0 = 11
+               uut.R1.Q = 16'd10; // R1 = 10
+               DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
+             end
+             endtask
 
-  /*
-    always @(posedge Clock)
-      begin
-        counter_clock_cycle = counter_clock_cycle + 1;
-        // $display("[%0t] Counter_Clock_Cycle ",$time);
-        case (counter_clock_cycle)
-          1:
-            begin
-              // Opcode = 3'b001; // mvi R0 5
-              // Rx = 3'b000;     // R0
-              // Ry = 3'b001;     // R1
-              // uut.R0.Q = 16'd11; // R0 = 11
-              // uut.R1.Q = 16'd10; // R1 = 10
-              // DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
-              // cabecalho_teste(2);
-              // Run = 1; // Agendado ja no inicio do ciclo
-              // $display("[%0t] instrucao = %3b_%3b_%3b = mv R0 R1 000_000_001", $time, Instrucao[8:6], Instrucao[5:3], Instrucao[2:0]);
-            end
-   
-   
-        endcase
-   
-      end
-  */
+               task teste_sub_R1_R0;
+               begin
+               Opcode = 3'b011; // sub
+               Rx = 3'b001;     // R1
+               Ry = 3'b000;     // R0
+               uut.R0.Q = 16'd5; // R0 = 11
+               uut.R1.Q = 16'd10; // R1 = 10
+               DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
+             end
+             endtask
 
+               task teste1_mvnz_R0_R1;
+               begin
+               Opcode = 3'b100; // mvnz
+               Rx = 3'b000;     // R0
+               Ry = 3'b001;     // R1
+               uut.R0.Q = 16'd11; // R0 = 11
+               uut.R1.Q = 16'd10; // R1 = 10
+               uut.G.Q  = 16'd0;  // G = 0
+               DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
+             end
+             endtask
 
-endmodule
+               task teste2_mvnz_R0_R1;
+               begin
+               Opcode = 3'b100; // mvnz
+               Rx = 3'b000;     // R0
+               Ry = 3'b001;     // R1
+               uut.R0.Q = 16'd11; // R0 = 11
+               uut.R1.Q = 16'd10; // R1 = 10
+               uut.G.Q  = 16'd5;  // G = 0
+               DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
+             end
+             endtask
 
 
 
+               task cabecalho_teste(input integer numero_task);
+               begin
+               $display("--------------------------------------------------");
+               $display("[%0t] Teste %0d", $time, numero_task);
+               $display("--------------------------------------------------");
+             end
+             endtask
+
+               integer disp_sinais = 1;
+               task meio_teste_1_ciclo;
+               begin
+               if (disp_sinais)
+               $display("[%0t] Clock: %b, Resetn: %b, Run: %b, DIN: %b",$time, Clock, Resetn, Run, DIN);
+               $display("[%0t] Barramento: %b, Tempo_Instrucao = %0d",$time, BusWires, uut.Tstep);
+               $display("[%0t] Done: %b",$time, Done);
+             end
+             endtask
+
+               /*
+               always @(posedge Clock)
+               begin
+               counter_clock_cycle = counter_clock_cycle + 1;
+               // $display("[%0t] Counter_Clock_Cycle ",$time);
+               case (counter_clock_cycle)
+               1:
+               begin
+               // Opcode = 3'b001; // mvi R0 5
+               // Rx = 3'b000;     // R0
+               // Ry = 3'b001;     // R1
+               // uut.R0.Q = 16'd11; // R0 = 11
+               // uut.R1.Q = 16'd10; // R1 = 10
+               // DIN = {6'b000_000, Opcode, Rx, Ry}; // Formando a instrução: 000 001 000
+               // cabecalho_teste(2);
+               // Run = 1; // Agendado ja no inicio do ciclo
+               // $display("[%0t] instrucao = %3b_%3b_%3b = mv R0 R1 000_000_001", $time, Instrucao[8:6], Instrucao[5:3], Instrucao[2:0]);
+             end
 
 
-/*
-1 Ciclo em verilog
-1. Avaliacao de condicoes, always, if,  e sinais agendados ( PROIBIDO USAR, ex: #2, se nao nao funciona FPGA)...
-2. Blocking e Non Blocking, (SO use BLOCKING em logica dentro dos blocos),
-3. Atribuicao dos Non Blocking Variaveis externas, sempre usar Non Blocking
- 
-clear;vsim -c -do vlog_terminal_tb_proc.do
-killmodelsim;vsim -do vlog_wave_tb_proc.do 
-alias killmodelsim='ps aux | grep '\''intelFPGA/20.1/'\'' | grep -v grep | awk '\''{print $2}'\'' | xargs kill -9'
-*/
+             endcase
+
+             end
+               */
+
+
+             endmodule
+
+
+
+
+
+               /*
+               1 Ciclo em verilog
+               1. Avaliacao de condicoes, always, if,  e sinais agendados ( PROIBIDO USAR, ex: #2, se nao nao funciona FPGA)...
+               2. Blocking e Non Blocking, (SO use BLOCKING em logica dentro dos blocos),
+               3. Atribuicao dos Non Blocking Variaveis externas, sempre usar Non Blocking
+
+               clear;vsim -c -do vlog_terminal_tb_proc.do
+               killmodelsim;vsim -do vlog_wave_tb_proc.do
+               alias killmodelsim='ps aux | grep '\''intelFPGA/20.1/'\'' | grep -v grep | awk '\''{print $2}'\'' | xargs kill -9'
+               */
