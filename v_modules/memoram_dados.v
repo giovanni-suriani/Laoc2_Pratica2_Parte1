@@ -98,7 +98,7 @@ module memoram_dados (
 		altsyncram_component.widthad_a = 6,
 		altsyncram_component.width_a = 16,
 		altsyncram_component.width_byteena_a = 1, 
-		altsyncram_component.init_file = "/home/giovanni/Desktop/Semestre8/LAOC2_REPO/Laoc2_Pratica2_Parte1/v_modules/dados_pratica2_1.mif";
+		altsyncram_component.init_file = "dados_pratica2_1.mif";
 
 
 endmodule
